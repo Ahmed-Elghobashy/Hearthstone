@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.Controller;
+import exceptions.FullHandException;
 import model.heroes.Hero;
 import model.heroes.Hunter;
 import model.heroes.Mage;
@@ -27,14 +28,16 @@ import model.heroes.Paladin;
 import model.heroes.Priest;
 import model.heroes.Warlock;
 
-public class ChooseFirstHeroView extends JPanel implements ActionListener
+public class ChooseSecondHeroView extends JPanel implements ActionListener
 {
 	private ArrayList<HeroButton> firstPlayerHeroes;
 	private JButton confirmButton;
 	private Hero firstPlayerHero;
 	private View frame;
 	private Controller controller;
-	public ChooseFirstHeroView(View frame,Controller controller) throws IOException, CloneNotSupportedException
+	
+	
+	public ChooseSecondHeroView(View frame, Controller controller) throws IOException, CloneNotSupportedException
 	{
 		firstPlayerHeroes = new ArrayList<HeroButton>();
 		this.frame = frame;
@@ -48,7 +51,7 @@ public class ChooseFirstHeroView extends JPanel implements ActionListener
 		firstPlayerHeroes.add(mageButton1);
 		firstPlayerHeroes.add(hunterButton1);
 		firstPlayerHeroes.add(priestButton1);
-		this.controller = controller;
+		this.controller=controller;
 		
 	    for (HeroButton heroButton : firstPlayerHeroes)
 		{
@@ -123,8 +126,16 @@ public class ChooseFirstHeroView extends JPanel implements ActionListener
 			}
 			else
 			{
-			  frame.goToChooseSecondHeroView();
-			  controller.SetFirstPlayerHero(firstPlayerHero);
+			  try
+			{
+				frame.goToGameView(firstPlayerHero);
+			} catch (FullHandException e1)
+			{
+				e1.printStackTrace();
+			} catch (CloneNotSupportedException e1)
+			{
+				e1.printStackTrace();
+			}
 			}
 		}
 		
