@@ -6,13 +6,13 @@ import javax.swing.JFrame;
 
 public class View extends JFrame
 {
-  private ChooseHeroView chooseHeroView ;
+  private ChooseFirstHeroView chooseHeroView ;
   private GameView gameView ;
   
   
   public View() throws IOException, CloneNotSupportedException
   {
-	  chooseHeroView = new ChooseHeroView(this);
+	  chooseHeroView = new ChooseFirstHeroView(this);
 	  gameView = new GameView(this);
 	  this.getContentPane().add(chooseHeroView);
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -26,19 +26,16 @@ import model.heroes.Paladin;
 import model.heroes.Priest;
 import model.heroes.Warlock;
 
-public class ChooseHeroView extends JPanel implements ActionListener
+public class ChooseFirstHeroView extends JPanel implements ActionListener
 {
 	private ArrayList<HeroButton> firstPlayerHeroes;
-	private ArrayList<HeroButton> secondPlayerHeroes;
 	private JButton confirmButton;
 	private Hero firstPlayerHero;
-	private Hero secondPlayerHero;
 	private View frame;
 	
-	public ChooseHeroView(View frame) throws IOException, CloneNotSupportedException
+	public ChooseFirstHeroView(View frame) throws IOException, CloneNotSupportedException
 	{
 		firstPlayerHeroes = new ArrayList<HeroButton>();
-		secondPlayerHeroes = new ArrayList<HeroButton>();
 		this.frame = frame;
 		HeroButton paladinButton1 = new HeroButton(new Paladin(),1);
 		HeroButton warlockButton1 = new HeroButton(new Warlock(),1);
@@ -80,46 +77,6 @@ public class ChooseHeroView extends JPanel implements ActionListener
 			heroButton.addActionListener(this);
 		}
 	    
-	    
-	    HeroButton paladinButton2 = new HeroButton(new Paladin(),2);
-		HeroButton warlockButton2 = new HeroButton(new Warlock(),2);
-		HeroButton mageButton2 = new HeroButton(new Mage(),2);
-		HeroButton hunterButton2 = new HeroButton(new Hunter(),2);
-		HeroButton priestButton2 = new HeroButton(new Priest(),2);
-	
-		
-		secondPlayerHeroes.add(paladinButton2);
-		secondPlayerHeroes.add(warlockButton2);
-		secondPlayerHeroes.add(mageButton2);
-		secondPlayerHeroes.add(hunterButton2);
-		secondPlayerHeroes.add(priestButton2);
-		
-		 for (HeroButton heroButton : secondPlayerHeroes)
-			{
-		    	heroButton.setBorderPainted(false);
-		    	heroButton.setBorder(null);
-		    	if(heroButton.getHero() instanceof Paladin)
-		    	{
-		    		heroButton.setIcon(new ImageIcon("images/paladin.png"));
-		    	}
-		    	if(heroButton.getHero() instanceof Mage)
-		    	{
-		    		heroButton.setIcon(new ImageIcon("images/mage.png"));
-		    	}
-		    	if(heroButton.getHero() instanceof Warlock)
-		    	{
-		    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
-		    	}
-		    	if(heroButton.getHero() instanceof Hunter)
-		    	{
-		    		heroButton.setIcon(new ImageIcon("images/hunter.png"));
-		    	}
-		    	if(heroButton.getHero() instanceof Priest)
-		    	{
-		    		heroButton.setIcon(new ImageIcon("images/priest.png"));
-		    	}
-				heroButton.addActionListener(this);
-			}
 		confirmButton = new JButton();
 		confirmButton.addActionListener(this);
 		confirmButton.add(new JLabel("Confirm"));
@@ -129,11 +86,7 @@ public class ChooseHeroView extends JPanel implements ActionListener
 			this.add(heroButton);
 		}
 		
-		for (HeroButton heroButton : secondPlayerHeroes)
-		{
-			this.add(heroButton);
-		}
-		
+	
 		this.add(confirmButton);
 		
 		
@@ -154,7 +107,7 @@ public class ChooseHeroView extends JPanel implements ActionListener
 		  }
 		  else
 		  {
-			  secondPlayerHero=button.getHero();
+			 ;
 		  }
 			
 		}
@@ -163,7 +116,7 @@ public class ChooseHeroView extends JPanel implements ActionListener
 			JButton button = (JButton) e.getSource();
 			// here we are checking if the button clicked on is the confirm button
 			//Here we should do something that will take us to the other frame
-			if(firstPlayerHero == null || secondPlayerHero == null )
+			if(firstPlayerHero == null )
 			{
 				JOptionPane.showMessageDialog(this,"Please choose the hero");
 			}
