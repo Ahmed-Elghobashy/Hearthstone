@@ -68,6 +68,15 @@ public class ChooseHeroView extends JPanel implements ActionListener
 	    	{
 	    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
 	    	}
+	    	
+	    	if(heroButton.getHero() instanceof Hunter)
+	    	{
+	    		heroButton.setIcon(new ImageIcon("images/hunter.png"));
+	    	}
+	    	if(heroButton.getHero() instanceof Priest)
+	    	{
+	    		heroButton.setIcon(new ImageIcon("images/priest.png"));
+	    	}
 			heroButton.addActionListener(this);
 		}
 	    
@@ -101,14 +110,30 @@ public class ChooseHeroView extends JPanel implements ActionListener
 		    	{
 		    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
 		    	}
+		    	if(heroButton.getHero() instanceof Hunter)
+		    	{
+		    		heroButton.setIcon(new ImageIcon("images/hunter.png"));
+		    	}
+		    	if(heroButton.getHero() instanceof Priest)
+		    	{
+		    		heroButton.setIcon(new ImageIcon("images/priest.png"));
+		    	}
 				heroButton.addActionListener(this);
 			}
 		confirmButton = new JButton();
 		confirmButton.addActionListener(this);
 		confirmButton.add(new JLabel("Confirm"));
 		
-		this.add(firstPlayerHeroes.get(0));
-		this.add(secondPlayerHeroes.get(2));
+		for (HeroButton heroButton : firstPlayerHeroes)
+		{
+			this.add(heroButton);
+		}
+		
+		for (HeroButton heroButton : secondPlayerHeroes)
+		{
+			this.add(heroButton);
+		}
+		
 		this.add(confirmButton);
 		
 		
