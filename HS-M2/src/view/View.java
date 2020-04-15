@@ -3,6 +3,7 @@ package view;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import controller.Controller;
 import exceptions.FullHandException;
@@ -14,13 +15,15 @@ public class View extends JFrame
   private GameView gameView ;
   private ChooseSecondHeroView secondHeroView;
   private Controller controller;
+  private JPanel currentPanel;
   
-  public View(Controller controller) throws IOException, CloneNotSupportedException
+  public View(Controller controller) throws CloneNotSupportedException, IOException
   {
 	  chooseHeroView = new ChooseFirstHeroView(this,controller);
 	  gameView = new GameView(this);
 	  secondHeroView  = new  ChooseSecondHeroView(this,controller);
 	  this.getContentPane().add(chooseHeroView);
+	  currentPanel=chooseHeroView;
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	  this.setExtendedState(this.MAXIMIZED_BOTH);
 	  this.setResizable(false);
@@ -32,6 +35,7 @@ public class View extends JFrame
   {
 	  this.getContentPane().removeAll();
 	  this.getContentPane().add(gameView);
+	  currentPanel=gameView;
 	  controller.setSecondPlayerHero(hero);
 	  this.revalidate();
   }
@@ -45,6 +49,12 @@ public void goToChooseSecondHeroView()
 {
   this.getContentPane().removeAll();
   this.getContentPane().add(secondHeroView);
+  currentPanel=secondHeroView;
   this.revalidate();
+}
+
+public JPanel getCurrentPanel()
+{
+	return currentPanel;
 }
 }

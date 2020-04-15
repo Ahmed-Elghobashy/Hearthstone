@@ -1,8 +1,11 @@
 package controller;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
 
 import engine.Game;
 import engine.GameListener;
@@ -17,9 +20,15 @@ public class Controller implements GameListener , ActionListener
  private View view;
  private Hero firstPlayerHero;
  private Hero secondPlayerHero;
- public Controller() throws FullHandException, CloneNotSupportedException, IOException
+ public Controller() 
  {
-	 view = new View(this);
+	 try
+	{
+		view = new View(this);
+	} catch (IOException | CloneNotSupportedException e)
+	{
+		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error appened  while starting the game");
+	}
  }
 
 @Override
@@ -41,18 +50,30 @@ public void SetFirstPlayerHero(Hero hero)
 	firstPlayerHero=hero;
 }
 
-public void setSecondPlayerHero(Hero hero) throws FullHandException, CloneNotSupportedException
+public void setSecondPlayerHero(Hero hero) 
 {
 	secondPlayerHero = hero;
 	startGame();
 }
 
-public void startGame() throws FullHandException, CloneNotSupportedException
+public void startGame() 
 {
-	model = new Game(firstPlayerHero, secondPlayerHero);
+	try
+	{
+		model = new Game(firstPlayerHero, secondPlayerHero);
+	} catch (FullHandException e)
+	{
+		//It is not important to deal with this exception becauses when intializing the game it is not possible to hava 
+		// a fullHandException
+	}
+	catch (CloneNotSupportedException e)
+	{
+		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error appened  while starting the game");
+
+	}
 	
 }
-public static void main(String[] args) throws FullHandException, CloneNotSupportedException, IOException
+public static void main(String[] args) 
 {
 	new Controller();
 }

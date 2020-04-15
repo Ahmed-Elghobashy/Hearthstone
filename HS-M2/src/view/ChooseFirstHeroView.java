@@ -34,10 +34,11 @@ public class ChooseFirstHeroView extends JPanel implements ActionListener
 	private Hero firstPlayerHero;
 	private View frame;
 	private Controller controller;
-	public ChooseFirstHeroView(View frame,Controller controller) throws IOException, CloneNotSupportedException
+	public ChooseFirstHeroView(View frame,Controller controller) throws IOException, CloneNotSupportedException 
 	{
 		firstPlayerHeroes = new ArrayList<HeroButton>();
 		this.frame = frame;
+		
 		HeroButton paladinButton1 = new HeroButton(new Paladin(),1);
 		HeroButton warlockButton1 = new HeroButton(new Warlock(),1);
 		HeroButton mageButton1 = new HeroButton(new Mage(),1);
