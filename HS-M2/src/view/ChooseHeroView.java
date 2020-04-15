@@ -1,12 +1,18 @@
 package view;
 
+import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,8 +54,20 @@ public class ChooseHeroView extends JPanel implements ActionListener
 		
 	    for (HeroButton heroButton : firstPlayerHeroes)
 		{
-	    	JLabel name = new JLabel(heroButton.getHero().getName());
-	    	heroButton.add(name);
+	    	heroButton.setBorderPainted(false);
+	    	heroButton.setBorder(null);
+	    	if(heroButton.getHero() instanceof Paladin)
+	    	{
+	    		heroButton.setIcon(new ImageIcon("images/paladin.png"));
+	    	}
+	    	if(heroButton.getHero() instanceof Mage)
+	    	{
+	    		heroButton.setIcon(new ImageIcon("images/mage.png"));
+	    	}
+	    	if(heroButton.getHero() instanceof Warlock)
+	    	{
+	    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
+	    	}
 			heroButton.addActionListener(this);
 		}
 	    
@@ -67,17 +85,33 @@ public class ChooseHeroView extends JPanel implements ActionListener
 		secondPlayerHeroes.add(hunterButton2);
 		secondPlayerHeroes.add(priestButton2);
 		
-		for (HeroButton heroButton : secondPlayerHeroes)
-		{
-			JLabel name = new JLabel(heroButton.getHero().getName());
-	    	heroButton.add(name);
-			heroButton.addActionListener(this);
-		}
+		 for (HeroButton heroButton : secondPlayerHeroes)
+			{
+		    	heroButton.setBorderPainted(false);
+		    	heroButton.setBorder(null);
+		    	if(heroButton.getHero() instanceof Paladin)
+		    	{
+		    		heroButton.setIcon(new ImageIcon("images/paladin.png"));
+		    	}
+		    	if(heroButton.getHero() instanceof Mage)
+		    	{
+		    		heroButton.setIcon(new ImageIcon("images/mage.png"));
+		    	}
+		    	if(heroButton.getHero() instanceof Warlock)
+		    	{
+		    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
+		    	}
+				heroButton.addActionListener(this);
+			}
 		confirmButton = new JButton();
 		confirmButton.addActionListener(this);
 		confirmButton.add(new JLabel("Confirm"));
 		
-	
+		this.add(firstPlayerHeroes.get(0));
+		this.add(secondPlayerHeroes.get(2));
+		this.add(confirmButton);
+		
+		
 		
 	}
 
@@ -115,6 +149,16 @@ public class ChooseHeroView extends JPanel implements ActionListener
 		}
 		
 	}
+	
+	public void paintComponent(Graphics page)
+	{
+	    super.paintComponent(page);
+	    Image background = new ImageIcon("images/Background.jpg").getImage();
+	    page.drawImage(background, 0, 0, null);
+	}
+
+	
+	
 	
 	
 	

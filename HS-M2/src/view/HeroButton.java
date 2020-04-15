@@ -7,8 +7,6 @@ import model.heroes.Hero;
 public class HeroButton extends JButton 
 {
   private Hero hero;	
-  private final static int FIRST_PLAYER=1;
-  private final static int SECOND_PLAYER=2;
   private int playernumber;
   
   public HeroButton(Hero hero,int playernumber)
@@ -38,13 +36,4 @@ public void setPlayernumber(int playernumber)
 	this.playernumber = playernumber;
 }
 
-public static int getFirstPlayer()
-{
-	return FIRST_PLAYER;
-}
-
-public static int getSecondPlayer()
-{
-	return SECOND_PLAYER;
-}
 }

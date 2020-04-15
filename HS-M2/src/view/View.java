@@ -16,7 +16,8 @@ public class View extends JFrame
 	  gameView = new GameView(this);
 	  this.getContentPane().add(chooseHeroView);
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	  this.setSize(600,800);
+	  this.setExtendedState(this.MAXIMIZED_BOTH);
+	  this.setResizable(false);
 	  this.setVisible(true);
   }
   
