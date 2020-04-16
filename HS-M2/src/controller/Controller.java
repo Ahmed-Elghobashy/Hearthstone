@@ -23,7 +23,7 @@ import model.heroes.Warlock;
 import view.HeroButton;
 import view.View;
 
-public class Controller implements GameListener , ActionListener
+public class Controller implements GameListener
 {
  private Game model;
  private View view;
@@ -51,12 +51,6 @@ public void onGameOver()
   
 }
 
-@Override
-public void actionPerformed(ActionEvent e)
-{
-	// TODO Auto-generated method stub
-	
-}
 
 public View getView()
 {
@@ -86,7 +80,7 @@ public void startGame()
 		model = new Game(firstPlayerHero, secondPlayerHero);
 	} catch (FullHandException e)
 	{
-		//It is not important to deal with this exception becauses when intializing the game it is not possible to have
+		//It is not important to deal with this exception because when intializing the game it is not possible to have
 		// a fullHandException
 	}
 	catch (CloneNotSupportedException e)
@@ -155,6 +149,63 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 	view.getCurrentPanel().add(confirmButton);
 	
 	
+}
+
+public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedException
+{
+	ArrayList<HeroButton> secondPlayerHeroes = new ArrayList<HeroButton>();
+	
+	HeroButton paladinButton1 = new HeroButton(new Paladin(),2);
+	HeroButton warlockButton1 = new HeroButton(new Warlock(),2);
+	HeroButton mageButton1 = new HeroButton(new Mage(),2);
+	HeroButton hunterButton1 = new HeroButton(new Hunter(),2);
+	HeroButton priestButton1 = new HeroButton(new Priest(),2);
+	secondPlayerHeroes.add(paladinButton1);
+	secondPlayerHeroes.add(warlockButton1 );
+	secondPlayerHeroes.add(mageButton1);
+	secondPlayerHeroes.add(hunterButton1);
+	secondPlayerHeroes.add(priestButton1);	
+    for (HeroButton heroButton : secondPlayerHeroes)
+	{
+    	heroButton.setBorderPainted(false);
+    	heroButton.setBorder(null);
+    	if(heroButton.getHero() instanceof Paladin)
+    	{
+    		heroButton.setIcon(new ImageIcon("images/paladin.png"));
+    	}
+    	if(heroButton.getHero() instanceof Mage)
+    	{
+    		heroButton.setIcon(new ImageIcon("images/mage.png"));
+    	}
+    	if(heroButton.getHero() instanceof Warlock)
+    	{
+    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
+    	}
+    	
+    	if(heroButton.getHero() instanceof Hunter)
+    	{
+    		heroButton.setIcon(new ImageIcon("images/hunter.png"));
+    	}
+    	if(heroButton.getHero() instanceof Priest)
+    	{
+    		heroButton.setIcon(new ImageIcon("images/priest.png"));
+    	}
+    	HeroButtonListener heroButtonListener = new HeroButtonListener(this);
+		heroButton.addActionListener(heroButtonListener);
+	}
+    
+	JButton confirmButton = new JButton();
+	ConfirmSecondButtonListener confirmSecondButtonListener = new ConfirmSecondButtonListener(this);
+	confirmButton.addActionListener(confirmSecondButtonListener);
+	confirmButton.add(new JLabel("Confirm"));
+	
+	for (HeroButton heroButton : secondPlayerHeroes)
+	{
+		view.getCurrentPanel().add(heroButton);
+	}
+	
+
+	view.getCurrentPanel().add(confirmButton);
 }
 
 

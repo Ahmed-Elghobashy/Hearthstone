@@ -21,7 +21,7 @@ public class View extends JFrame
   {
 	  chooseHeroView = new ChooseFirstHeroView(this);
 	  gameView = new GameView(this);
-	  secondHeroView  = new  ChooseSecondHeroView(this,controller);
+	  secondHeroView  = new  ChooseSecondHeroView(this);
 	  this.getContentPane().add(chooseHeroView);
 	  currentPanel=chooseHeroView;
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);

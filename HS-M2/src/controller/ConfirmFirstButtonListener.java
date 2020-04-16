@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -30,6 +31,12 @@ public class ConfirmFirstButtonListener extends AbstractAction
 			else
 			{
 			  controller.getView().goToChooseSecondHeroView();
+			  try
+			{
+				controller.choosingSecondHeroButtons();
+			} catch (IOException | CloneNotSupportedException e1)
+			{
+				JOptionPane.showMessageDialog(controller.getView().getCurrentPanel(),"Error happened  while starting the game");			}
 
 			}
 		}

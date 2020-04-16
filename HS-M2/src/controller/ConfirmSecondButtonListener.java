@@ -9,7 +9,12 @@ import javax.swing.JOptionPane;
 public class ConfirmSecondButtonListener extends AbstractAction
 {
 	Controller controller;
-	@Override
+
+	
+	public ConfirmSecondButtonListener(Controller controller)
+	{
+	  	this.controller=controller;
+    }
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton button = (JButton) e.getSource();
@@ -22,6 +27,7 @@ public class ConfirmSecondButtonListener extends AbstractAction
 		else
 		{
 		  controller.getView().goToGameView();
+		  
 
 		}
 
