@@ -29,7 +29,6 @@ public class Controller implements GameListener
  private View view;
  private Hero firstPlayerHero;
  private Hero secondPlayerHero;
- private ArrayList<HeroButton> firstPlayerHeroes;
 
  
  public Controller() 
@@ -93,7 +92,7 @@ public void startGame()
 
 public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedException 
 {
-	firstPlayerHeroes = new ArrayList<HeroButton>();
+	ArrayList<HeroButton> firstPlayerHeroes = new ArrayList<HeroButton>();
 	
 	HeroButton paladinButton1 = new HeroButton(new Paladin(),1);
 	HeroButton warlockButton1 = new HeroButton(new Warlock(),1);
@@ -147,7 +146,8 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 	
 
 	view.getCurrentPanel().add(confirmButton);
-	
+	view.revalidate();
+	view.repaint();
 	
 }
 
@@ -206,6 +206,8 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
 	
 
 	view.getCurrentPanel().add(confirmButton);
+	view.revalidate();
+	view.repaint();
 }
 
 

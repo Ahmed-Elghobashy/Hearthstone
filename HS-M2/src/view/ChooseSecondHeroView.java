@@ -35,7 +35,7 @@ public class ChooseSecondHeroView extends JPanel implements ActionListener
 	private View frame;
 	
 	
-	public ChooseSecondHeroView(View frame) throws IOException, CloneNotSupportedException
+	public ChooseSecondHeroView(View frame) 
 	{
 		this.frame = frame;
 		

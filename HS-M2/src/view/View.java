@@ -20,8 +20,6 @@ public class View extends JFrame
   public View(Controller controller) throws CloneNotSupportedException, IOException
   {
 	  chooseHeroView = new ChooseFirstHeroView(this);
-	  gameView = new GameView(this);
-	  secondHeroView  = new  ChooseSecondHeroView(this);
 	  this.getContentPane().add(chooseHeroView);
 	  currentPanel=chooseHeroView;
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,6 +31,7 @@ public class View extends JFrame
   
   public void goToGameView() 
   {
+	  gameView = new GameView(this);
 	  this.getContentPane().removeAll();
 	  this.getContentPane().add(gameView);
 	  this.revalidate();
@@ -45,6 +44,7 @@ public class View extends JFrame
 
 public void goToChooseSecondHeroView()
 {
+  secondHeroView  = new  ChooseSecondHeroView(this);
   this.getContentPane().removeAll();
   this.getContentPane().add(secondHeroView);
   currentPanel=secondHeroView;
