@@ -19,7 +19,7 @@ public class View extends JFrame
   
   public View(Controller controller) throws CloneNotSupportedException, IOException
   {
-	  chooseHeroView = new ChooseFirstHeroView(this,controller);
+	  chooseHeroView = new ChooseFirstHeroView(this);
 	  gameView = new GameView(this);
 	  secondHeroView  = new  ChooseSecondHeroView(this,controller);
 	  this.getContentPane().add(chooseHeroView);
@@ -31,12 +31,10 @@ public class View extends JFrame
 	  this.controller=controller;
   }
   
-  public void goToGameView(Hero hero) throws FullHandException, CloneNotSupportedException
+  public void goToGameView() 
   {
 	  this.getContentPane().removeAll();
 	  this.getContentPane().add(gameView);
-	  currentPanel=gameView;
-	  controller.setSecondPlayerHero(hero);
 	  this.revalidate();
   }
   

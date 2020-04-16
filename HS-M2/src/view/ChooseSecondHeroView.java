@@ -126,17 +126,9 @@ public class ChooseSecondHeroView extends JPanel implements ActionListener
 			}
 			else
 			{
-			  try
-			{
-				frame.goToGameView(firstPlayerHero);
-			} catch (FullHandException e1)
-			{
-				e1.printStackTrace();
-			} catch (CloneNotSupportedException e1)
-			{
-				e1.printStackTrace();
-			}
-			}
+			
+				frame.goToGameView();
+		    }
 		}
 		
 	}
