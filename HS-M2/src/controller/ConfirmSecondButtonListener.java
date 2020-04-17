@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -26,7 +27,12 @@ public class ConfirmSecondButtonListener extends AbstractAction
 		}
 		else
 		{
-		  controller.getView().goToGameView();
+		  try {
+			controller.getView().goToGameView();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		  
 
 		}

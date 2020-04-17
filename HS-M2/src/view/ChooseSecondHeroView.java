@@ -71,7 +71,12 @@ public class ChooseSecondHeroView extends JPanel implements ActionListener
 			else
 			{
 			
-				frame.goToGameView();
+				try {
+					frame.goToGameView();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }
 		}
 		
