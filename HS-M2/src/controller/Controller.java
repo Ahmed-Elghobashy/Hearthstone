@@ -30,7 +30,8 @@ public class Controller implements GameListener
  private Hero firstPlayerHero;
  private Hero secondPlayerHero;
  private Minion attackingMinion;
- 
+ private String firstPlayerName;
+ private String secondPlayerName;
 
  
  public Game getModel()
@@ -57,14 +58,36 @@ public Controller()
  {
 	 try
 	{
-		view = new View(this);
-		choosingFirstHeroButtons();
+		 view = new View(this);
+		 choosingFirstHeroButtons();
+		 firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ");
 		
 	} catch (IOException | CloneNotSupportedException e)
 	{
 		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
 	}
  }
+
+
+public String getFirstPlayerName()
+{
+	return firstPlayerName;
+}
+
+public void setFirstPlayerName(String firstPlayerName)
+{
+	this.firstPlayerName = firstPlayerName;
+}
+
+public String getSecondPlayerName()
+{
+	return secondPlayerName;
+}
+
+public void setSecondPlayerName(String secondPlayerName)
+{
+	this.secondPlayerName = secondPlayerName;
+}
 
 @Override
 public void onGameOver()
