@@ -1,15 +1,15 @@
-package view;
+package controller;
 
 import javax.swing.JButton;
 
 import model.heroes.Hero;
 
-public class HeroButton extends JButton 
+public class ChooseHeroButton extends JButton 
 {
   private Hero hero;	
   private int playernumber;
   
-  public HeroButton(Hero hero,int playernumber)
+  public ChooseHeroButton(Hero hero,int playernumber)
   {
 	  super();
 	  this.hero=hero;

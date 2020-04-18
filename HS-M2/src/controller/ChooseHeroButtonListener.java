@@ -4,23 +4,21 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import view.HeroButton;
-
-public class HeroButtonListener extends AbstractAction
+public class ChooseHeroButtonListener extends AbstractAction
 {
 	private Controller controller;
 	
-	 public HeroButtonListener(Controller controller)
+	 public ChooseHeroButtonListener(Controller controller)
 	{
 		this.controller=controller;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getSource() instanceof HeroButton)
+		if(e.getSource() instanceof ChooseHeroButton)
 		{
 		  // Here we are checking if the button which was clicked on is a hero 
-		  HeroButton button = (HeroButton) e.getSource();
+		  ChooseHeroButton button = (ChooseHeroButton) e.getSource();
 		  int playerNumber = button.getPlayernumber();
 		  if(playerNumber==1)
 		  {

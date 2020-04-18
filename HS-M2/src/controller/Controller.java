@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
 import engine.Game;
 import engine.GameListener;
 import exceptions.FullHandException;
+import model.cards.minions.Minion;
 import model.heroes.Hero;
 import model.heroes.Hunter;
 import model.heroes.Mage;
 import model.heroes.Paladin;
 import model.heroes.Priest;
 import model.heroes.Warlock;
-import view.HeroButton;
 import view.View;
 
 public class Controller implements GameListener
@@ -29,9 +29,31 @@ public class Controller implements GameListener
  private View view;
  private Hero firstPlayerHero;
  private Hero secondPlayerHero;
+ private Minion attackingMinion;
+ 
 
  
- public Controller() 
+ public Game getModel()
+{
+	return model;
+}
+
+public void setModel(Game model)
+{
+	this.model = model;
+}
+
+public Minion getAttackingMinion()
+{
+	return attackingMinion;
+}
+
+public void setAttackingMinion(Minion attackingMinion)
+{
+	this.attackingMinion = attackingMinion;
+}
+
+public Controller() 
  {
 	 try
 	{
@@ -92,20 +114,20 @@ public void startGame()
 
 public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedException 
 {
-	ArrayList<HeroButton> firstPlayerHeroes = new ArrayList<HeroButton>();
+	ArrayList<ChooseHeroButton> firstPlayerHeroes = new ArrayList<ChooseHeroButton>();
 	
-	HeroButton paladinButton1 = new HeroButton(new Paladin(),1);
-	HeroButton warlockButton1 = new HeroButton(new Warlock(),1);
-	HeroButton mageButton1 = new HeroButton(new Mage(),1);
-	HeroButton hunterButton1 = new HeroButton(new Hunter(),1);
-	HeroButton priestButton1 = new HeroButton(new Priest(),1);
+	ChooseHeroButton paladinButton1 = new ChooseHeroButton(new Paladin(),1);
+	ChooseHeroButton warlockButton1 = new ChooseHeroButton(new Warlock(),1);
+	ChooseHeroButton mageButton1 = new ChooseHeroButton(new Mage(),1);
+	ChooseHeroButton hunterButton1 = new ChooseHeroButton(new Hunter(),1);
+	ChooseHeroButton priestButton1 = new ChooseHeroButton(new Priest(),1);
 	firstPlayerHeroes.add(paladinButton1);
 	firstPlayerHeroes.add(warlockButton1 );
 	firstPlayerHeroes.add(mageButton1);
 	firstPlayerHeroes.add(hunterButton1);
 	firstPlayerHeroes.add(priestButton1);
-	HeroButtonListener heroButtonListener = new HeroButtonListener(this);
-    for (HeroButton heroButton : firstPlayerHeroes)
+	ChooseHeroButtonListener heroButtonListener = new ChooseHeroButtonListener(this);
+    for (ChooseHeroButton heroButton : firstPlayerHeroes)
 	{
     	heroButton.setBorderPainted(false);
     	heroButton.setBorder(null);
@@ -139,7 +161,7 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 	confirmButton.addActionListener(confirmFirstButtonListener);
 	confirmButton.add(new JLabel("Confirm"));
 	
-	for (HeroButton heroButton : firstPlayerHeroes)
+	for (ChooseHeroButton heroButton : firstPlayerHeroes)
 	{
 		view.getCurrentPanel().add(heroButton);
 	}
@@ -153,19 +175,19 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 
 public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedException
 {
-	ArrayList<HeroButton> secondPlayerHeroes = new ArrayList<HeroButton>();
+	ArrayList<ChooseHeroButton> secondPlayerHeroes = new ArrayList<ChooseHeroButton>();
 	
-	HeroButton paladinButton1 = new HeroButton(new Paladin(),2);
-	HeroButton warlockButton1 = new HeroButton(new Warlock(),2);
-	HeroButton mageButton1 = new HeroButton(new Mage(),2);
-	HeroButton hunterButton1 = new HeroButton(new Hunter(),2);
-	HeroButton priestButton1 = new HeroButton(new Priest(),2);
+	ChooseHeroButton paladinButton1 = new ChooseHeroButton(new Paladin(),2);
+	ChooseHeroButton warlockButton1 = new ChooseHeroButton(new Warlock(),2);
+	ChooseHeroButton mageButton1 = new ChooseHeroButton(new Mage(),2);
+	ChooseHeroButton hunterButton1 = new ChooseHeroButton(new Hunter(),2);
+	ChooseHeroButton priestButton1 = new ChooseHeroButton(new Priest(),2);
 	secondPlayerHeroes.add(paladinButton1);
 	secondPlayerHeroes.add(warlockButton1 );
 	secondPlayerHeroes.add(mageButton1);
 	secondPlayerHeroes.add(hunterButton1);
 	secondPlayerHeroes.add(priestButton1);	
-    for (HeroButton heroButton : secondPlayerHeroes)
+    for (ChooseHeroButton heroButton : secondPlayerHeroes)
 	{
     	heroButton.setBorderPainted(false);
     	heroButton.setBorder(null);
@@ -190,7 +212,7 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
     	{
     		heroButton.setIcon(new ImageIcon("images/priest.png"));
     	}
-    	HeroButtonListener heroButtonListener = new HeroButtonListener(this);
+    	ChooseHeroButtonListener heroButtonListener = new ChooseHeroButtonListener(this);
 		heroButton.addActionListener(heroButtonListener);
 	}
     
@@ -199,7 +221,7 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
 	confirmButton.addActionListener(confirmSecondButtonListener);
 	confirmButton.add(new JLabel("Confirm"));
 	
-	for (HeroButton heroButton : secondPlayerHeroes)
+	for (ChooseHeroButton heroButton : secondPlayerHeroes)
 	{
 		view.getCurrentPanel().add(heroButton);
 	}

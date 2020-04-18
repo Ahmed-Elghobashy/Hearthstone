@@ -67,6 +67,8 @@ public class View extends JFrame
 	  //JPanel heroImage =new JPanel();
 	  JButton deckIcon =new JButton();
 	  deckIcon.setIcon(new ImageIcon("images/Deck.png"));
+	  deckIcon.setBorder(null);
+	  deckIcon.setBorderPainted(false);
 	  this.firstHeroHand.setBackground(Color.BLUE);
 	  firstHeroHand.setPreferredSize(new Dimension(600,200));
 	  firstHero.add(test,BorderLayout.CENTER);

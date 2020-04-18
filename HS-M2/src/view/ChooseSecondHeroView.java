@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.Controller;
+import controller.ChooseHeroButton;
 import exceptions.FullHandException;
 import model.heroes.Hero;
 import model.heroes.Hunter;
@@ -44,10 +45,10 @@ public class ChooseSecondHeroView extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getSource() instanceof HeroButton)
+		if(e.getSource() instanceof ChooseHeroButton)
 		{
 		  // Here we are checking if the button which was clicked on is a hero 
-		  HeroButton button = (HeroButton) e.getSource();
+		  ChooseHeroButton button = (ChooseHeroButton) e.getSource();
 		  int playerNumber = button.getPlayernumber();
 		  if(playerNumber==1)
 		  {
