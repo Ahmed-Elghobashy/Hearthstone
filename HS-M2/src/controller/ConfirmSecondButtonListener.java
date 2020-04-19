@@ -28,7 +28,7 @@ public class ConfirmSecondButtonListener extends AbstractAction
 		else
 		{
 		  try {
-			controller.getView().goToGameView();
+			controller.getView().goToGameView(controller.getFirstPlayerHero(),controller.getSecondPlayerHero());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
