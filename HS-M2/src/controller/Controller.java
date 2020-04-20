@@ -33,6 +33,8 @@ public class Controller implements GameListener
  private String firstPlayerName;
  private String secondPlayerName;
 
+
+
  
  public Game getModel()
 {

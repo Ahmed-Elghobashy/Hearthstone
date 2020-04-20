@@ -57,6 +57,7 @@ public class MinionButtonListener extends AbstractAction
 			   	try
 			   {
 			   		minionPlayer.attackWithMinion(attackingMinion, minion);
+			   		attackingMinion=null;
 			   		//here we should update the view
 			   } catch (CannotAttackException | NotYourTurnException | TauntBypassException | InvalidTargetException
 					   | NotSummonedException e1)
@@ -104,23 +105,23 @@ public class MinionButtonListener extends AbstractAction
 		return false;
 	}
 	
-	
-	public boolean inTheCurrentHeroHand(Minion minion)
-	{
-		for (Card m : currentHero.getHand())
-		 if (m==minion)
-			 return true;
-		return false;
-	}
-	public boolean ofTheSameHero(Minion minion)
-	{
-		
-		for (Minion m :currentHero.getField() )
-			if(m==minion)
-				return true;
-		return false;
-		
-		
-	}
+//	
+//	public boolean inTheCurrentHeroHand(Minion minion)
+//	{
+//		for (Card m : currentHero.getHand())
+//		 if (m==minion)
+//			 return true;
+//		return false;
+//	}
+//	public boolean ofTheSameHero(Minion minion)
+//	{
+//		
+//		for (Minion m :currentHero.getField() )
+//			if(m==minion)
+//				return true;
+//		return false;
+//		
+//		
+//	}
 
 }
