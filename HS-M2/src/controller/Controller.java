@@ -36,6 +36,8 @@ public class Controller implements GameListener
  private String secondPlayerName;
  private ArrayList<JButton> firstHeroHandCards;
  private ArrayList<JButton> secondHeroHandCards;
+ private ArrayList <MinionButton> firstHeroField;
+ private ArrayList <MinionButton> secondHeroField;
  private Hero usingHeroPower;
 
 
@@ -373,6 +375,40 @@ public void updateHand()
 		 view.getSecondHeroHand().add(i);
 	 }
 }
+
+public void updateField()
+{
+	Hero first = firstPlayerHero;
+	Hero second = secondPlayerHero;
+	view.getFirstHeroField().removeAll();
+	view.getSecondHeroField().removeAll();
+	firstHeroField = new ArrayList<MinionButton>();
+	secondHeroField = new ArrayList<MinionButton>();
+	for (Minion minion : first.getField())
+	{
+		MinionButton button = new MinionButton(minion, first, this, true);
+		button.setPreferredSize(new Dimension(100,190));
+		MinionButtonListener listener = new MinionButtonListener(this);
+		view.getFirstHeroField().add(button);
+	}
+	
+	for (Minion minion:second.getField())
+	{
+		MinionButton button = new MinionButton(minion, second, this, true);
+		button.setPreferredSize(new Dimension(100,190));
+		MinionButtonListener listener = new MinionButtonListener(this);
+		view.getFirstHeroField().add(button);
+	}
+	
+	
+}
+
+public void updateView()
+{
+	updateField();
+	updateHand();
+}
+
 
 public void onCardDrawn() {
 	// TODO Auto-generated method stub

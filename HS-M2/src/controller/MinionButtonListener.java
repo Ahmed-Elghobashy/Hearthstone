@@ -127,6 +127,7 @@ public class MinionButtonListener extends AbstractAction
 			{
 				minionPlayer.playMinion(minion);
 			    button.setOnField(true);
+			    controller.updateView();
 			} catch (NotYourTurnException | NotEnoughManaException | FullFieldException e1)
 			{
 				JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
