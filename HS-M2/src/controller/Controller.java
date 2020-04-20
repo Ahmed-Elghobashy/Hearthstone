@@ -32,11 +32,22 @@ public class Controller implements GameListener
  private Minion attackingMinion;
  private String firstPlayerName;
  private String secondPlayerName;
+ private Hero usingHeroPower;
 
 
 
  
- public Game getModel()
+ public Hero getUsingHeroPower()
+{
+	return usingHeroPower;
+}
+
+public void setUsingHeroPower(Hero usingHeroPower)
+{
+	this.usingHeroPower = usingHeroPower;
+}
+
+public Game getModel()
 {
 	return model;
 }
@@ -154,8 +165,8 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 	ChooseHeroButtonListener heroButtonListener = new ChooseHeroButtonListener(this);
     for (ChooseHeroButton heroButton : firstPlayerHeroes)
 	{
-    	//heroButton.setBorderPainted(false);
-    	//heroButton.setBorder(null);
+    	heroButton.setBorderPainted(false);
+    	heroButton.setBorder(null);
     	if(heroButton.getHero() instanceof Paladin)
     	{
     		heroButton.setIcon(new ImageIcon("images/paladin.png"));
@@ -215,8 +226,8 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
 	ChooseHeroButtonListener heroButtonListener = new ChooseHeroButtonListener(this);
     for (ChooseHeroButton heroButton : secondPlayerHeroes)
 	{
-    	//heroButton.setBorderPainted(false);
-    	//heroButton.setBorder(null);
+    	heroButton.setBorderPainted(false);
+    	heroButton.setBorder(null);
     	if(heroButton.getHero() instanceof Paladin)
     	{
     		heroButton.setIcon(new ImageIcon("images/paladin.png"));
