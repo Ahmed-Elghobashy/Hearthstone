@@ -77,7 +77,7 @@ public Controller()
 	{
 		 view = new View(this);
 		 choosingFirstHeroButtons();
-		 firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ");
+		 firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ","Player 1");
 		// JButton endTurn=new JButton("end turn");
 		 //view.getButtons().add(endTurn);		
 	} catch (IOException | CloneNotSupportedException e)
@@ -306,8 +306,12 @@ public void toMainView (Hero first,Hero second) {
 	} catch (FullHandException | CloneNotSupportedException e) {
 		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
 	}
-	 JButton power1=new JButton("use power");
-	 JButton power2=new JButton("use power");
+	 
+	 UseHeroPowerListener listener = new UseHeroPowerListener(); 
+	 HeroButton power1=new HeroButton(firstPlayerHero, this);
+	 HeroButton power2=new HeroButton(secondPlayerHero,this);
+	 power1.addActionListener(listener);
+	 power2.addActionListener(listener);
 	 JButton endTurn=new JButton("end turn");
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
