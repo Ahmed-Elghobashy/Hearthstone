@@ -321,6 +321,24 @@ public void toMainView (Hero first,Hero second) {
 	 power1.addActionListener(listener);
 	 power2.addActionListener(listener);
 	 JButton endTurn=new JButton("end turn");
+	 endTurn.addActionListener(new ActionListener()
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			try
+			{
+				model.getCurrentHero().endTurn();
+				updateView();
+			} catch (FullHandException | CloneNotSupportedException e1)
+			{
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(view, e1.getMessage());
+			}
+			
+		}
+	});
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
 	 view.getButtons().add(power1);
