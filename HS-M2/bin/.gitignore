@@ -2,15 +2,16 @@
 /Background.jpg
 /Deck.png
 /controller/
+/deck 2.png
+/deck 3.png
 /hunter.png
 /mage.png
+/paladin 6.png
+/paladin 7.png
 /paladin.png
 /paladin5.png
 /priest.png
 /warlock.png
-/model/
 /view/
-/paladin 6.png
-/deck 2.png
-/paladin 7.png
-/deck 3.png
+/model/
+/engine/

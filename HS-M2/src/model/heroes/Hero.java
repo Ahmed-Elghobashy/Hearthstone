@@ -225,6 +225,7 @@ public abstract class Hero implements MinionListener {
 		if (hand.size() == 10)
 			throw new FullHandException("My hand is too full !!!", c);
 		hand.add(c);
+	//	this.listener.onCardDrawn();
 		if (fieldContains("Chromaggus") && hand.size() < 10)
 			hand.add(c.clone());
 		return c;

@@ -9,4 +9,6 @@ public interface HeroListener {
 
 	public void endTurn() throws FullHandException, CloneNotSupportedException;
 
+	//public void onCardDrawn();
+
 }

@@ -36,7 +36,10 @@ public class View extends JFrame
   private JPanel secondHeroField;
   private JPanel firstHeroHand;
   private JPanel secondHeroHand;
-  
+  private JPanel buttons;
+  private JPanel infoArea;
+  private JLabel cardsLeft;
+  private JLabel cardsLeft2;
   
   public View(Controller controller) 
   {
@@ -74,7 +77,7 @@ public class View extends JFrame
 	  //heroImage.setIcon(new ImageIcon("images/paladin.png"));
 	  //JPanel heroImage =new JPanel();
 	  JPanel firstDeck =new JPanel(new BorderLayout());
-	  JLabel cardsLeft =new JLabel("Cards Left : 20");
+	  cardsLeft =new JLabel("Cards Left : 20");
 	  JLabel deckIcon =new JLabel();
 	  deckIcon.setIcon(new ImageIcon("images/Deck 3.png"));
 	  deckIcon.setBorder(null);
@@ -86,16 +89,17 @@ public class View extends JFrame
 	  firstHero.add(this.firstHeroHand,BorderLayout.WEST);
 	  firstHero.add(firstDeck,BorderLayout.EAST);
 	  this.add(firstHero,BorderLayout.SOUTH);
-	  JPanel buttons =new JPanel(new GridLayout(0,1));
-	  
+	  buttons =new JPanel(new GridLayout(0,1));
+	  infoArea =new JPanel(new BorderLayout());
+	  infoArea.setBackground(Color.darkGray);
 	  JPanel center=new JPanel(new BorderLayout());
 	  JPanel fields =new JPanel(new BorderLayout());
-	  JButton endTurn=new JButton("end turn");
-	  JButton power1=new JButton("use power");
-	  JButton power2=new JButton("use power");
-	  buttons.add(endTurn);
-	  buttons.add(power1);
-	  buttons.add(power2);
+	  //JButton endTurn=new JButton("end turn");
+	 // JButton power1=new JButton("use power");
+	  //JButton power2=new JButton("use power");
+	  //buttons.add(endTurn);
+	  //buttons.add(power1);
+	  //buttons.add(power2);
 	 // endTurn.setVisible(true);
 	  //endTurn.setPreferredSize(new Dimension(150,180));
 	  firstHeroField=new JPanel();
@@ -107,6 +111,7 @@ public class View extends JFrame
 	  this.secondHeroField.setPreferredSize(new Dimension(1000,180));
 	  this.secondHeroField.setBackground(Color.YELLOW);
 	  fields.add(this.secondHeroField,BorderLayout.NORTH);
+	  center.add(infoArea,BorderLayout.CENTER);
 	  center.add(fields,BorderLayout.WEST);
 	  center.add(buttons,BorderLayout.EAST);
 	  this.add(center,BorderLayout.CENTER);
@@ -117,7 +122,7 @@ public class View extends JFrame
 	  secondHero.add(this.secondHeroHand,BorderLayout.WEST);
 	  //firstHero.add(deckIcon,BorderLayout.EAST);
 	  JPanel secondDeck =new JPanel(new BorderLayout());
-	  JLabel cardsLeft2 =new JLabel("Cards Left : 20");
+	  cardsLeft2 =new JLabel("Cards Left : 20");
 	  JLabel deckIcon2 =new JLabel();
 	  deckIcon2.setIcon(new ImageIcon("images/Deck 3.png"));
 	  deckIcon2.setBorder(null);
@@ -177,5 +182,105 @@ public ImageIcon chooseHeroImage(Hero h) {
 		return(new ImageIcon("images/priest.png"));
 	}
 return null;
+}
+
+public ChooseFirstHeroView getChooseHeroView() {
+	return chooseHeroView;
+}
+
+public void setChooseHeroView(ChooseFirstHeroView chooseHeroView) {
+	this.chooseHeroView = chooseHeroView;
+}
+
+public GameView getGameView() {
+	return gameView;
+}
+
+public void setGameView(GameView gameView) {
+	this.gameView = gameView;
+}
+
+public ChooseSecondHeroView getSecondHeroView() {
+	return secondHeroView;
+}
+
+public void setSecondHeroView(ChooseSecondHeroView secondHeroView) {
+	this.secondHeroView = secondHeroView;
+}
+
+public Controller getController() {
+	return controller;
+}
+
+public void setController(Controller controller) {
+	this.controller = controller;
+}
+
+public JPanel getFirstHeroField() {
+	return firstHeroField;
+}
+
+public void setFirstHeroField(JPanel firstHeroField) {
+	this.firstHeroField = firstHeroField;
+}
+
+public JPanel getSecondHeroField() {
+	return secondHeroField;
+}
+
+public void setSecondHeroField(JPanel secondHeroField) {
+	this.secondHeroField = secondHeroField;
+}
+
+public JPanel getFirstHeroHand() {
+	return firstHeroHand;
+}
+
+public void setFirstHeroHand(JPanel firstHeroHand) {
+	this.firstHeroHand = firstHeroHand;
+}
+
+public JPanel getSecondHeroHand() {
+	return secondHeroHand;
+}
+
+public void setSecondHeroHand(JPanel secondHeroHand) {
+	this.secondHeroHand = secondHeroHand;
+}
+
+public JPanel getButtons() {
+	return buttons;
+}
+
+public void setButtons(JPanel buttons) {
+	this.buttons = buttons;
+}
+
+public JPanel getInfoArea() {
+	return infoArea;
+}
+
+public void setInfoArea(JPanel infoArea) {
+	this.infoArea = infoArea;
+}
+
+public void setCurrentPanel(JPanel currentPanel) {
+	this.currentPanel = currentPanel;
+}
+
+public JLabel getCardsLeft() {
+	return cardsLeft;
+}
+
+public void setCardsLeft(JLabel cardsLeft) {
+	this.cardsLeft = cardsLeft;
+}
+
+public JLabel getCardsLeft2() {
+	return cardsLeft2;
+}
+
+public void setCardsLeft2(JLabel cardsLeft2) {
+	this.cardsLeft2 = cardsLeft2;
 }
 }

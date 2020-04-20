@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import engine.Game;
 import engine.GameListener;
 import exceptions.FullHandException;
+import model.cards.Card;
 import model.cards.minions.Minion;
 import model.heroes.Hero;
 import model.heroes.Hunter;
@@ -32,7 +34,8 @@ public class Controller implements GameListener
  private Minion attackingMinion;
  private String firstPlayerName;
  private String secondPlayerName;
-
+private ArrayList<JButton> firstHeroHandCards;
+private ArrayList<JButton> secondHeroHandCards;
 
 
  
@@ -63,7 +66,8 @@ public Controller()
 		 view = new View(this);
 		 choosingFirstHeroButtons();
 		 firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ");
-		
+		// JButton endTurn=new JButton("end turn");
+		 //view.getButtons().add(endTurn);		
 	} catch (IOException | CloneNotSupportedException e)
 	{
 		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
@@ -278,7 +282,61 @@ public static void main(String[] args)
 {
 	new Controller();
 }
+public void toMainView (Hero first,Hero second) {
+	try {
+		view.goToGameView(first, second);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	try {
+		model=new Game (first,second);
+		model.setListener(this);
+	} catch (FullHandException | CloneNotSupportedException e) {
+		// TODO Auto-generated catch block
+		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
+	}
+	 JButton power1=new JButton("use power");
+	 JButton power2=new JButton("use power");
+	 JButton endTurn=new JButton("end turn");
+	 view.getButtons().add(power2);
+	 view.getButtons().add(endTurn);
+	 view.getButtons().add(power1);
+	 view.getCardsLeft().setText("Cards Left :"+first.getDeck().size());
+	 view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
+	 firstHeroHandCards=new ArrayList<JButton>();
+	 int n=1;
+	 for(Card i:first.getHand()) {
+		 JButton card=new JButton("Card " +n);
+		 card.setPreferredSize(new Dimension(100,190));
+		 n++;
+		 this.firstHeroHandCards.add(card);
+	 }
+	 for(JButton i:this.firstHeroHandCards) {
+		 view.getFirstHeroHand().add(i);
+	 }
+	  n=1;
+	  secondHeroHandCards=new ArrayList<JButton>();
+	 for(Card i:second.getHand()) {
+		 JButton card=new JButton("Card " +n);
+		 card.setPreferredSize(new Dimension(100,190));
+		 n++;
+		 this.secondHeroHandCards.add(card);
+	 }
+	 for(JButton i:this.secondHeroHandCards) {
+		 view.getSecondHeroHand().add(i);
+	 }
+
+	
+}
 
 
+public void onCardDrawn() {
+	// TODO Auto-generated method stub
+	/*this.cardsNumber--;
+    view.getCardsLeft().setText("Cards Left : "+cardsNumber );
+	
+}*/
+}
  
 }

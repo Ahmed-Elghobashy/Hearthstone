@@ -61,6 +61,7 @@ public class MinionButton extends JButton
 	{
 		this.controller = controller;
 	}
+
 	
 
 }

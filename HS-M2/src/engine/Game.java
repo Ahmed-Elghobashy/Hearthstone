@@ -147,5 +147,8 @@ public class Game implements ActionValidator, HeroListener {
 	public Hero getOpponent() {
 		return opponent;
 	}
+/*	public void onCardDrawn() {
+		this.listener.onCardDrawn();
+	}*/
 
 }
