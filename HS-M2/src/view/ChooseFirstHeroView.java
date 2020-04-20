@@ -33,7 +33,7 @@ public class ChooseFirstHeroView extends JPanel {
 	private Hero firstPlayerHero;
 	private View frame;
 	
-	public ChooseFirstHeroView(View frame) throws IOException, CloneNotSupportedException 
+	public ChooseFirstHeroView(View frame) 
 	{
 		this.frame = frame;	
 

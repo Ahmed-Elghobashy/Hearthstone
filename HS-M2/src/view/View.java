@@ -38,7 +38,7 @@ public class View extends JFrame
   private JPanel secondHeroHand;
   
   
-  public View(Controller controller) throws CloneNotSupportedException, IOException
+  public View(Controller controller) 
   {
 	  chooseHeroView = new ChooseFirstHeroView(this);
 	  this.getContentPane().add(chooseHeroView);
