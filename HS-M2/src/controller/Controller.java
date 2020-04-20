@@ -206,7 +206,7 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 	
 	for (ChooseHeroButton heroButton : firstPlayerHeroes)
 	{
-		view.getCurrentPanel().add(heroButton);
+		view.getChooseHeroView().add(heroButton);
 	}
 	
 
@@ -267,7 +267,7 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
 	
 	for (ChooseHeroButton heroButton : secondPlayerHeroes)
 	{
-		view.getCurrentPanel().add(heroButton);
+		view.getSecondHeroView().add(heroButton);
 	}
 	
 
@@ -298,12 +298,18 @@ public static void main(String[] args)
 }
 public void toMainView (Hero first,Hero second) {
 	try {
+		
 		view.goToGameView(first, second);
+	
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
 	try {
 		model=new Game (first,second);
+		first.setTotalManaCrystals(10);
+		first.setCurrentManaCrystals(10);
+		second.setTotalManaCrystals(10);
+		second.setCurrentManaCrystals(20);
 		model.setListener(this);
 	} catch (FullHandException | CloneNotSupportedException e) {
 		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
@@ -357,7 +363,7 @@ public void updateHand()
 	 for(Card i:second.getHand()) {
 		 if(i instanceof Minion)
 		 {
-			 MinionButton minionButton = new MinionButton((Minion) i, first, this, false);
+			 MinionButton minionButton = new MinionButton((Minion) i, second, this, false);
 			 minionButton.setPreferredSize(new Dimension(100,190));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
@@ -374,6 +380,8 @@ public void updateHand()
 	 for(JButton i:this.secondHeroHandCards) {
 		 view.getSecondHeroHand().add(i);
 	 }
+	 view.revalidate();
+	 view.repaint();
 }
 
 public void updateField()
@@ -397,8 +405,10 @@ public void updateField()
 		MinionButton button = new MinionButton(minion, second, this, true);
 		button.setPreferredSize(new Dimension(100,190));
 		MinionButtonListener listener = new MinionButtonListener(this);
-		view.getFirstHeroField().add(button);
+		view.getSecondHeroField().add(button);
 	}
+	 view.revalidate();
+	 view.repaint();
 	
 	
 }
@@ -407,6 +417,8 @@ public void updateView()
 {
 	updateField();
 	updateHand();
+	 view.revalidate();
+	 view.repaint();
 }
 
 
