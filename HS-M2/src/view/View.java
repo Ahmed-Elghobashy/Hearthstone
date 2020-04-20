@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,11 @@ import javax.swing.border.LineBorder;
 import controller.Controller;
 import exceptions.FullHandException;
 import model.heroes.Hero;
+import model.heroes.Hunter;
+import model.heroes.Mage;
+import model.heroes.Paladin;
+import model.heroes.Priest;
+import model.heroes.Warlock;
 
 public class View extends JFrame
 {
@@ -41,10 +47,11 @@ public class View extends JFrame
 	  this.setExtendedState(this.MAXIMIZED_BOTH);
 	  this.setResizable(false);
 	  this.setVisible(true);
+	  //this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
 	  this.controller=controller;
   }
   
-  public void goToGameView() throws IOException 
+  public void goToGameView(Hero first,Hero second ) throws IOException 
   {
 	  //gameView = new GameView(this);
 	  this.getContentPane().removeAll();
@@ -59,22 +66,71 @@ public class View extends JFrame
 	  this.firstHeroHand=new JPanel();
 	  //JLabel j=new JLabel("Hand");
 	  //BufferedImage myPicture = ImageIO.read(new File("images/paladin.png"));
-	  JLabel test =new JLabel(new ImageIcon("images/paladin5.png"));
+	  JLabel firstHeroImage =new JLabel(this.chooseHeroImage(first));
+	  firstHeroImage.setBackground(Color.MAGENTA);
 	  //test.disable();
 	  //test.setDisabledIcon(new ImageIcon(myPicture));
 	  //JButton heroImage =new JButton("Hero power");
 	  //heroImage.setIcon(new ImageIcon("images/paladin.png"));
 	  //JPanel heroImage =new JPanel();
-	  JButton deckIcon =new JButton();
-	  deckIcon.setIcon(new ImageIcon("images/Deck.png"));
+	  JPanel firstDeck =new JPanel(new BorderLayout());
+	  JLabel cardsLeft =new JLabel("Cards Left : 20");
+	  JLabel deckIcon =new JLabel();
+	  deckIcon.setIcon(new ImageIcon("images/Deck 3.png"));
 	  deckIcon.setBorder(null);
-	  deckIcon.setBorderPainted(false);
+	  firstDeck.add(deckIcon,BorderLayout.NORTH);
+	  firstDeck.add(cardsLeft,BorderLayout.SOUTH);
 	  this.firstHeroHand.setBackground(Color.BLUE);
-	  firstHeroHand.setPreferredSize(new Dimension(600,200));
-	  firstHero.add(test,BorderLayout.CENTER);
+	  firstHeroHand.setPreferredSize(new Dimension(1000,200));
+	  firstHero.add(firstHeroImage,BorderLayout.CENTER);
 	  firstHero.add(this.firstHeroHand,BorderLayout.WEST);
-	  firstHero.add(deckIcon,BorderLayout.EAST);
+	  firstHero.add(firstDeck,BorderLayout.EAST);
 	  this.add(firstHero,BorderLayout.SOUTH);
+	  JPanel buttons =new JPanel(new GridLayout(0,1));
+	  
+	  JPanel center=new JPanel(new BorderLayout());
+	  JPanel fields =new JPanel(new BorderLayout());
+	  JButton endTurn=new JButton("end turn");
+	  JButton power1=new JButton("use power");
+	  JButton power2=new JButton("use power");
+	  buttons.add(endTurn);
+	  buttons.add(power1);
+	  buttons.add(power2);
+	 // endTurn.setVisible(true);
+	  //endTurn.setPreferredSize(new Dimension(150,180));
+	  firstHeroField=new JPanel();
+	  //fields.add(endTurn,BorderLayout.EAST);
+	  fields.add(this.firstHeroField,BorderLayout.SOUTH);
+	  this.firstHeroField.setBackground(Color.cyan);
+	  this.firstHeroField.setPreferredSize(new Dimension(1000,180));
+	  this.secondHeroField=new JPanel();
+	  this.secondHeroField.setPreferredSize(new Dimension(1000,180));
+	  this.secondHeroField.setBackground(Color.YELLOW);
+	  fields.add(this.secondHeroField,BorderLayout.NORTH);
+	  center.add(fields,BorderLayout.WEST);
+	  center.add(buttons,BorderLayout.EAST);
+	  this.add(center,BorderLayout.CENTER);
+	  JPanel secondHero=new JPanel();
+	  this.secondHeroHand=new JPanel();
+	  this.secondHeroHand.setBackground(Color.MAGENTA);
+	  secondHeroHand.setPreferredSize(new Dimension(1000,200));
+	  secondHero.add(this.secondHeroHand,BorderLayout.WEST);
+	  //firstHero.add(deckIcon,BorderLayout.EAST);
+	  JPanel secondDeck =new JPanel(new BorderLayout());
+	  JLabel cardsLeft2 =new JLabel("Cards Left : 20");
+	  JLabel deckIcon2 =new JLabel();
+	  deckIcon2.setIcon(new ImageIcon("images/Deck 3.png"));
+	  deckIcon2.setBorder(null);
+	  JLabel secondHeroImage =new JLabel(this.chooseHeroImage(second));
+	  secondDeck.add(deckIcon2,BorderLayout.NORTH);
+	  secondDeck.add(cardsLeft2,BorderLayout.SOUTH);
+	  secondHero.add(secondHeroImage,BorderLayout.CENTER);
+	  secondHero.add(secondDeck,BorderLayout.EAST);
+	  
+	  
+	  this.add(secondHero,BorderLayout.NORTH);
+	 
+
 	  this.revalidate();
 	  this.repaint();
 	  
@@ -97,5 +153,29 @@ public void goToChooseSecondHeroView()
 public JPanel getCurrentPanel()
 {
 	return currentPanel;
+}
+public ImageIcon chooseHeroImage(Hero h) {
+	if(h instanceof Paladin)
+	{
+		return(new ImageIcon("images/paladin 7.png"));
+	}
+	if(h instanceof Mage)
+	{
+		return(new ImageIcon("images/mage.png"));
+	}
+	if(h instanceof Warlock)
+	{
+		return(new ImageIcon("images/warlock.png"));
+	}
+	
+	if(h instanceof Hunter)
+	{
+		return(new ImageIcon("images/hunter.png"));
+	}
+	if(h instanceof Priest)
+	{
+		return(new ImageIcon("images/priest.png"));
+	}
+return null;
 }
 }

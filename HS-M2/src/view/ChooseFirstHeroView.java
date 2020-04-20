@@ -36,6 +36,7 @@ public class ChooseFirstHeroView extends JPanel {
 	public ChooseFirstHeroView(View frame) throws IOException, CloneNotSupportedException 
 	{
 		this.frame = frame;	
+
 	}
 
 	@Override

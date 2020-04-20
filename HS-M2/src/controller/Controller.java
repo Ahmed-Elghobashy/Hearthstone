@@ -154,8 +154,8 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 	ChooseHeroButtonListener heroButtonListener = new ChooseHeroButtonListener(this);
     for (ChooseHeroButton heroButton : firstPlayerHeroes)
 	{
-    	heroButton.setBorderPainted(false);
-    	heroButton.setBorder(null);
+    	//heroButton.setBorderPainted(false);
+    	//heroButton.setBorder(null);
     	if(heroButton.getHero() instanceof Paladin)
     	{
     		heroButton.setIcon(new ImageIcon("images/paladin.png"));
@@ -211,11 +211,12 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
 	secondPlayerHeroes.add(warlockButton1 );
 	secondPlayerHeroes.add(mageButton1);
 	secondPlayerHeroes.add(hunterButton1);
-	secondPlayerHeroes.add(priestButton1);	
+	secondPlayerHeroes.add(priestButton1);
+	ChooseHeroButtonListener heroButtonListener = new ChooseHeroButtonListener(this);
     for (ChooseHeroButton heroButton : secondPlayerHeroes)
 	{
-    	heroButton.setBorderPainted(false);
-    	heroButton.setBorder(null);
+    	//heroButton.setBorderPainted(false);
+    	//heroButton.setBorder(null);
     	if(heroButton.getHero() instanceof Paladin)
     	{
     		heroButton.setIcon(new ImageIcon("images/paladin.png"));
@@ -237,7 +238,7 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
     	{
     		heroButton.setIcon(new ImageIcon("images/priest.png"));
     	}
-    	ChooseHeroButtonListener heroButtonListener = new ChooseHeroButtonListener(this);
+    	
 		heroButton.addActionListener(heroButtonListener);
 	}
     
