@@ -132,26 +132,26 @@ public void SetFirstPlayerHero(Hero hero)
 public void setSecondPlayerHero(Hero hero) 
 {
 	secondPlayerHero = hero;
-	startGame();
+//	startGame();
 }
 
-public void startGame() 
-{
-	try
-	{
-		model = new Game(firstPlayerHero, secondPlayerHero);
-	} catch (FullHandException e)
-	{
-		//It is not important to deal with this exception because when intializing the game it is not possible to have
-		// a fullHandException
-	}
-	catch (CloneNotSupportedException e)
-	{
-		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
-        
-	}
-	
-}
+//public void startGame() 
+//{
+//	try
+//	{
+//		model = new Game(firstPlayerHero, secondPlayerHero);
+//	} catch (FullHandException e)
+//	{
+//		//It is not important to deal with this exception because when intializing the game it is not possible to have
+//		// a fullHandException
+//	}
+//	catch (CloneNotSupportedException e)
+//	{
+//		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
+//        
+//	}
+//	
+//}
 
 public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedException 
 {
@@ -298,14 +298,12 @@ public void toMainView (Hero first,Hero second) {
 	try {
 		view.goToGameView(first, second);
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	try {
 		model=new Game (first,second);
 		model.setListener(this);
 	} catch (FullHandException | CloneNotSupportedException e) {
-		// TODO Auto-generated catch block
 		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
 	}
 	 JButton power1=new JButton("use power");
@@ -316,13 +314,34 @@ public void toMainView (Hero first,Hero second) {
 	 view.getButtons().add(power1);
 	 view.getCardsLeft().setText("Cards Left :"+first.getDeck().size());
 	 view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
-	 firstHeroHandCards=new ArrayList<JButton>();
+     updateHand();
+}
+
+public void updateHand()
+{
+	Hero first = this.firstPlayerHero;
+	Hero second = this.secondPlayerHero;
+	view.getFirstHeroHand().removeAll();
+	view.getSecondHeroHand().removeAll();
+	firstHeroHandCards=new ArrayList<JButton>();
 	 int n=1;
+	 System.out.println(first.getHand().size());
 	 for(Card i:first.getHand()) {
+		 if(i instanceof Minion) {
+			 MinionButton minionButton = new MinionButton((Minion) i, first, this, false);
+			 minionButton.setPreferredSize(new Dimension(100,190));
+			 MinionButtonListener listener = new MinionButtonListener(this);
+			 minionButton.addActionListener(listener);
+
+			 this.firstHeroHandCards.add(minionButton);
+		 }
+		 else 
+		 {
 		 JButton card=new JButton("Card " +n);
 		 card.setPreferredSize(new Dimension(100,190));
 		 n++;
 		 this.firstHeroHandCards.add(card);
+		 }
 	 }
 	 for(JButton i:this.firstHeroHandCards) {
 		 view.getFirstHeroHand().add(i);
@@ -330,18 +349,26 @@ public void toMainView (Hero first,Hero second) {
 	  n=1;
 	  secondHeroHandCards=new ArrayList<JButton>();
 	 for(Card i:second.getHand()) {
+		 if(i instanceof Minion)
+		 {
+			 MinionButton minionButton = new MinionButton((Minion) i, first, this, false);
+			 minionButton.setPreferredSize(new Dimension(100,190));
+			 MinionButtonListener listener = new MinionButtonListener(this);
+			 minionButton.addActionListener(listener);
+			 this.secondHeroHandCards.add(minionButton);
+		 }
+		 else
+		 {
 		 JButton card=new JButton("Card " +n);
 		 card.setPreferredSize(new Dimension(100,190));
 		 n++;
 		 this.secondHeroHandCards.add(card);
+		 }
 	 }
 	 for(JButton i:this.secondHeroHandCards) {
 		 view.getSecondHeroHand().add(i);
 	 }
-
-	
 }
-
 
 public void onCardDrawn() {
 	// TODO Auto-generated method stub

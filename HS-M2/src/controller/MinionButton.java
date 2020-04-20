@@ -19,6 +19,7 @@ public class MinionButton extends JButton
 	public MinionButton(Minion minion, Hero player, Controller controller, Boolean onField)
 	{
 		super();
+		this.setText(minion.getName());
 		this.minion = minion;
 		this.player = player;
 		this.controller = controller;
