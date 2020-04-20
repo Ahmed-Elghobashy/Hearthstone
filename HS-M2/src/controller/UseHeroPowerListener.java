@@ -20,6 +20,10 @@ public class UseHeroPowerListener extends AbstractAction
 	
 	Controller controller;
 
+	public UseHeroPowerListener(Controller controller)
+	{
+		this.controller=controller;
+	}
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource() instanceof HeroButton)

@@ -44,16 +44,12 @@ public class MinionButtonListener extends AbstractAction
 		  {	  
 		   if(controller.getAttackingMinion() == null && controller.getUsingHeroPower()==null)
 		   {
-			  if(isCurrentHero(minionPlayer) && isPlayerMinion(minion))
+			  if(true)
 			  {
-				
 				controller.setAttackingMinion(minion);
 				return;
 			  }
-			  else 
-			  {
-				//Here we should handle the case when the other player is trying to choose the opposing hero minion
-			  }
+			 
 				 
 		    }
 		   else 

@@ -315,7 +315,7 @@ public void toMainView (Hero first,Hero second) {
 		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
 	}
 	 
-	 UseHeroPowerListener listener = new UseHeroPowerListener(); 
+	 UseHeroPowerListener listener = new UseHeroPowerListener(this); 
 	 HeroButton power1=new HeroButton(firstPlayerHero, this);
 	 HeroButton power2=new HeroButton(secondPlayerHero,this);
 	 power1.addActionListener(listener);
@@ -397,6 +397,8 @@ public void updateField()
 		MinionButton button = new MinionButton(minion, first, this, true);
 		button.setPreferredSize(new Dimension(100,190));
 		MinionButtonListener listener = new MinionButtonListener(this);
+		button.addActionListener(listener);
+		firstHeroField.add(button);
 		view.getFirstHeroField().add(button);
 	}
 	
@@ -405,6 +407,7 @@ public void updateField()
 		MinionButton button = new MinionButton(minion, second, this, true);
 		button.setPreferredSize(new Dimension(100,190));
 		MinionButtonListener listener = new MinionButtonListener(this);
+		button.addActionListener(listener);
 		view.getSecondHeroField().add(button);
 	}
 	 view.revalidate();
@@ -417,8 +420,8 @@ public void updateView()
 {
 	updateField();
 	updateHand();
-	 view.revalidate();
-	 view.repaint();
+	view.revalidate();
+    view.repaint();
 }
 
 
