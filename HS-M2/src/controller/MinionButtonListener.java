@@ -28,6 +28,7 @@ public class MinionButtonListener extends AbstractAction
 	 public MinionButtonListener(Controller controller)
 	{
 		currentHero=controller.getModel().getCurrentHero();
+		this.controller=controller;
 	}
 
 	@Override
