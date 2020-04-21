@@ -17,6 +17,7 @@ import engine.GameListener;
 import exceptions.FullHandException;
 import model.cards.Card;
 import model.cards.minions.Minion;
+import model.cards.spells.Spell;
 import model.heroes.Hero;
 import model.heroes.Hunter;
 import model.heroes.Mage;
@@ -39,6 +40,7 @@ public class Controller implements GameListener
  private ArrayList <MinionButton> firstHeroField;
  private ArrayList <MinionButton> secondHeroField;
  private Hero usingHeroPower;
+ private SpellButton chosenSpell;
 
 
 
@@ -342,15 +344,16 @@ public void toMainView (Hero first,Hero second) {
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
 	 view.getButtons().add(power1);
-	 view.getCardsLeft().setText("Cards Left :"+first.getDeck().size());
-	 view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
+	 
      updateHand();
 }
 
 public void updateHand()
-{
+{   
 	Hero first = this.firstPlayerHero;
 	Hero second = this.secondPlayerHero;
+	view.getCardsLeft().setText("Cards Left :"+first.getDeck().size());
+	view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
 	view.getFirstHeroHand().removeAll();
 	view.getSecondHeroHand().removeAll();
 	firstHeroHandCards=new ArrayList<JButton>();
@@ -449,6 +452,14 @@ public void onCardDrawn() {
     view.getCardsLeft().setText("Cards Left : "+cardsNumber );
 	
 }*/
+}
+
+public SpellButton getChosenSpell() {
+	return chosenSpell;
+}
+
+public void setChosenSpell(SpellButton chosenSpell) {
+	this.chosenSpell = chosenSpell;
 }
  
 }
