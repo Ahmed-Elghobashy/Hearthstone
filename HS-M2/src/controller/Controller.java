@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -20,6 +22,7 @@ import engine.GameListener;
 import exceptions.FullHandException;
 import model.cards.Card;
 import model.cards.minions.Minion;
+import model.cards.spells.Spell;
 import model.heroes.Hero;
 import model.heroes.Hunter;
 import model.heroes.Mage;
@@ -37,17 +40,7 @@ public class Controller implements GameListener
  private Minion attackingMinion;
  private Hero attackingWithMinonHero;
  private SpellButton chosenSpell;
- public Hero getAttackingWithMinonHero()
-{
-	return attackingWithMinonHero;
-}
-
-public void setAttackingWithMinonHero(Hero attackingWithMinonHero)
-{
-	this.attackingWithMinonHero = attackingWithMinonHero;
-}
-
-private String firstPlayerName;
+ private String firstPlayerName;
  private String secondPlayerName;
  private ArrayList<JButton> firstHeroHandCards;
  private ArrayList<JButton> secondHeroHandCards;
@@ -57,6 +50,16 @@ private String firstPlayerName;
 
 
 
+
+  public Hero getAttackingWithMinonHero()
+{
+	return attackingWithMinonHero;
+}
+
+public void setAttackingWithMinonHero(Hero attackingWithMinonHero)
+{
+	this.attackingWithMinonHero = attackingWithMinonHero;
+}
  
  public Hero getUsingHeroPower()
 {
@@ -127,6 +130,30 @@ public void setSecondPlayerName(String secondPlayerName)
 @Override
 public void onGameOver()
 {
+  view.dispose();
+  JFrame gameOverFrame = new JFrame();
+  gameOverFrame.setPreferredSize(new Dimension(200,300));
+  JButton ok = new JButton("OK");
+  ok.addActionListener(new ActionListener()
+{
+	
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		gameOverFrame.dispose();
+		
+	}
+});
+  String winningHero = "";
+  if(firstPlayerHero.getCurrentHP()==0)
+	  winningHero = winningHero + secondPlayerName +" WON !!";
+  else 
+	  winningHero = winningHero + firstPlayerName + " WON !!";
+  gameOverFrame.add(new JLabel(winningHero),new BorderLayout().NORTH);
+  gameOverFrame.add(ok,new BorderLayout().CENTER);
+  
+  gameOverFrame.revalidate();
+  gameOverFrame.repaint();
   
 }
 
@@ -149,26 +176,9 @@ public void SetFirstPlayerHero(Hero hero)
 public void setSecondPlayerHero(Hero hero) 
 {
 	secondPlayerHero = hero;
-//	startGame();
 }
 
-//public void startGame() 
-//{
-//	try
-//	{
-//		model = new Game(firstPlayerHero, secondPlayerHero);
-//	} catch (FullHandException e)
-//	{
-//		//It is not important to deal with this exception because when intializing the game it is not possible to have
-//		// a fullHandException
-//	}
-//	catch (CloneNotSupportedException e)
-//	{
-//		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
-//        
-//	}
-//	
-//}
+
 
 public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedException 
 {
@@ -359,16 +369,16 @@ public void toMainView (Hero first,Hero second) {
 	});
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
-	 view.getButtons().add(power1);
-	 updateHand();
+	 view.getButtons().add(power1);	 
+     updateHand();
 }
 
 public void updateHand()
-{
+{   
 	Hero first = this.firstPlayerHero;
 	Hero second = this.secondPlayerHero;
 	view.getCardsLeft().setText("Cards Left :"+first.getDeck().size());
-	 view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
+	view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
 	view.getFirstHeroHand().removeAll();
 	view.getSecondHeroHand().removeAll();
 	firstHeroHandCards=new ArrayList<JButton>();
@@ -379,26 +389,16 @@ public void updateHand()
 			 minionButton.setPreferredSize(new Dimension(100,190));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
-			 minionButton.addMouseListener(new MouseAdapter()
-			{
-				 
-				 public void mouseEntered(MouseEvent e)
-				 {
-					 Minion theMinion = (Minion) i;
-					 String theInfo = Controller.minionInfo(theMinion);
-					 JLabel info = new JLabel(theInfo);
-					 minionButton.add(info);
-					 
-				 }
-			});
 			 this.firstHeroHandCards.add(minionButton);
 		 }
 		 else 
 		 {
-		 JButton card=new JButton("Card " +n);
-		 card.setPreferredSize(new Dimension(100,190));
-		 n++;
-		 this.firstHeroHandCards.add(card);
+			SpellButton spellButton = new SpellButton((Spell) i,firstPlayerHero,this);
+		    SpellButtonListener listener  = new SpellButtonListener(this);
+			spellButton.setPreferredSize(new Dimension(100,190));
+		    spellButton.addActionListener(listener);
+		    this.firstHeroHandCards.add(spellButton);
+		    
 		 }
 	 }
 	 for(JButton i:this.firstHeroHandCards) {
@@ -413,27 +413,16 @@ public void updateHand()
 			 minionButton.setPreferredSize(new Dimension(100,190));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
-			 minionButton.addMouseListener(new MouseAdapter()
-				{
-					 
-					 public void mouseEntered(MouseEvent e)
-					 {
-						 Minion theMinion = (Minion) i;
-						 String theInfo = Controller.minionInfo(theMinion);
-						 System.out.println(theInfo);
-						 minionButton.setText("");
-						 minionButton.setText(theInfo);
-						 
-					 }
-				});
 			 this.secondHeroHandCards.add(minionButton);
 		 }
 		 else
 		 {
-		 JButton card=new JButton("Card " +n);
-		 card.setPreferredSize(new Dimension(100,190));
-		 n++;
-		 this.secondHeroHandCards.add(card);
+		 SpellButton spellButton = new SpellButton((Spell) i,secondPlayerHero,this);
+		 spellButton.setPreferredSize(new Dimension(100,190));
+		 SpellButtonListener listener  = new SpellButtonListener(this);
+		 spellButton.addActionListener(listener);
+		 this.secondHeroHandCards.add(spellButton);
+
 		 }
 	 }
 	 for(JButton i:this.secondHeroHandCards) {
@@ -484,28 +473,18 @@ public void updateView()
 }
 
 
-public void onCardDrawn() {
-	// TODO Auto-generated method stub
-	/*this.cardsNumber--;
-    view.getCardsLeft().setText("Cards Left : "+cardsNumber );
-	
-}*/
-}
 
-public static String minionInfo(Minion minion)
-{
-	String info = "";
-	info = info+minion.getName()+"/n"+ "Health: " + minion.getCurrentHP() + "/n";
-	
-	return info;
+
+
+
+public void setChosenSpell(SpellButton chosenSpell) {
+	this.chosenSpell = chosenSpell;
 }
 
 public SpellButton getChosenSpell() {
 	return chosenSpell;
 }
 
-public void setChosenSpell(SpellButton chosenSpell) {
-	this.chosenSpell = chosenSpell;
-}
+
  
 }
