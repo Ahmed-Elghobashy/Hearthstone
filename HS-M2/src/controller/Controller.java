@@ -36,17 +36,7 @@ public class Controller implements GameListener
  private Hero secondPlayerHero;
  private Minion attackingMinion;
  private Hero attackingWithMinonHero;
- public Hero getAttackingWithMinonHero()
-{
-	return attackingWithMinonHero;
-}
-
-public void setAttackingWithMinonHero(Hero attackingWithMinonHero)
-{
-	this.attackingWithMinonHero = attackingWithMinonHero;
-}
-
-private String firstPlayerName;
+ private String firstPlayerName;
  private String secondPlayerName;
  private ArrayList<JButton> firstHeroHandCards;
  private ArrayList<JButton> secondHeroHandCards;
@@ -56,6 +46,16 @@ private String firstPlayerName;
 
 
 
+ 
+ public Hero getAttackingWithMinonHero()
+{
+	return attackingWithMinonHero;
+}
+
+public void setAttackingWithMinonHero(Hero attackingWithMinonHero)
+{
+	this.attackingWithMinonHero = attackingWithMinonHero;
+}
  
  public Hero getUsingHeroPower()
 {
@@ -148,26 +148,9 @@ public void SetFirstPlayerHero(Hero hero)
 public void setSecondPlayerHero(Hero hero) 
 {
 	secondPlayerHero = hero;
-//	startGame();
 }
 
-//public void startGame() 
-//{
-//	try
-//	{
-//		model = new Game(firstPlayerHero, secondPlayerHero);
-//	} catch (FullHandException e)
-//	{
-//		//It is not important to deal with this exception because when intializing the game it is not possible to have
-//		// a fullHandException
-//	}
-//	catch (CloneNotSupportedException e)
-//	{
-//		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
-//        
-//	}
-//	
-//}
+
 
 public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedException 
 {
@@ -378,18 +361,6 @@ public void updateHand()
 			 minionButton.setPreferredSize(new Dimension(100,190));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
-			 minionButton.addMouseListener(new MouseAdapter()
-			{
-				 
-				 public void mouseEntered(MouseEvent e)
-				 {
-					 Minion theMinion = (Minion) i;
-					 String theInfo = Controller.minionInfo(theMinion);
-					 JLabel info = new JLabel(theInfo);
-					 minionButton.add(info);
-					 
-				 }
-			});
 			 this.firstHeroHandCards.add(minionButton);
 		 }
 		 else 
@@ -412,19 +383,6 @@ public void updateHand()
 			 minionButton.setPreferredSize(new Dimension(100,190));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
-			 minionButton.addMouseListener(new MouseAdapter()
-				{
-					 
-					 public void mouseEntered(MouseEvent e)
-					 {
-						 Minion theMinion = (Minion) i;
-						 String theInfo = Controller.minionInfo(theMinion);
-						 System.out.println(theInfo);
-						 minionButton.setText("");
-						 minionButton.setText(theInfo);
-						 
-					 }
-				});
 			 this.secondHeroHandCards.add(minionButton);
 		 }
 		 else
@@ -483,20 +441,5 @@ public void updateView()
 }
 
 
-public void onCardDrawn() {
-	// TODO Auto-generated method stub
-	/*this.cardsNumber--;
-    view.getCardsLeft().setText("Cards Left : "+cardsNumber );
-	
-}*/
-}
-
-public static String minionInfo(Minion minion)
-{
-	String info = "";
-	info = info+minion.getName()+"/n"+ "Health: " + minion.getCurrentHP() + "/n";
-	
-	return info;
-}
  
 }
