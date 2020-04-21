@@ -43,7 +43,7 @@ public  class SpellButton extends JButton
 		this.setText(spell.getName());
 		this.addMouseListener(new MouseAdapter()
 		{
-			 public void mouseEntered(MouseEvent e)
+			 public void mouseReleased(MouseEvent e)
 			 {
 				 if(SwingUtilities.isRightMouseButton(e))
 				 {
@@ -56,7 +56,8 @@ public  class SpellButton extends JButton
 					 popup.add(new JMenuItem(spellType));
 					 popup.add(new JMenuItem(manaCost));
 					 popup.add(new JMenuItem(rarity));
-					 
+					 popup.show(e.getComponent(),e.getX(),e.getY());
+
 				 }
 				 
 			 }

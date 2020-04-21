@@ -368,10 +368,12 @@ public void updateHand()
 		 }
 		 else 
 		 {
-		 JButton card=new JButton("Card " +n);
-		 card.setPreferredSize(new Dimension(100,190));
-		 n++;
-		 this.firstHeroHandCards.add(card);
+			SpellButton spellButton = new SpellButton((Spell) i,secondPlayerHero,this);
+		    SpellButtonListener listener  = new SpellButtonListener(this);
+			spellButton.setPreferredSize(new Dimension(100,190));
+		    spellButton.addActionListener(listener);
+		    this.firstHeroHandCards.add(spellButton);
+		    
 		 }
 	 }
 	 for(JButton i:this.firstHeroHandCards) {
@@ -390,10 +392,12 @@ public void updateHand()
 		 }
 		 else
 		 {
-		 JButton card=new JButton("Card " +n);
-		 card.setPreferredSize(new Dimension(100,190));
-		 n++;
-		 this.secondHeroHandCards.add(card);
+		 SpellButton spellButton = new SpellButton((Spell) i,secondPlayerHero,this);
+		 spellButton.setPreferredSize(new Dimension(100,190));
+		 SpellButtonListener listener  = new SpellButtonListener(this);
+		 spellButton.addActionListener(listener);
+		 this.secondHeroHandCards.add(spellButton);
+
 		 }
 	 }
 	 for(JButton i:this.secondHeroHandCards) {
