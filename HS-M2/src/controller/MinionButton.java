@@ -49,12 +49,23 @@ public class MinionButton extends JButton
 				String currentHealth ="current health: "+ minion.getCurrentHP();
 				String maxHealth ="max health: "+ minion.getMaxHP();
 				String manaCost = "mana cost: " + minion.getManaCost();
+				String attack = "attack: " + minion.getAttack();
 				String rarity ="rarity: "+ minion.getRarity();
+				
 				popUp.add(new JMenuItem(name));
 				popUp.add(new JMenuItem(currentHealth));
 				popUp.add(new JMenuItem(maxHealth));
 				popUp.add(new JMenuItem(manaCost));
 				popUp.add(new JMenuItem(rarity));
+				popUp.add(new JMenuItem(attack));
+				if(minion.isDivine())
+		          popUp.add(new JMenuItem("DIVINE"));
+				if(!minion.isSleeping() && !onField)
+					popUp.add(new JMenuItem("Charge "));
+				if(minion.isSleeping() && onField)
+					popUp.add(new JMenuItem("Sleeping"));
+				if(minion.isTaunt())
+					popUp.add(new JMenuItem("Taunt"));
 				popUp.show(e.getComponent(),e.getX(),e.getY());
 				}
 				

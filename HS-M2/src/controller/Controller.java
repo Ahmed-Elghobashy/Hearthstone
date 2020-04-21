@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -128,6 +130,30 @@ public void setSecondPlayerName(String secondPlayerName)
 @Override
 public void onGameOver()
 {
+  view.dispose();
+  JFrame gameOverFrame = new JFrame();
+  gameOverFrame.setPreferredSize(new Dimension(200,300));
+  JButton ok = new JButton("OK");
+  ok.addActionListener(new ActionListener()
+{
+	
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		gameOverFrame.dispose();
+		
+	}
+});
+  String winningHero = "";
+  if(firstPlayerHero.getCurrentHP()==0)
+	  winningHero = winningHero + secondPlayerName +" WON !!";
+  else 
+	  winningHero = winningHero + firstPlayerName + " WON !!";
+  gameOverFrame.add(new JLabel(winningHero),new BorderLayout().NORTH);
+  gameOverFrame.add(ok,new BorderLayout().CENTER);
+  
+  gameOverFrame.revalidate();
+  gameOverFrame.repaint();
   
 }
 
@@ -368,7 +394,7 @@ public void updateHand()
 		 }
 		 else 
 		 {
-			SpellButton spellButton = new SpellButton((Spell) i,secondPlayerHero,this);
+			SpellButton spellButton = new SpellButton((Spell) i,firstPlayerHero,this);
 		    SpellButtonListener listener  = new SpellButtonListener(this);
 			spellButton.setPreferredSize(new Dimension(100,190));
 		    spellButton.addActionListener(listener);

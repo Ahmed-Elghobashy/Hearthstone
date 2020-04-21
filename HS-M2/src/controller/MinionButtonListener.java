@@ -16,6 +16,9 @@ import exceptions.NotYourTurnException;
 import exceptions.TauntBypassException;
 import model.cards.Card;
 import model.cards.minions.Minion;
+import model.cards.spells.LeechingSpell;
+import model.cards.spells.MinionTargetSpell;
+import model.cards.spells.Spell;
 import model.heroes.Hero;
 import model.heroes.Mage;
 import model.heroes.Priest;
@@ -47,14 +50,11 @@ public class MinionButtonListener extends AbstractAction
 		  //If the attacking minion in controller is null that means we are choosing this minion to be the attacking minion
 		  if (button.isOnField())
 		  {	  
-		   if(controller.getAttackingMinion() == null && controller.getUsingHeroPower()==null)
+		   if(controller.getAttackingMinion() == null && controller.getUsingHeroPower()==null && controller.getChosenSpell()==null)
 		   {
-			  if(true)
-			  {
 				controller.setAttackingMinion(minion);
 				controller.setAttackingWithMinonHero(minionPlayer);
 				return;
-			  }
 			 
 				 
 		    }
@@ -101,9 +101,11 @@ public class MinionButtonListener extends AbstractAction
 			   }
 			 else
 			 {
+				 
 				   
 			   //this code here is for attacking the minion 
-				 
+				if(controller.getAttackingMinion()!=null)
+				{	
 				 Minion attackingMinion = controller.getAttackingMinion();
 			 
 				 try
@@ -111,15 +113,45 @@ public class MinionButtonListener extends AbstractAction
 					 controller.getAttackingWithMinonHero().attackWithMinion(attackingMinion, minion);
 					 controller.setAttackingMinion(null);
 					 controller.setAttackingWithMinonHero(null);
-					controller.updateView();
+					 controller.updateView();
+					 return;
 				 } catch (CannotAttackException | NotYourTurnException | TauntBypassException | InvalidTargetException
 						 | NotSummonedException e1)
 				 {
 					 JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
 					 controller.setAttackingMinion(null);
 					 controller.setAttackingWithMinonHero(null);
+					 return;
 
 				 }
+				}
+				else 
+				{
+					 if(controller.getChosenSpell()!=null) {
+						  SpellButton sbutton=controller.getChosenSpell();
+						  Spell spell=sbutton.getSpell();
+						  Hero hero=sbutton.getHero();
+						  try {
+							 if(spell instanceof MinionTargetSpell) 
+						        hero.castSpell((MinionTargetSpell) spell, minion);
+							 else {
+							 if(spell instanceof LeechingSpell)
+								 hero.castSpell((LeechingSpell) spell, minion);
+							 else 
+								 JOptionPane.showMessageDialog(controller.getView(), "Invalid target");
+							 }
+							 controller.setChosenSpell(null);
+							 controller.updateView();
+						  
+					  }catch(NotYourTurnException| NotEnoughManaException| InvalidTargetException e1) {
+						  controller.setChosenSpell(null);
+						  JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
+					  }
+						  return;
+					  }
+					
+				}
+				  
 			   
 			 }
 		    }
@@ -146,6 +178,7 @@ public class MinionButtonListener extends AbstractAction
 			}
 
 		  }
+
 		}
 		  
 
