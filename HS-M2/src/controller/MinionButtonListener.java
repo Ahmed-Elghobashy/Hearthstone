@@ -35,10 +35,15 @@ public class MinionButtonListener extends AbstractAction
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource() instanceof MinionButton)
-		{
+		{	
 		  MinionButton button = (MinionButton) e.getSource();
 		  Minion minion = button.getMinion();
 		  Hero minionPlayer = button.getPlayer();
+		  if(controller.getAttackingMinion()==minion)
+		  {
+			  controller.setAttackingMinion(null);
+			  controller.setAttackingWithMinonHero(null);
+		  }
 		  //If the attacking minion in controller is null that means we are choosing this minion to be the attacking minion
 		  if (button.isOnField())
 		  {	  
@@ -47,6 +52,7 @@ public class MinionButtonListener extends AbstractAction
 			  if(true)
 			  {
 				controller.setAttackingMinion(minion);
+				controller.setAttackingWithMinonHero(minionPlayer);
 				return;
 			  }
 			 
@@ -59,15 +65,17 @@ public class MinionButtonListener extends AbstractAction
 				   if(controller.getUsingHeroPower() instanceof Priest)
 				   {
 					   Priest priest = (Priest) controller.getUsingHeroPower();
-					   controller.setUsingHeroPower(null);
 					   try
 					 {
 						priest.useHeroPower(minion);
+						controller.setUsingHeroPower(null);
+						controller.updateView();
 						return;
 					 } catch (NotEnoughManaException | HeroPowerAlreadyUsedException | NotYourTurnException
 							| FullHandException | FullFieldException | CloneNotSupportedException e1)
 					 {
 						JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
+						controller.setUsingHeroPower(null);
 						return;
 					 }
 					   
@@ -75,15 +83,17 @@ public class MinionButtonListener extends AbstractAction
 				   if(controller.getUsingHeroPower() instanceof Mage)
 				   {
 					   Mage mage = (Mage) controller.getUsingHeroPower();
-					   controller.setUsingHeroPower(null);
 					   try
 					   {
 						   mage.useHeroPower(minion);
+						   controller.setUsingHeroPower(null);
+						   controller.updateView();
 						   return;
 					   } catch (NotEnoughManaException | HeroPowerAlreadyUsedException | NotYourTurnException
 							   | FullHandException | FullFieldException | CloneNotSupportedException e1)
 					   {
 						   JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
+						   controller.setUsingHeroPower(null);
 						   return;
 					   }
 					   
@@ -98,13 +108,17 @@ public class MinionButtonListener extends AbstractAction
 			 
 				 try
 				 {
-					 minionPlayer.attackWithMinion(attackingMinion, minion);
-					 attackingMinion=null;
-					 //here we should update the view
+					 controller.getAttackingWithMinonHero().attackWithMinion(attackingMinion, minion);
+					 controller.setAttackingMinion(null);
+					 controller.setAttackingWithMinonHero(null);
+					controller.updateView();
 				 } catch (CannotAttackException | NotYourTurnException | TauntBypassException | InvalidTargetException
 						 | NotSummonedException e1)
 				 {
 					 JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
+					 controller.setAttackingMinion(null);
+					 controller.setAttackingWithMinonHero(null);
+
 				 }
 			   
 			 }
@@ -116,6 +130,7 @@ public class MinionButtonListener extends AbstractAction
 			if(controller.getAttackingMinion()!=null)
 			{
 				JOptionPane.showMessageDialog(controller.getView(),"You can not attack a minion that your opponent has not summoned yet");
+				controller.setAttackingMinion(null);
 				return;
 			}
 			 

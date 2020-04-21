@@ -43,6 +43,8 @@ public class UseHeroPowerListener extends AbstractAction
 				try
 				{
 					hero.useHeroPower();
+					controller.setUsingHeroPower(null);
+					controller.updateView();
 				} catch (NotEnoughManaException | HeroPowerAlreadyUsedException | NotYourTurnException
 						| FullHandException | FullFieldException | CloneNotSupportedException e1)
 				{

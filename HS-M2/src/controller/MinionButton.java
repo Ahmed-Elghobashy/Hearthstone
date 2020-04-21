@@ -1,6 +1,8 @@
 package controller;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import model.cards.minions.Minion;
 import model.heroes.Hero;
@@ -19,6 +21,13 @@ public class MinionButton extends JButton
 	public MinionButton(Minion minion, Hero player, Controller controller, Boolean onField)
 	{
 		super();
+		int num =  0;
+//		if(player == controller.getFirstPlayerHero())
+//			num=1;
+//		else 
+//			num=2;
+//		this.setText(num+"");
+//		this.setText("");
 		this.setText(minion.getName());
 		this.minion = minion;
 		this.player = player;
@@ -62,6 +71,8 @@ public class MinionButton extends JButton
 	{
 		this.controller = controller;
 	}
+	
+
 
 	
 
