@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -130,19 +133,38 @@ public void setSecondPlayerName(String secondPlayerName)
 @Override
 public void onGameOver()
 {
-  view.dispose();
+  
   JFrame gameOverFrame = new JFrame();
   gameOverFrame.setPreferredSize(new Dimension(200,300));
+  gameOverFrame.setSize(new Dimension(200,300));
+  gameOverFrame.setLocationRelativeTo(null);
+  gameOverFrame.toFront();
   JButton ok = new JButton("OK");
+  ok.setPreferredSize(new Dimension(2,10));
+  ok.setSize(new Dimension(2,10));
   ok.addActionListener(new ActionListener()
 {
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		view.dispose();
 		gameOverFrame.dispose();
+		System.exit(0);
 		
 	}
+});
+  gameOverFrame.addWindowListener(new WindowAdapter()
+{	
+	@Override
+	public void windowClosed(WindowEvent e)
+	{
+		view.dispose();
+		gameOverFrame.dispose();
+		System.exit(0);
+	}
+	
+	
 });
   String winningHero = "";
   if(firstPlayerHero.getCurrentHP()==0)
@@ -150,10 +172,10 @@ public void onGameOver()
   else 
 	  winningHero = winningHero + firstPlayerName + " WON !!";
   gameOverFrame.add(new JLabel(winningHero),new BorderLayout().NORTH);
-  gameOverFrame.add(ok,new BorderLayout().CENTER);
-  
+  gameOverFrame.add(ok);
   gameOverFrame.revalidate();
   gameOverFrame.repaint();
+  gameOverFrame.setVisible(true);
   
 }
 
@@ -367,6 +389,12 @@ public void toMainView (Hero first,Hero second) {
 			
 		}
 	});
+	 HeroButton firstHeroButton = new HeroButton(firstPlayerHero, this);
+	 firstHeroButton.addActionListener(new HeroButtonListener());
+	 view.getFirstHero().add(firstHeroButton);
+	 HeroButton secondHeroButton = new HeroButton(secondPlayerHero, this);
+	 secondHeroButton.addActionListener(new HeroButtonListener());
+	 view.getSecondHero().add(secondHeroButton);
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
 	 view.getButtons().add(power1);

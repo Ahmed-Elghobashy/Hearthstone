@@ -40,6 +40,8 @@ public class View extends JFrame
   private JPanel infoArea;
   private JLabel cardsLeft;
   private JLabel cardsLeft2;
+  private JPanel firstHero;
+  private JPanel secondHero;
   
   public View(Controller controller) 
   {
@@ -62,20 +64,13 @@ public class View extends JFrame
 	  this.setTitle("Hearthstone");
 	  this.setSize(1500, 800);
 	  this.setLayout(new BorderLayout());
-	  JPanel firstHero=new JPanel(new BorderLayout());
+	  firstHero=new JPanel(new BorderLayout());
 	  firstHero.setBackground(Color.RED);
 	  firstHero.setBorder(new LineBorder(Color.BLACK,3));
 	  this.add(firstHero,BorderLayout.SOUTH);
 	  this.firstHeroHand=new JPanel();
-	  //JLabel j=new JLabel("Hand");
-	  //BufferedImage myPicture = ImageIO.read(new File("images/paladin.png"));
 	  JLabel firstHeroImage =new JLabel(this.chooseHeroImage(first));
 	  firstHeroImage.setBackground(Color.MAGENTA);
-	  //test.disable();
-	  //test.setDisabledIcon(new ImageIcon(myPicture));
-	  //JButton heroImage =new JButton("Hero power");
-	  //heroImage.setIcon(new ImageIcon("images/paladin.png"));
-	  //JPanel heroImage =new JPanel();
 	  JPanel firstDeck =new JPanel(new BorderLayout());
 	  cardsLeft =new JLabel("Cards Left : 20");
 	  JLabel deckIcon =new JLabel();
@@ -94,16 +89,7 @@ public class View extends JFrame
 	  infoArea.setBackground(Color.darkGray);
 	  JPanel center=new JPanel(new BorderLayout());
 	  JPanel fields =new JPanel(new BorderLayout());
-	  //JButton endTurn=new JButton("end turn");
-	 // JButton power1=new JButton("use power");
-	  //JButton power2=new JButton("use power");
-	  //buttons.add(endTurn);
-	  //buttons.add(power1);
-	  //buttons.add(power2);
-	 // endTurn.setVisible(true);
-	  //endTurn.setPreferredSize(new Dimension(150,180));
 	  firstHeroField=new JPanel();
-	  //fields.add(endTurn,BorderLayout.EAST);
 	  fields.add(this.firstHeroField,BorderLayout.SOUTH);
 	  this.firstHeroField.setBackground(Color.cyan);
 	  this.firstHeroField.setPreferredSize(new Dimension(1000,180));
@@ -115,12 +101,11 @@ public class View extends JFrame
 	  center.add(fields,BorderLayout.WEST);
 	  center.add(buttons,BorderLayout.EAST);
 	  this.add(center,BorderLayout.CENTER);
-	  JPanel secondHero=new JPanel();
+	  secondHero=new JPanel();
 	  this.secondHeroHand=new JPanel();
 	  this.secondHeroHand.setBackground(Color.MAGENTA);
 	  secondHeroHand.setPreferredSize(new Dimension(1000,200));
 	  secondHero.add(this.secondHeroHand,BorderLayout.WEST);
-	  //firstHero.add(deckIcon,BorderLayout.EAST);
 	  JPanel secondDeck =new JPanel(new BorderLayout());
 	  cardsLeft2 =new JLabel("Cards Left : 20");
 	  JLabel deckIcon2 =new JLabel();
@@ -141,7 +126,27 @@ public class View extends JFrame
 	  
   }
   
-  public static void main(String[] args) throws IOException, CloneNotSupportedException
+  public JPanel getFirstHero()
+{
+	return firstHero;
+}
+
+public void setFirstHero(JPanel firstHero)
+{
+	this.firstHero = firstHero;
+}
+
+public JPanel getSecondHero()
+{
+	return secondHero;
+}
+
+public void setSecondHero(JPanel secondHero)
+{
+	this.secondHero = secondHero;
+}
+
+public static void main(String[] args) throws IOException, CloneNotSupportedException
 {
 //	new View();
 }
