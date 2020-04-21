@@ -36,6 +36,7 @@ public class Controller implements GameListener
  private Hero secondPlayerHero;
  private Minion attackingMinion;
  private Hero attackingWithMinonHero;
+ private SpellButton chosenSpell;
  public Hero getAttackingWithMinonHero()
 {
 	return attackingWithMinonHero;
@@ -359,15 +360,15 @@ public void toMainView (Hero first,Hero second) {
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
 	 view.getButtons().add(power1);
-	 view.getCardsLeft().setText("Cards Left :"+first.getDeck().size());
-	 view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
-     updateHand();
+	 updateHand();
 }
 
 public void updateHand()
 {
 	Hero first = this.firstPlayerHero;
 	Hero second = this.secondPlayerHero;
+	view.getCardsLeft().setText("Cards Left :"+first.getDeck().size());
+	 view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
 	view.getFirstHeroHand().removeAll();
 	view.getSecondHeroHand().removeAll();
 	firstHeroHandCards=new ArrayList<JButton>();
@@ -497,6 +498,14 @@ public static String minionInfo(Minion minion)
 	info = info+minion.getName()+"/n"+ "Health: " + minion.getCurrentHP() + "/n";
 	
 	return info;
+}
+
+public SpellButton getChosenSpell() {
+	return chosenSpell;
+}
+
+public void setChosenSpell(SpellButton chosenSpell) {
+	this.chosenSpell = chosenSpell;
 }
  
 }
