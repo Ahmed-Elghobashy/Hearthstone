@@ -429,8 +429,6 @@ public void toMainView (Hero first,Hero second) {
 				usingHeroPower=null;
 				attackingWithMinonHero=null;
 				model.getCurrentHero().endTurn();
-				if(agent!=null)
-					agent.playTurn();
 				updateView();
 			} catch (FullHandException | CloneNotSupportedException e1)
 			{
@@ -440,12 +438,6 @@ public void toMainView (Hero first,Hero second) {
 			
 		}
 	});
-	 HeroButton firstHeroButton = new HeroButton(firstPlayerHero, this);
-	 firstHeroButton.addActionListener(new HeroButtonListener());
-	 view.getFirstHero().add(firstHeroButton);
-	 HeroButton secondHeroButton = new HeroButton(secondPlayerHero, this);
-	 secondHeroButton.addActionListener(new HeroButtonListener());
-	 view.getSecondHero().add(secondHeroButton);
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
 	 view.getButtons().add(power1);	 
