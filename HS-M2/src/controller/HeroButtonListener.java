@@ -35,7 +35,7 @@ public class HeroButtonListener extends AbstractAction
 			if (controller.getAttackingMinion()!=null)
 			{
 				Minion attackingMinionacking = controller.getAttackingMinion();
-				Hero attackingHero = button.getHero();
+				Hero attackingHero = controller.getAttackingWithMinonHero();
 				try
 				{
 					attackingHero.attackWithMinion(attackingMinionacking, hero);

@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 /Background.jpeg
 /Background.jpg
 /Deck.png
-/controller/
 /deck 2.png
 /deck 3.png
 /hunter.png
@@ -12,9 +10,8 @@
 /paladin.png
 /paladin5.png
 /priest.png
-/warlock.png
 /view/
-/model/
-=======
->>>>>>> refs/heads/minion_button
-/engine/
+/warlock.png
+/controller/
+/Agent/
+/agent/
