@@ -62,44 +62,21 @@ public View(Controller controller)
   
   public void goToGameView(Hero first,Hero second ) throws IOException 
   {
-	  //gameView = new GameView(this);
 	  this.getContentPane().removeAll();
-	  //this.getContentPane().add(gameView);
 	  JLabel background =new JLabel();
-	  //background.setIcon(new ImageIcon("images/Background.jpg"));
-	  //this.add(background);
 	  this.setTitle("Hearthstone");
-	  //this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
-	  //this.setSize(1500, 750);
 	  this.setExtendedState(this.MAXIMIZED_BOTH);
 	  this.setLayout(new BorderLayout());
-<<<<<<< HEAD
 	  firstHero=new JPanel(new BorderLayout());
 	  firstHero.setBackground(Color.RED);
 	  firstHero.setBorder(new LineBorder(Color.BLACK,3));
-=======
-	   firstHero=new JPanel(new BorderLayout());
-	  //firstHero.setBackground(Color.RED);
-	  //firstHero.setBorder(new LineBorder(Color.BLACK,3));
->>>>>>> refs/heads/Test_branch
+	  firstHero=new JPanel(new BorderLayout());
 	  this.add(firstHero,BorderLayout.SOUTH);
 	  this.firstHeroHand=new JPanel();
-<<<<<<< HEAD
 	  JLabel firstHeroImage =new JLabel(this.chooseHeroImage(first));
 	  firstHeroImage.setBackground(Color.MAGENTA);
-=======
-	 // firstHeroHand.setBackground(new Color(0.0f,0.0f,0.0f,0.5f));
 	  firstHeroHand.setOpaque(false);
-	  //JLabel j=new JLabel("Hand");
-	  //BufferedImage myPicture = ImageIO.read(new File("images/paladin.png"));
-//	  JLabel firstHeroImage =new JLabel(this.chooseHeroImage(first));
-	//  firstHeroImage.setBackground(Color.MAGENTA);
-	  //test.disable();
-	  //test.setDisabledIcon(new ImageIcon(myPicture));
-	  //JButton heroImage =new JButton("Hero power");
-	  //heroImage.setIcon(new ImageIcon("images/paladin.png"));
-	  //JPanel heroImage =new JPanel();
->>>>>>> refs/heads/Test_branch
+
 	  JPanel firstDeck =new JPanel(new BorderLayout());
 	  cardsLeft =new JLabel("Cards Left : 20");
 	  JLabel deckIcon =new JLabel();
@@ -130,12 +107,9 @@ public View(Controller controller)
 	  center.add(fields,BorderLayout.WEST);
 	  center.add(buttons,BorderLayout.EAST);
 	  this.add(center,BorderLayout.CENTER);
-<<<<<<< HEAD
 	  secondHero=new JPanel();
-=======
-	   secondHero=new JPanel(new BorderLayout());
-	  //secondHero.setPreferredSize(new Dimension(1500,200));
->>>>>>> refs/heads/Test_branch
+	  secondHero=new JPanel(new BorderLayout());
+
 	  this.secondHeroHand=new JPanel();
 	  //this.secondHeroHand.setBackground(Color.MAGENTA);
 	  secondHeroHand.setPreferredSize(new Dimension(1140,200));
@@ -161,25 +135,7 @@ public View(Controller controller)
 	  
   }
   
-  public JPanel getFirstHero()
-{
-	return firstHero;
-}
 
-public void setFirstHero(JPanel firstHero)
-{
-	this.firstHero = firstHero;
-}
-
-public JPanel getSecondHero()
-{
-	return secondHero;
-}
-
-public void setSecondHero(JPanel secondHero)
-{
-	this.secondHero = secondHero;
-}
 
 public static void main(String[] args) throws IOException, CloneNotSupportedException
 {
