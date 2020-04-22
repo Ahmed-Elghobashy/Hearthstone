@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import agent.Agent;
 import engine.Game;
 import engine.GameListener;
 import exceptions.FullHandException;
@@ -50,7 +51,7 @@ public class Controller implements GameListener
  private ArrayList <MinionButton> secondHeroField;
  private Hero usingHeroPower;
  private SpellButton chosenSpell;
-
+ private Agent agent;
 
 
  
@@ -101,8 +102,6 @@ public Controller()
 		 view = new View(this);
 		 choosingFirstHeroButtons();
 		 firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ","Player 1");
-		// JButton endTurn=new JButton("end turn");
-		 //view.getButtons().add(endTurn);		
 	} catch (IOException | CloneNotSupportedException e)
 	{
 		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
@@ -353,6 +352,9 @@ public void toMainView (Hero first,Hero second) {
 	}
 	try {
 		model=new Game (first,second);
+		agent = new Agent(model, this);
+		if(model.getCurrentHero()==secondPlayerHero)
+			agent.playTurn();
 		first.setTotalManaCrystals(10);
 		first.setCurrentManaCrystals(10);
 		second.setTotalManaCrystals(10);
@@ -380,6 +382,7 @@ public void toMainView (Hero first,Hero second) {
 				usingHeroPower=null;
 				attackingWithMinonHero=null;
 				model.getCurrentHero().endTurn();
+				agent.playTurn();
 				updateView();
 			} catch (FullHandException | CloneNotSupportedException e1)
 			{

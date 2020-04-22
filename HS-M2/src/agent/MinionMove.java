@@ -13,7 +13,7 @@ public class MinionMove extends HearthstoneMove
   
 public boolean isMinionAttack()
 {
-	return minionAttack;
+	return attackedMinion!=null;
 }
 
 public MinionMove(Minion attackingMinion, Minion attackedMinion)

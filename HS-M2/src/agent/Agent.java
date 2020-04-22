@@ -19,7 +19,7 @@ import model.cards.Card;
 import model.cards.minions.Minion;
 import model.cards.spells.*;
 
-public class agent
+public class Agent
 {
  private Game model ;
  private Controller controller;
@@ -29,7 +29,7 @@ public class agent
  private ArrayList<MinionMove> allPossibleMinonAttacks;
  private ArrayList<SpellMove> allPossibleSpellMoves;
  private ArrayList<Minion> alreadyAttackedMinions;
-public agent(Game model, Controller controller)
+public Agent(Game model, Controller controller)
 {
 	super();
 	this.model = model;
@@ -81,6 +81,8 @@ private boolean OpponenthasTaunt()
 
 private void generateAllPossibleMinionAttacks()
 {
+	allPossibleMinonAttacks = new ArrayList<MinionMove>();
+	attackedMinions = controller.getFirstPlayerHero().getField();
 	for (Minion minion : canAttackMinions)
 	{
 		for (Minion minion2 : attackedMinions)
@@ -99,23 +101,21 @@ private void attackWithMinion(MinionMove move)
 		try
 		{
 			hero.attackWithMinion(move.getAttackingMinion(), move.getAttackedMinion());
-			controller.updateView();
 		} catch (CannotAttackException | NotYourTurnException | TauntBypassException | InvalidTargetException
 				| NotSummonedException e)
 		{
-			;
+			e.printStackTrace();
 		}
 		return;
 	}
 	else {
 		try
 		{
-			hero.attackWithMinion(move.getAttackedMinion(), move.getAttackedHero());
-			controller.updateView();
+			hero.attackWithMinion(move.getAttackingMinion(), move.getAttackedHero());
 		} catch (CannotAttackException | NotYourTurnException | TauntBypassException | NotSummonedException
 				| InvalidTargetException e)
 		{
-			;
+			e.printStackTrace();
 		}
 	}
 	
@@ -158,7 +158,7 @@ private void playSpellMove(SpellMove move)
 				hero.castSpell((MinionTargetSpell)spell, move.getAttackedMinion());
 			} catch (NotYourTurnException | NotEnoughManaException | InvalidTargetException e)
 			{
-				;
+				e.printStackTrace();
 			}
 		}
 		
@@ -169,7 +169,7 @@ private void playSpellMove(SpellMove move)
 				hero.castSpell((LeechingSpell)spell, move.getAttackedMinion());
 			} catch (NotYourTurnException | NotEnoughManaException e)
 			{
-				;
+				e.printStackTrace();
 			}
 		}
 		
@@ -183,7 +183,7 @@ private void playSpellMove(SpellMove move)
 				hero.castSpell((AOESpell)spell, controller.getSecondPlayerHero().getField());
 			} catch (NotYourTurnException | NotEnoughManaException e)
 			{
-				;
+				e.printStackTrace();
 			}
 		}
 		
@@ -194,7 +194,7 @@ private void playSpellMove(SpellMove move)
 				hero.castSpell((FieldSpell)spell);
 			} catch (NotYourTurnException | NotEnoughManaException e)
 			{
-				;
+				e.printStackTrace();
 			}
 			
 			
@@ -204,7 +204,6 @@ private void playSpellMove(SpellMove move)
 			;
 		}
 	}
-	controller.updateView();
 }
 
 private boolean isPositive(Spell spell)
@@ -239,9 +238,10 @@ private void playCards()
 			try
 			{
 				hero.playMinion((Minion) card);
+				
 			} catch (NotYourTurnException | NotEnoughManaException | FullFieldException e)
 			{
-				;
+				e.printStackTrace();
 			}
 			
 		}
@@ -270,14 +270,18 @@ private void attackWithAllTheMinions()
 
 public void playTurn()
 {
+	setCanAttackMinions();
+	generateAllPossibleMinionAttacks();
+	generateAllPossibleSpellMoves();
 	attackWithAllTheMinions();
 	playCards();
 	try
 	{
 		hero.endTurn();
+		controller.updateView();
 	} catch (FullHandException | CloneNotSupportedException e)
 	{
-		;
+		e.printStackTrace();
 	}
 }
   
