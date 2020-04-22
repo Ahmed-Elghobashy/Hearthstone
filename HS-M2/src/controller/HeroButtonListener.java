@@ -33,12 +33,12 @@ public class HeroButtonListener extends AbstractAction
 			if (controller.getAttackingMinion()!=null)
 			{
 				Minion attackingMinionacking = controller.getAttackingMinion();
-				Hero attackingHero = button.getHero();
+				Hero attackingHero = controller.getAttackingWithMinonHero();
 				try
 				{
 					attackingHero.attackWithMinion(attackingMinionacking, hero);
 					attackingMinionacking=null;
-					//Here we should update the view
+					controller.updateView();
 				} catch (CannotAttackException | NotYourTurnException | TauntBypassException | NotSummonedException
 						| InvalidTargetException e1)
 				{
@@ -53,6 +53,7 @@ public class HeroButtonListener extends AbstractAction
 				{
 					Mage mage = (Mage) usingHeroPower;
 					controller.setUsingHeroPower(null);
+					controller.updateView();
 					try
 					{
 						mage.useHeroPower(hero);
@@ -72,6 +73,7 @@ public class HeroButtonListener extends AbstractAction
 					try
 					{
 						priest.useHeroPower(hero);
+						controller.updateView();
 					} catch (NotEnoughManaException | HeroPowerAlreadyUsedException | NotYourTurnException
 							| FullHandException | FullFieldException | CloneNotSupportedException e1)
 					{
