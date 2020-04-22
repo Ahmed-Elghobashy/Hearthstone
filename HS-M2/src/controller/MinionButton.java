@@ -32,7 +32,7 @@ public class MinionButton extends JButton
 	{
 		super();
 		int num =  0;
-		this.setText(minion.getName());
+		//this.setText(minion.getName());
 		this.minion = minion;
 		this.player = player;
 		this.controller = controller;

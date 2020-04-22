@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -40,8 +41,11 @@ public class View extends JFrame
   private JPanel infoArea;
   private JLabel cardsLeft;
   private JLabel cardsLeft2;
+  private JPanel firstHero;
+  private JPanel secondHero;
   
-  public View(Controller controller) 
+  @SuppressWarnings("static-access")
+public View(Controller controller) 
   {
 	  chooseHeroView = new ChooseFirstHeroView(this);
 	  this.getContentPane().add(chooseHeroView);
@@ -49,8 +53,10 @@ public class View extends JFrame
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	  this.setExtendedState(this.MAXIMIZED_BOTH);
 	  this.setResizable(false);
+	  this.setUndecorated(true);
 	  this.setVisible(true);
-	  //this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
+	  
+	  this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
 	  this.controller=controller;
   }
   
@@ -59,18 +65,25 @@ public class View extends JFrame
 	  //gameView = new GameView(this);
 	  this.getContentPane().removeAll();
 	  //this.getContentPane().add(gameView);
+	  JLabel background =new JLabel();
+	  //background.setIcon(new ImageIcon("images/Background.jpg"));
+	  //this.add(background);
 	  this.setTitle("Hearthstone");
-	  this.setSize(1500, 800);
+	  //this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
+	  //this.setSize(1500, 750);
+	  this.setExtendedState(this.MAXIMIZED_BOTH);
 	  this.setLayout(new BorderLayout());
-	  JPanel firstHero=new JPanel(new BorderLayout());
-	  firstHero.setBackground(Color.RED);
-	  firstHero.setBorder(new LineBorder(Color.BLACK,3));
+	   firstHero=new JPanel(new BorderLayout());
+	  //firstHero.setBackground(Color.RED);
+	  //firstHero.setBorder(new LineBorder(Color.BLACK,3));
 	  this.add(firstHero,BorderLayout.SOUTH);
 	  this.firstHeroHand=new JPanel();
+	 // firstHeroHand.setBackground(new Color(0.0f,0.0f,0.0f,0.5f));
+	  firstHeroHand.setOpaque(false);
 	  //JLabel j=new JLabel("Hand");
 	  //BufferedImage myPicture = ImageIO.read(new File("images/paladin.png"));
-	  JLabel firstHeroImage =new JLabel(this.chooseHeroImage(first));
-	  firstHeroImage.setBackground(Color.MAGENTA);
+//	  JLabel firstHeroImage =new JLabel(this.chooseHeroImage(first));
+	//  firstHeroImage.setBackground(Color.MAGENTA);
 	  //test.disable();
 	  //test.setDisabledIcon(new ImageIcon(myPicture));
 	  //JButton heroImage =new JButton("Hero power");
@@ -79,13 +92,13 @@ public class View extends JFrame
 	  JPanel firstDeck =new JPanel(new BorderLayout());
 	  cardsLeft =new JLabel("Cards Left : 20");
 	  JLabel deckIcon =new JLabel();
-	  deckIcon.setIcon(new ImageIcon("images/Deck 3.png"));
+	  deckIcon.setIcon(new ImageIcon("images/Deck5.png"));
 	  deckIcon.setBorder(null);
 	  firstDeck.add(deckIcon,BorderLayout.NORTH);
 	  firstDeck.add(cardsLeft,BorderLayout.SOUTH);
-	  this.firstHeroHand.setBackground(Color.BLUE);
-	  firstHeroHand.setPreferredSize(new Dimension(1000,200));
-	  firstHero.add(firstHeroImage,BorderLayout.CENTER);
+	  //this.firstHeroHand.setBackground(Color.BLUE);
+	  firstHeroHand.setPreferredSize(new Dimension(1140,200));
+	  //firstHero.add(firstHeroImage,BorderLayout.CENTER);
 	  firstHero.add(this.firstHeroHand,BorderLayout.WEST);
 	  firstHero.add(firstDeck,BorderLayout.EAST);
 	  this.add(firstHero,BorderLayout.SOUTH);
@@ -105,31 +118,33 @@ public class View extends JFrame
 	  firstHeroField=new JPanel();
 	  //fields.add(endTurn,BorderLayout.EAST);
 	  fields.add(this.firstHeroField,BorderLayout.SOUTH);
-	  this.firstHeroField.setBackground(Color.cyan);
-	  this.firstHeroField.setPreferredSize(new Dimension(1000,180));
+	  //this.firstHeroField.setBackground(Color.cyan);
+	  this.firstHeroField.setPreferredSize(new Dimension(1000,150));
 	  this.secondHeroField=new JPanel();
-	  this.secondHeroField.setPreferredSize(new Dimension(1000,180));
-	  this.secondHeroField.setBackground(Color.YELLOW);
+	  this.secondHeroField.setPreferredSize(new Dimension(1000,150));
+	  //this.secondHeroField.setBackground(Color.YELLOW);
 	  fields.add(this.secondHeroField,BorderLayout.NORTH);
 	  center.add(infoArea,BorderLayout.CENTER);
 	  center.add(fields,BorderLayout.WEST);
 	  center.add(buttons,BorderLayout.EAST);
 	  this.add(center,BorderLayout.CENTER);
-	  JPanel secondHero=new JPanel();
+	   secondHero=new JPanel(new BorderLayout());
+	  //secondHero.setPreferredSize(new Dimension(1500,200));
 	  this.secondHeroHand=new JPanel();
-	  this.secondHeroHand.setBackground(Color.MAGENTA);
-	  secondHeroHand.setPreferredSize(new Dimension(1000,200));
+	  //this.secondHeroHand.setBackground(Color.MAGENTA);
+	  secondHeroHand.setPreferredSize(new Dimension(1140,200));
 	  secondHero.add(this.secondHeroHand,BorderLayout.WEST);
 	  //firstHero.add(deckIcon,BorderLayout.EAST);
 	  JPanel secondDeck =new JPanel(new BorderLayout());
 	  cardsLeft2 =new JLabel("Cards Left : 20");
 	  JLabel deckIcon2 =new JLabel();
-	  deckIcon2.setIcon(new ImageIcon("images/Deck 3.png"));
+	  deckIcon2.setIcon(new ImageIcon("images/Deck5.png"));
 	  deckIcon2.setBorder(null);
-	  JLabel secondHeroImage =new JLabel(this.chooseHeroImage(second));
+	 // JLabel secondHeroImage =new JLabel(this.chooseHeroImage(second));
+	  
 	  secondDeck.add(deckIcon2,BorderLayout.NORTH);
 	  secondDeck.add(cardsLeft2,BorderLayout.SOUTH);
-	  secondHero.add(secondHeroImage,BorderLayout.CENTER);
+	  //secondHero.add(secondHeroImage,BorderLayout.CENTER);
 	  secondHero.add(secondDeck,BorderLayout.EAST);
 	  
 	  
@@ -282,5 +297,21 @@ public JLabel getCardsLeft2() {
 
 public void setCardsLeft2(JLabel cardsLeft2) {
 	this.cardsLeft2 = cardsLeft2;
+}
+
+public JPanel getFirstHero() {
+	return firstHero;
+}
+
+public void setFirstHero(JPanel firstHero) {
+	this.firstHero = firstHero;
+}
+
+public JPanel getSecondHero() {
+	return secondHero;
+}
+
+public void setSecondHero(JPanel secondHero) {
+	this.secondHero = secondHero;
 }
 }
