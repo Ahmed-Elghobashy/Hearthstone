@@ -33,15 +33,19 @@ public class SpellButtonListener extends AbstractAction {
 				  current.castSpell((FieldSpell) spell);}
 			  catch (NotYourTurnException | NotEnoughManaException e1) {
 					// TODO Auto-generated catch block
+				  controller.setAttackingMinion(null);
+				  controller.setChosenSpell(null);
 				  JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
 				}
 			  controller.updateView();
 			  return;
 		  }else {
+			  controller.setAttackingMinion(null);
 			  if(controller.getChosenSpell() == button) {
 				  controller.setChosenSpell(null);
 			  }else {
 				  controller.setChosenSpell(button);
+				  JOptionPane.showMessageDialog(controller.getView(), "chosen");
 			  }
 				  
 			  
@@ -51,5 +55,5 @@ public class SpellButtonListener extends AbstractAction {
 	  }
 
 	}
-
+     
 }
