@@ -69,6 +69,7 @@ public class MinionButtonListener extends AbstractAction
 					 {
 						priest.useHeroPower(minion);
 						controller.setUsingHeroPower(null);
+						controller.setAttackingWithMinonHero(null);
 						controller.updateView();
 						return;
 					 } catch (NotEnoughManaException | HeroPowerAlreadyUsedException | NotYourTurnException
@@ -76,6 +77,7 @@ public class MinionButtonListener extends AbstractAction
 					 {
 						JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
 						controller.setUsingHeroPower(null);
+						controller.setAttackingWithMinonHero(null);
 						return;
 					 }
 					   
@@ -87,6 +89,7 @@ public class MinionButtonListener extends AbstractAction
 					   {
 						   mage.useHeroPower(minion);
 						   controller.setUsingHeroPower(null);
+						   controller.setAttackingWithMinonHero(null);
 						   controller.updateView();
 						   return;
 					   } catch (NotEnoughManaException | HeroPowerAlreadyUsedException | NotYourTurnException
@@ -94,6 +97,7 @@ public class MinionButtonListener extends AbstractAction
 					   {
 						   JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
 						   controller.setUsingHeroPower(null);
+						   controller.setAttackingWithMinonHero(null);
 						   return;
 					   }
 					   

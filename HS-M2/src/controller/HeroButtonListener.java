@@ -37,13 +37,17 @@ public class HeroButtonListener extends AbstractAction
 				try
 				{
 					attackingHero.attackWithMinion(attackingMinionacking, hero);
-					attackingMinionacking=null;
+					controller.setAttackingMinion(null);
+					controller.setAttackingWithMinonHero(null);
 					controller.updateView();
 				} catch (CannotAttackException | NotYourTurnException | TauntBypassException | NotSummonedException
 						| InvalidTargetException e1)
 				{
 					
 					JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
+					controller.setAttackingMinion(null);
+					controller.setAttackingWithMinonHero(null);
+
 				}
 			}
 			else 
@@ -73,11 +77,14 @@ public class HeroButtonListener extends AbstractAction
 					try
 					{
 						priest.useHeroPower(hero);
+						controller.setUsingHeroPower(null);
 						controller.updateView();
 					} catch (NotEnoughManaException | HeroPowerAlreadyUsedException | NotYourTurnException
 							| FullHandException | FullFieldException | CloneNotSupportedException e1)
 					{
 						JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
+						controller.setUsingHeroPower(null);
+
 					}
 				}
 			}	
