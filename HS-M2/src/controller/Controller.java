@@ -365,7 +365,6 @@ public void toMainView (Hero first,Hero second) {
 			agent = new Agent(model, this);
 		if(model.getCurrentHero()==secondPlayerHero && agent!=null)
 			agent.playTurn();
-		first.setTotalManaCrystals(10);
 		model.setListener(this);
 	} catch (FullHandException | CloneNotSupportedException e) {
 		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
