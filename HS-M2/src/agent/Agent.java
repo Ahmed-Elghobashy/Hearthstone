@@ -36,6 +36,7 @@ public class Agent
  private ArrayList<SpellMove> allPossibleSpellMoves;
  private ArrayList<Minion> alreadyAttackedMinions;
  private ArrayList<ManaCostingMove> allManaCostingMoves;
+ private boolean isMaximizing;
 public Agent(Game model, Controller controller)
 {
 	super();
@@ -43,8 +44,9 @@ public Agent(Game model, Controller controller)
 	this.controller = controller;
 	agentHero = controller.getSecondPlayerHero();
 	opponentHero=controller.getFirstPlayerHero();
+	isMaximizing= true;
 } 
-public Agent(Game model, Controller controller,Hero hero)
+public Agent(Game model, Controller controller,Hero hero,boolean isMaximizing)
 {
 	this.model=model;
 	this.controller=controller;
@@ -53,6 +55,7 @@ public Agent(Game model, Controller controller,Hero hero)
 		opponentHero=controller.getSecondPlayerHero();
 	else
 		 opponentHero=controller.getFirstPlayerHero();
+	this.isMaximizing=isMaximizing;
 }
 
 private void setCanAttackMinions()
@@ -507,6 +510,54 @@ public Hero cloneHero(Hero hero) throws IOException, CloneNotSupportedException
 	retHero.setTotalManaCrystals(hero.getTotalManaCrystals());
 	
 	return retHero;
+}
+
+private int clalcCurrentState()
+{	int state = 0;
+	Hero secondHero = controller.getSecondPlayerHero();
+	Hero firstHero  = controller.getFirstPlayerHero();
+	if(secondHero.getCurrentHP()==0)
+		return Integer.MIN_VALUE;
+	if(firstHero.getCurrentHP()==0)
+		return Integer.MAX_VALUE;
+	state += heroState(secondHero) - heroState(firstHero);
+	return state;
+	
+}
+
+
+private int heroState(Hero hero)
+{
+	int state=0;
+	state+=hero.getCurrentHP();
+	
+	for(Minion minion : hero.getField())
+	{
+		if(minion.isDivine())
+			state+=5;
+		if(minion.isTaunt())
+			state+=5;
+		state+=minion.getAttack();
+		switch (minion.getName())
+		{
+		case "Chrommagus":
+			state+=5;
+			break;
+		case "Kalycgos" :
+			state+=5;
+			break;
+		case "Prophet Velen":
+			state+=5;
+			break;
+		case "Wilfred Fizzlebang":
+			state+=5;
+			break;
+		default:
+			break;
+		}
+	}
+	
+	return state;
 }
  
  
