@@ -41,6 +41,26 @@ public class Game implements ActionValidator, HeroListener {
 			opponent.drawCard();
 		}
 	}
+	
+	public Game(Hero p1,Hero p2 ,int current)
+	{
+		firstHero = p1;
+		secondHero = p2;
+		firstHero.setListener(this);
+		secondHero.setListener(this);
+		firstHero.setValidator(this);
+		secondHero.setValidator(this);
+		
+		if(current==1)
+		{
+			currentHero=p1;
+			opponent=p2;
+		}
+		else {
+			currentHero=p2;
+			opponent=p1;
+		}
+	}
 
 	@Override
 	public void validateTurn(Hero user) throws NotYourTurnException {
