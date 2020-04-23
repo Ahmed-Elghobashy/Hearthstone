@@ -65,18 +65,20 @@ public View(Controller controller)
 	  //gameView = new GameView(this);
 	  this.getContentPane().removeAll();
 	  //this.getContentPane().add(gameView);
-	  JLabel background =new JLabel();
+	  Background background =new Background(this);
+	  
 	  //background.setIcon(new ImageIcon("images/Background.jpg"));
 	  //this.add(background);
 	  this.setTitle("Hearthstone");
 	  //this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
 	  //this.setSize(1500, 750);
 	  this.setExtendedState(this.MAXIMIZED_BOTH);
-	  this.setLayout(new BorderLayout());
+	  background.setLayout(new BorderLayout());
 	   firstHero=new JPanel(new BorderLayout());
+	   firstHero.setOpaque(false);
 	  //firstHero.setBackground(Color.RED);
 	  //firstHero.setBorder(new LineBorder(Color.BLACK,3));
-	  this.add(firstHero,BorderLayout.SOUTH);
+	  background.add(firstHero,BorderLayout.SOUTH);
 	  this.firstHeroHand=new JPanel();
 	 // firstHeroHand.setBackground(new Color(0.0f,0.0f,0.0f,0.5f));
 	  firstHeroHand.setOpaque(false);
@@ -90,6 +92,7 @@ public View(Controller controller)
 	  //heroImage.setIcon(new ImageIcon("images/paladin.png"));
 	  //JPanel heroImage =new JPanel();
 	  JPanel firstDeck =new JPanel(new BorderLayout());
+	  firstDeck.setOpaque(false);
 	  cardsLeft =new JLabel("Cards Left : 20");
 	  JLabel deckIcon =new JLabel();
 	  deckIcon.setIcon(new ImageIcon("images/Deck5.png"));
@@ -101,12 +104,16 @@ public View(Controller controller)
 	  //firstHero.add(firstHeroImage,BorderLayout.CENTER);
 	  firstHero.add(this.firstHeroHand,BorderLayout.WEST);
 	  firstHero.add(firstDeck,BorderLayout.EAST);
-	  this.add(firstHero,BorderLayout.SOUTH);
+	  background.add(firstHero,BorderLayout.SOUTH);
 	  buttons =new JPanel(new GridLayout(0,1));
+	  buttons.setOpaque(false);
 	  infoArea =new JPanel(new BorderLayout());
-	  infoArea.setBackground(Color.darkGray);
+	  infoArea.setOpaque(false);
+	  //infoArea.setBackground(Color.darkGray);
 	  JPanel center=new JPanel(new BorderLayout());
+	  center.setOpaque(false);
 	  JPanel fields =new JPanel(new BorderLayout());
+	  fields.setOpaque(false);
 	  //JButton endTurn=new JButton("end turn");
 	 // JButton power1=new JButton("use power");
 	  //JButton power2=new JButton("use power");
@@ -121,21 +128,26 @@ public View(Controller controller)
 	  //this.firstHeroField.setBackground(Color.cyan);
 	  this.firstHeroField.setPreferredSize(new Dimension(1000,150));
 	  this.secondHeroField=new JPanel();
+	  secondHeroField.setOpaque(false);
+	  this.firstHeroField.setOpaque(false);
 	  this.secondHeroField.setPreferredSize(new Dimension(1000,150));
 	  //this.secondHeroField.setBackground(Color.YELLOW);
 	  fields.add(this.secondHeroField,BorderLayout.NORTH);
 	  center.add(infoArea,BorderLayout.CENTER);
 	  center.add(fields,BorderLayout.WEST);
 	  center.add(buttons,BorderLayout.EAST);
-	  this.add(center,BorderLayout.CENTER);
+	  background.add(center,BorderLayout.CENTER);
 	   secondHero=new JPanel(new BorderLayout());
+	   secondHero.setOpaque(false);
 	  //secondHero.setPreferredSize(new Dimension(1500,200));
 	  this.secondHeroHand=new JPanel();
+	  this.secondHeroHand.setOpaque(false);
 	  //this.secondHeroHand.setBackground(Color.MAGENTA);
 	  secondHeroHand.setPreferredSize(new Dimension(1140,200));
 	  secondHero.add(this.secondHeroHand,BorderLayout.WEST);
 	  //firstHero.add(deckIcon,BorderLayout.EAST);
 	  JPanel secondDeck =new JPanel(new BorderLayout());
+	  secondDeck.setOpaque(false);
 	  cardsLeft2 =new JLabel("Cards Left : 20");
 	  JLabel deckIcon2 =new JLabel();
 	  deckIcon2.setIcon(new ImageIcon("images/Deck5.png"));
@@ -148,9 +160,9 @@ public View(Controller controller)
 	  secondHero.add(secondDeck,BorderLayout.EAST);
 	  
 	  
-	  this.add(secondHero,BorderLayout.NORTH);
+	  background.add(secondHero,BorderLayout.NORTH);
 	 
-
+	  this.add(background);
 	  this.revalidate();
 	  this.repaint();
 	  

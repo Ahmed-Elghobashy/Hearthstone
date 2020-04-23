@@ -376,7 +376,9 @@ public void toMainView (Hero first,Hero second) {
 
 	JPanel firstHero=new JPanel(new BorderLayout());
 	JPanel secondHero=new JPanel(new BorderLayout());
-	 firstInfo=new JLabel("Health : "+ first.getCurrentHP() +'\n'+"   Mana : "+first.getCurrentManaCrystals());
+	firstHero.setOpaque(false);
+	secondHero.setOpaque(false);
+	firstInfo=new JLabel("Health : "+ first.getCurrentHP() +'\n'+"   Mana : "+first.getCurrentManaCrystals());
 	 secondInfo=new JLabel("Health : "+ second.getCurrentHP() +'\n'+"   Mana : "+second.getCurrentManaCrystals());
 	  name1=new JLabel(this.firstPlayerName +"   Total: "+this.firstPlayerHero.getTotalManaCrystals() );
 	  name2=new JLabel(this.secondPlayerName+"   Total: "+this.firstPlayerHero.getTotalManaCrystals());
