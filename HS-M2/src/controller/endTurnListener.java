@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import agent.Agent;
 import exceptions.FullHandException;
 import model.cards.Card;
 
@@ -28,6 +29,9 @@ public class endTurnListener extends AbstractAction {
 			controller.setUsingHeroPower(null);
 			controller.setAttackingWithMinonHero(null);
 			controller.getModel().getCurrentHero().endTurn();
+			Agent agent = controller.getAgent();
+			if(agent !=null)
+				agent.playTurn();
 			controller.updateView();
 		} catch ( CloneNotSupportedException e1)
 		{
