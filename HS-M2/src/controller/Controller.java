@@ -370,9 +370,9 @@ public void toMainView (Hero first,Hero second) {
 	} catch (FullHandException | CloneNotSupportedException e) {
 		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
 	}
-	if(this.getFirstPlayerName()==null||this.getFirstPlayerName().equals(""))
+	if(this.getFirstPlayerName()==null||this.getFirstPlayerName().length()==0)
 		this.setFirstPlayerName("Guest");
-	if(this.getSecondPlayerName()==null||this.getFirstPlayerName().equals(""))
+	if(this.getSecondPlayerName()==null||this.getSecondPlayerName().length()==0)
 		this.setSecondPlayerName("Guest");
 
 	JPanel firstHero=new JPanel(new BorderLayout());
@@ -419,12 +419,13 @@ public void toMainView (Hero first,Hero second) {
 	 endTurn.setIcon(new ImageIcon("images/end2.png"));
 	 endTurn.setBorder(BorderFactory.createEmptyBorder());
 	 endTurn.setContentAreaFilled(false);
-	 endTurn.addActionListener(new ActionListener()
-	{
+	 endTurnListener end=new endTurnListener(this);
+	 endTurn.addActionListener(end);
+	
 		
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
+		
+	/*	public void actionPerformed(ActionEvent e)
+		{    
 			try
 			{
 				attackingMinion=null;
@@ -432,14 +433,21 @@ public void toMainView (Hero first,Hero second) {
 				attackingWithMinonHero=null;
 				model.getCurrentHero().endTurn();
 				updateView();
-			} catch (FullHandException | CloneNotSupportedException e1)
+			} catch ( CloneNotSupportedException e1)
 			{
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(view, e1.getMessage());
+			}catch (FullHandException e1) {
+				JOptionPane.showMessageDialog(view, e1.getMessage());
+				Card burned=e1.getBurned();
+				ImageIcon image=images(burned);
+				JLabel l=new JLabel(image);
+		        
 			}
 			
+			
 		}
-	});
+	});*/
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
 	 view.getButtons().add(power1);	 
@@ -454,6 +462,7 @@ public void updateHand()
 	view.getCardsLeft2().setText("Cards Left :"+second.getDeck().size());
 	view.getFirstHeroHand().removeAll();
 	view.getSecondHeroHand().removeAll();
+	InfoListener info=new InfoListener(this);
 	firstHeroHandCards=new ArrayList<JButton>();
 	 int n=1;
 	 for(Card i:first.getHand()) {
@@ -462,6 +471,7 @@ public void updateHand()
 			 minionButton.setPreferredSize(new Dimension(109,150));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
+			 minionButton.addMouseListener(info);
 				 minionButton.setIcon(images(i));
 				 minionButton.setBorder(BorderFactory.createEmptyBorder());
 				    minionButton.setContentAreaFilled(false);
@@ -475,6 +485,7 @@ public void updateHand()
 			spellButton.setPreferredSize(new Dimension(109,150));
 		    spellButton.addActionListener(listener);
 		    spellButton.setIcon(images(i));
+		    spellButton.addMouseListener(info);
 		    spellButton.setBorder(BorderFactory.createEmptyBorder());
 		    spellButton.setContentAreaFilled(false);
 		    this.firstHeroHandCards.add(spellButton);
@@ -492,6 +503,7 @@ public void updateHand()
 			 MinionButton minionButton = new MinionButton((Minion) i, second, this, false);
 			 minionButton.setPreferredSize(new Dimension(109,150));
 			 MinionButtonListener listener = new MinionButtonListener(this);
+			 minionButton.addMouseListener(info);
 			 minionButton.addActionListener(listener);
 			 minionButton.setIcon(images(i));
 			    minionButton.setBorder(BorderFactory.createEmptyBorder());
@@ -504,6 +516,7 @@ public void updateHand()
 		 spellButton.setPreferredSize(new Dimension(109,150));
 		 SpellButtonListener listener  = new SpellButtonListener(this);
 		 spellButton.addActionListener(listener);
+		 spellButton.addMouseListener(info);
 		 spellButton.setIcon(images(i));
 		    spellButton.setBorder(BorderFactory.createEmptyBorder());
 		    spellButton.setContentAreaFilled(false);
@@ -525,6 +538,7 @@ public void updateField()
 	Hero second = secondPlayerHero;
 	view.getFirstHeroField().removeAll();
 	view.getSecondHeroField().removeAll();
+	InfoListener info=new InfoListener(this);
 	firstHeroField = new ArrayList<MinionButton>();
 	secondHeroField = new ArrayList<MinionButton>();
 	for (Minion minion : first.getField())
@@ -533,6 +547,7 @@ public void updateField()
 		button.setPreferredSize(new Dimension(110,150));
 		MinionButtonListener listener = new MinionButtonListener(this);
 		button.addActionListener(listener);
+		button.addMouseListener(info);
 		firstHeroField.add(button);
 			 button.setIcon(images(minion));
 	    button.setBorder(BorderFactory.createEmptyBorder());
@@ -546,6 +561,7 @@ public void updateField()
 		button.setPreferredSize(new Dimension(110,150));
 		MinionButtonListener listener = new MinionButtonListener(this);
 		button.addActionListener(listener);
+		button.addMouseListener(info);
 			 button.setIcon(images(minion));
 	    button.setBorder(BorderFactory.createEmptyBorder());
 	    button.setContentAreaFilled(false);

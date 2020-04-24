@@ -35,7 +35,7 @@ public class ConfirmFirstButtonListener extends AbstractAction
 			  try
 			{
 				controller.choosingSecondHeroButtons();
-				controller.setSecondPlayerName(JOptionPane.showInputDialog(controller.getView().getCurrentPanel(), "Please enter your name : "));
+				controller.setSecondPlayerName(JOptionPane.showInputDialog(controller.getView().getCurrentPanel(), "Please enter your name : ","Player 2"));
 			} catch (IOException | CloneNotSupportedException e1)
 			{
 				JOptionPane.showMessageDialog(controller.getView().getCurrentPanel(),"Error happened  while starting the game");			}

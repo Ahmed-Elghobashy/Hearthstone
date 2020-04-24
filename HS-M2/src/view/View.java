@@ -109,7 +109,8 @@ public View(Controller controller)
 	  buttons.setOpaque(false);
 	  infoArea =new JPanel(new BorderLayout());
 	  infoArea.setOpaque(false);
-	  //infoArea.setBackground(Color.darkGray);
+	  //JLabel test2=new JLabel("Test  kjklhlkhklhk");
+	  //infoArea.setBackground(Color.WHITE);
 	  JPanel center=new JPanel(new BorderLayout());
 	  center.setOpaque(false);
 	  JPanel fields =new JPanel(new BorderLayout());
