@@ -1,7 +1,9 @@
 package agent;
 
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Handler;
 
@@ -36,6 +38,8 @@ public class Agent
  private ArrayList<SpellMove> allPossibleSpellMoves;
  private ArrayList<Minion> alreadyAttackedMinions;
  private ArrayList<ManaCostingMove> allManaCostingMoves;
+ private ArrayList<ArrayList<HearthstoneMove>> allTurnMoves;
+ private int maxDepth;
  private boolean isMaximizing;
 public Agent(Game model, Controller controller)
 {
@@ -45,6 +49,7 @@ public Agent(Game model, Controller controller)
 	agentHero = controller.getSecondPlayerHero();
 	opponentHero=controller.getFirstPlayerHero();
 	isMaximizing= true;
+	maxDepth=3;
 } 
 public Agent(Game model, Controller controller,Hero hero,boolean isMaximizing)
 {
@@ -56,8 +61,17 @@ public Agent(Game model, Controller controller,Hero hero,boolean isMaximizing)
 	else
 		 opponentHero=controller.getFirstPlayerHero();
 	this.isMaximizing=isMaximizing;
+	maxDepth=3;
 }
 
+public Controller getController()
+{
+	return controller;
+}
+public void setController(Controller controller)
+{
+	this.controller = controller;
+}
 private void setCanAttackMinions()
 {
 	canAttackMinions = new ArrayList<Minion>();
@@ -100,7 +114,7 @@ private boolean OpponenthasTaunt()
     	return false;
 }
 
-private void generateAllPossibleMinionAttacks()
+void generateAllPossibleMinionAttacks()
 {
 	setAttackedMinions();
 	setCanAttackMinions();
@@ -286,8 +300,9 @@ private ArrayList<ManaCostingMove> generateUseHeroPowerMoves()
 }
 
 
-private void generatingAllManaCostingMoves()
+void generatingAllManaCostingMoves()
 {
+	generateAllPossibleSpellMoves();
 	allManaCostingMoves = new ArrayList<ManaCostingMove>();
 	allManaCostingMoves.addAll(allPossibleSpellMoves);
 	allManaCostingMoves.addAll(generateUseHeroPowerMoves());
@@ -298,7 +313,7 @@ private void generatingAllManaCostingMoves()
 	
 }
 
-private void playMinionMove(PlayMinionMove move)
+ void playMinionMove(PlayMinionMove move)
 {
 	Hero hero = move.getPlayinHero();
 	Minion minion = move.getMinion();
@@ -313,7 +328,7 @@ private void playMinionMove(PlayMinionMove move)
 	}
 }
 
-private void useHeroPowerMove(UseHeroPowerMove move)
+ void useHeroPowerMove(UseHeroPowerMove move)
 {
 	if(agentHero instanceof Mage)
 	{
@@ -387,7 +402,7 @@ private void useHeroPowerMove(UseHeroPowerMove move)
 
 
 
-private void playCards()
+ void playCards()
 {
 	ArrayList<Object> hand = new ArrayList<Object>();
 	
@@ -426,7 +441,7 @@ private void playCards()
 	
 }
 
-private void attackWithAllTheMinions()
+ void attackWithAllTheMinions()
 {
 	alreadyAttackedMinions = new ArrayList<Minion>();
 	for(MinionMove minionMove : allPossibleMinonAttacks)
@@ -443,10 +458,11 @@ public void playTurn()
 {
 	generateAllPossibleMinionAttacks();
 	generateAllPossibleSpellMoves();
-	attackWithAllTheMinions();
-	playCards();
+	GameTree tree = new GameTree(model,this);
+	ArrayList<HearthstoneMove> turnMoves = tree.chooseMove();
 	try
 	{
+		playTurnMoves(turnMoves);
 		agentHero.endTurn();
 		controller.updateView();
 	} catch (FullHandException | CloneNotSupportedException e)
@@ -458,8 +474,20 @@ public void playTurn()
 
 public Game cloneGame() throws IOException, CloneNotSupportedException
 {
-	Hero firstHero = controller.getFirstPlayerHero();
-	Hero secondHero = controller.getSecondPlayerHero();
+//	Hero firstHero = controller.getFirstPlayerHero();
+//	Hero secondHero = controller.getSecondPlayerHero();
+	Hero firstHero;
+	Hero secondHero;
+	if(isMaximizing)
+	{
+		firstHero = opponentHero;
+		secondHero = agentHero;
+	}
+	else {
+		firstHero = agentHero;
+		secondHero = opponentHero;
+	}
+	
 	Hero firstHeroClone = cloneHero(firstHero);
 	Hero secondHeroClone = cloneHero(secondHero);
 	
@@ -479,19 +507,19 @@ public Hero cloneHero(Hero hero) throws IOException, CloneNotSupportedException
 	{
 		retHero= new Mage();
 	}
-	if(hero instanceof Priest)
+	else if(hero instanceof Priest)
 	{
 		retHero = new Priest();
 	}
-	if(hero instanceof Warlock)
+	else if(hero instanceof Warlock)
 	{
 		retHero = new Warlock();
 	}
-	if(hero instanceof Paladin)
+	else if(hero instanceof Paladin)
 	{
 		retHero = new Paladin();
 	}
-	if(hero instanceof Hunter)
+	else 
 	{
 		retHero = new Hunter();
 	}
@@ -512,10 +540,10 @@ public Hero cloneHero(Hero hero) throws IOException, CloneNotSupportedException
 	return retHero;
 }
 
-private int clalcCurrentState()
+ int clalcCurrentState(Hero hero1,Hero hero2)
 {	int state = 0;
-	Hero secondHero = controller.getSecondPlayerHero();
-	Hero firstHero  = controller.getFirstPlayerHero();
+	Hero secondHero = hero2;
+	Hero firstHero  = hero1;
 	if(secondHero.getCurrentHP()==0)
 		return Integer.MIN_VALUE;
 	if(firstHero.getCurrentHP()==0)
@@ -526,7 +554,7 @@ private int clalcCurrentState()
 }
 
 
-private int heroState(Hero hero)
+ int heroState(Hero hero)
 {
 	int state=0;
 	state+=hero.getCurrentHP();
@@ -559,6 +587,162 @@ private int heroState(Hero hero)
 	
 	return state;
 }
+
+private void playMove(HearthstoneMove move)
+{
+	if(move instanceof PlayMinionMove)
+	{
+		playMinionMove((PlayMinionMove) move);
+		return;
+	}
+	if(move instanceof SpellMove)
+	{
+		playSpellMove((SpellMove) move);
+		return;
+	}
+	if(move instanceof MinionMove)
+	{
+		attackWithMinion((MinionMove) move);
+		return;
+	}
+	if(move instanceof UseHeroPowerMove)
+	{
+		 useHeroPowerMove((UseHeroPowerMove) move);
+		 return;
+	}
+}
+
+ void playTurnMoves(ArrayList<HearthstoneMove> moves)
+{
+	for (HearthstoneMove hearthstoneMove : moves)
+	{
+		playMove(hearthstoneMove);
+	}
+}
+
+// Game generateGame(ArrayList<HearthstoneMove> moves)
+//{
+//	try
+//	{
+//		Game retGame = cloneGame();
+//		Controller controller2 = new Controller();
+//		Agent agent = new Agent(retGame, controller2);
+//		agent.generatingAllManaCostingMoves();
+//		agent.generateAllPossibleMinionAttacks();
+//		agent.playTurnMoves(moves);
+//		return retGame;
+//	} catch (IOException | CloneNotSupportedException e)
+//	{
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//		return null;
+//	}
+//	
+//	
+//}
+
+void generateAllTurnMoves()
+{
+	generateAllPossibleMinionAttacks();
+	generatingAllManaCostingMoves();
+	allTurnMoves = new ArrayList<ArrayList<HearthstoneMove>>();
+	for(int i =0 ;i<10;i++)
+	{	
+	ArrayList<HearthstoneMove> attacks = new ArrayList<HearthstoneMove>();
+	ArrayList<ArrayList<MinionMove>> eachMinion = generateEachPossibleMinionAttacks();
+	for (ArrayList<MinionMove> arrayList : eachMinion)
+	{
+		Collections.shuffle(arrayList);
+		attacks.add(arrayList.get(0));
+	}
+	Collections.shuffle(allManaCostingMoves);
+	attacks.addAll((Collection<? extends HearthstoneMove>) allManaCostingMoves);
+	allTurnMoves.add(attacks);
+	}
+
+	
+	
+}
+
+
+ArrayList<ArrayList<MinionMove>> generateEachPossibleMinionAttacks()
+{
+	setAttackedMinions();
+	setCanAttackMinions();
+	ArrayList<ArrayList<MinionMove>> eachMinion = new ArrayList<ArrayList<MinionMove>>();
+	for (Minion minion : canAttackMinions)
+	{
+		ArrayList<MinionMove> thisMinionMove = new ArrayList<MinionMove>();
+		for (Minion minion2 : attackedMinions)
+		{
+			thisMinionMove.add(new MinionMove(minion,minion2));
+		}
+		thisMinionMove.add(new MinionMove(minion,opponentHero));
+		eachMinion.add(thisMinionMove);
+	}
+	return eachMinion;
+	
+}
+
+ 
+
+
+ 
+ 
+ 
+public int getMaxDepth()
+{
+	return maxDepth;
+}
+public void setMaxDepth(int maxDepth)
+{
+	this.maxDepth = maxDepth;
+}
+public boolean isMaximizing()
+{
+	return isMaximizing;
+}
+public Hero getAgentHero()
+{
+	return agentHero;
+}
+public void setAgentHero(Hero agentHero)
+{
+	this.agentHero = agentHero;
+}
+public Hero getOpponentHero()
+{
+	return opponentHero;
+}
+public void setOpponentHero(Hero opponentHero)
+{
+	this.opponentHero = opponentHero;
+}
+public void setMaximizing(boolean isMaximizing)
+{
+	this.isMaximizing = isMaximizing;
+}
+public ArrayList<ArrayList<HearthstoneMove>> getAllTurnMoves()
+{
+	return allTurnMoves;
+}
+public void setAllTurnMoves(ArrayList<ArrayList<HearthstoneMove>> allTurnMoves)
+{
+	this.allTurnMoves = allTurnMoves;
+}
+
+
+//private int evaluateGame(Game game , int depth)
+//{
+//	if(depth==this.maxDepth)
+//	{
+//		if(isMaximizing)
+//			return 
+//	}
+//		
+//}
+
+
  
  
 }

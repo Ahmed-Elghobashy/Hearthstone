@@ -361,7 +361,7 @@ public void toMainView (Hero first,Hero second) {
 	}
 	try {
 		model=new Game (first,second);
-		if(false)
+		if(true)
 			agent = new Agent(model, this);
 		if(model.getCurrentHero()==secondPlayerHero && agent!=null)
 			agent.playTurn();
@@ -430,6 +430,8 @@ public void toMainView (Hero first,Hero second) {
 				usingHeroPower=null;
 				attackingWithMinonHero=null;
 				model.getCurrentHero().endTurn();
+				if(agent!=null)
+					agent.playTurn();
 				updateView();
 			} catch (FullHandException | CloneNotSupportedException e1)
 			{
@@ -558,8 +560,8 @@ public void updateField()
 
 public void updateView()
 {
-	name1.setText(this.firstPlayerName +"   Total: "+this.firstPlayerHero.getTotalManaCrystals() );
-	name2.setText(this.secondPlayerName+"   Total: "+this.firstPlayerHero.getTotalManaCrystals());
+//	name1.setText(this.firstPlayerName +"   Total: "+this.firstPlayerHero.getTotalManaCrystals() );
+//	name2.setText(this.secondPlayerName+"   Total: "+this.firstPlayerHero.getTotalManaCrystals());
 	firstInfo.setText("Health : "+ this.getFirstPlayerHero().getCurrentHP() +'\n'+"   Mana : "+this.getFirstPlayerHero().getCurrentManaCrystals());
 	 secondInfo.setText("Health : "+ this.getSecondPlayerHero().getCurrentHP() +'\n'+"   Mana : "+this.getSecondPlayerHero().getCurrentManaCrystals());
 	updateField();
