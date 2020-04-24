@@ -557,7 +557,7 @@ public Hero cloneHero(Hero hero) throws IOException, CloneNotSupportedException
  int heroState(Hero hero)
 {
 	int state=0;
-	state+=hero.getCurrentHP();
+	state+=hero.getCurrentHP()*5;
 	
 	for(Minion minion : hero.getField())
 	{
@@ -566,6 +566,7 @@ public Hero cloneHero(Hero hero) throws IOException, CloneNotSupportedException
 		if(minion.isTaunt())
 			state+=5;
 		state+=minion.getAttack();
+		state+=minion.getCurrentHP();
 		switch (minion.getName())
 		{
 		case "Chrommagus":
@@ -614,8 +615,20 @@ private void playMove(HearthstoneMove move)
 
  void playTurnMoves(ArrayList<HearthstoneMove> moves)
 {
+	for(HearthstoneMove move : moves)
+	{
+		if(move instanceof ManaCostingMove)
+			{
+			playMove((HearthstoneMove)move);
+			}		
+	
+	}
 	for (HearthstoneMove hearthstoneMove : moves)
 	{
+		if(hearthstoneMove instanceof ManaCostingMove)
+		{
+			continue;
+		}
 		playMove(hearthstoneMove);
 	}
 }

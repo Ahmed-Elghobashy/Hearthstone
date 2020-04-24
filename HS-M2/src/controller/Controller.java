@@ -474,6 +474,7 @@ public void updateHand()
 			 minionButton.setPreferredSize(new Dimension(109,150));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
+			 minionButton.addMouseListener(new InfoListener(this));
 				 minionButton.setIcon(images(i));
 				 minionButton.setBorder(BorderFactory.createEmptyBorder());
 				    minionButton.setContentAreaFilled(false);
@@ -486,6 +487,7 @@ public void updateHand()
 		    SpellButtonListener listener  = new SpellButtonListener(this);
 			spellButton.setPreferredSize(new Dimension(109,150));
 		    spellButton.addActionListener(listener);
+		    spellButton.addMouseListener(new InfoListener(this));
 		    spellButton.setIcon(images(i));
 		    spellButton.setBorder(BorderFactory.createEmptyBorder());
 		    spellButton.setContentAreaFilled(false);
@@ -505,6 +507,7 @@ public void updateHand()
 			 minionButton.setPreferredSize(new Dimension(109,150));
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
+			 minionButton.addMouseListener(new InfoListener(this));
 			 minionButton.setIcon(images(i));
 			    minionButton.setBorder(BorderFactory.createEmptyBorder());
 			    minionButton.setContentAreaFilled(false);
@@ -515,6 +518,7 @@ public void updateHand()
 		 SpellButton spellButton = new SpellButton((Spell) i,secondPlayerHero,this);
 		 spellButton.setPreferredSize(new Dimension(109,150));
 		 SpellButtonListener listener  = new SpellButtonListener(this);
+		 spellButton.addMouseListener(new InfoListener(this));
 		 spellButton.addActionListener(listener);
 		 spellButton.setIcon(images(i));
 		    spellButton.setBorder(BorderFactory.createEmptyBorder());
@@ -545,6 +549,7 @@ public void updateField()
 		button.setPreferredSize(new Dimension(110,150));
 		MinionButtonListener listener = new MinionButtonListener(this);
 		button.addActionListener(listener);
+		button.addMouseListener(new InfoListener(this));
 		firstHeroField.add(button);
 			 button.setIcon(images(minion));
 	    button.setBorder(BorderFactory.createEmptyBorder());
@@ -557,8 +562,9 @@ public void updateField()
 		MinionButton button = new MinionButton(minion, secondPlayerHero, this, true);
 		button.setPreferredSize(new Dimension(110,150));
 		MinionButtonListener listener = new MinionButtonListener(this);
+		button.addMouseListener(new InfoListener(this));
 		button.addActionListener(listener);
-			 button.setIcon(images(minion));
+		button.setIcon(images(minion));
 	    button.setBorder(BorderFactory.createEmptyBorder());
 	    button.setContentAreaFilled(false);
 		view.getSecondHeroField().add(button);
