@@ -9,7 +9,7 @@ import model.cards.spells.SealOfChampions;
 import model.cards.spells.Spell;
 import model.heroes.Hero;
 
-public class SpellMove extends HearthstoneMove
+public class SpellMove extends HearthstoneMove implements ManaCostingMove
 {
   private Spell spell;
   private Minion attackedMinion;
