@@ -536,6 +536,7 @@ public Hero cloneHero(Hero hero) throws IOException, CloneNotSupportedException
 	retHero.setCurrentHP(hero.getCurrentHP());
 	retHero.setCurrentManaCrystals(hero.getCurrentManaCrystals());
 	retHero.setTotalManaCrystals(hero.getTotalManaCrystals());
+	retHero.setHeroPowerUsed(hero.isHeroPowerUsed());
 	
 	return retHero;
 }
@@ -617,9 +618,14 @@ private void playMove(HearthstoneMove move)
 {
 	for(HearthstoneMove move : moves)
 	{
+		if(move instanceof UseHeroPowerMove &&agentHero.isHeroPowerUsed())
+		{
+			continue;
+		}
 		if(move instanceof ManaCostingMove)
 			{
-			playMove((HearthstoneMove)move);
+			if(((ManaCostingMove) move).getManaCost() <=agentHero.getCurrentManaCrystals())
+			 playMove(move);
 			}		
 	
 	}
@@ -629,7 +635,12 @@ private void playMove(HearthstoneMove move)
 		{
 			continue;
 		}
-		playMove(hearthstoneMove);
+		else {
+			MinionMove minionMove = (MinionMove) hearthstoneMove;
+			if(!minionMove.getAttackingMinion().isAttacked())
+				playMove(hearthstoneMove);
+		}
+		
 	}
 }
 
