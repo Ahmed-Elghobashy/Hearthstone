@@ -37,6 +37,7 @@ public class View extends JFrame
   private JPanel secondHeroField;
   private JPanel firstHeroHand;
   private JPanel secondHeroHand;
+  private MainMenuPanel mainmMenu;
   private JPanel buttons;
   private JPanel infoArea;
   private JLabel cardsLeft;
@@ -47,9 +48,11 @@ public class View extends JFrame
   @SuppressWarnings("static-access")
 public View(Controller controller) 
   {
-	  chooseHeroView = new ChooseFirstHeroView(this);
-	  this.getContentPane().add(chooseHeroView);
-	  currentPanel=chooseHeroView;
+//	  chooseHeroView = new ChooseFirstHeroView(this);
+	  mainmMenu = new MainMenuPanel(); 
+	  this.getContentPane().removeAll();
+	  this.getContentPane().add(mainmMenu);
+	  currentPanel=mainmMenu;
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	  this.setExtendedState(this.MAXIMIZED_BOTH);
 	  this.setResizable(false);
@@ -58,6 +61,14 @@ public View(Controller controller)
 	  
 	  this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
 	  this.controller=controller;
+  }
+  
+  public void goToChooseFirstHero()
+  {
+	  chooseHeroView = new ChooseFirstHeroView(this);
+	  this.getContentPane().removeAll();
+	  this.getContentPane().add(chooseHeroView);
+	  currentPanel=chooseHeroView;
   }
   
   public void goToGameView(Hero first,Hero second ) throws IOException 
@@ -326,5 +337,15 @@ public JPanel getSecondHero() {
 
 public void setSecondHero(JPanel secondHero) {
 	this.secondHero = secondHero;
+}
+
+public MainMenuPanel getMainmMenu()
+{
+	return mainmMenu;
+}
+
+public void setMainmMenu(MainMenuPanel mainmMenu)
+{
+	this.mainmMenu = mainmMenu;
 }
 }

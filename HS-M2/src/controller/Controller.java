@@ -11,9 +11,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,6 +42,7 @@ import model.heroes.Mage;
 import model.heroes.Paladin;
 import model.heroes.Priest;
 import model.heroes.Warlock;
+import view.Background;
 import view.View;
 
 public class Controller implements GameListener
@@ -50,14 +58,21 @@ public class Controller implements GameListener
  private String secondPlayerName;
  private ArrayList<JButton> firstHeroHandCards;
  private ArrayList<JButton> secondHeroHandCards;
- private ArrayList <MinionButton> firstHeroField;
- private ArrayList <MinionButton> secondHeroField;
  private Hero usingHeroPower;
  private Agent agent;
+ private int gameMode;
  private JLabel firstInfo;
  private JLabel secondInfo;
  private JLabel name1;
  private JLabel name2;
+ private Clip backgroundClip;
+ private float backGroundMusic=0.8f;
+ private Clip sfxClip;
+ private double sfxSound=1.0f;
+ static final int MULTY_MODE=0;
+ static final int AI_MODE_EASY=1;
+ static final int AI_MODE_MEDIUM=3;
+ static final int AI_MODE_HARD=10;
 
 
   public Hero getAttackingWithMinonHero()
@@ -102,17 +117,148 @@ public void setAttackingMinion(Minion attackingMinion)
 
 public Controller() 
  {
-	 try
-	{
-		 view = new View(this);
-		 choosingFirstHeroButtons();
-		 firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ","Player 1");
-	} catch (IOException | CloneNotSupportedException e)
-	{
-		JOptionPane.showMessageDialog(view.getCurrentPanel(),"Error happened  while starting the game");
-	}
+	 playBackgroundMusic();
+	 view = new View(this);
+	 getMainMenuButtons();
+	
  }
 
+public void getMainMenuButtons()
+{
+	JButton multyPlayerButton = new JButton();
+	multyPlayerButton.setSize(new Dimension(100,300));
+	multyPlayerButton.setIcon(new ImageIcon("buttons/multy_player.png"));
+	multyPlayerButton.setBorder(null);
+	multyPlayerButton.setBorderPainted(false);
+	multyPlayerButton.addActionListener(new ActionListener()
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			gameMode = Controller.MULTY_MODE;
+			playSfx("sounds/button_click.wav");
+			view.goToChooseFirstHero();
+			try
+			{
+				choosingFirstHeroButtons();
+				firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ","Player 1");
+			} catch (IOException | CloneNotSupportedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	});
+	
+	JButton singlePlayerButton = new JButton();
+	singlePlayerButton.setSize(new Dimension(100,300));
+	singlePlayerButton.setIcon(new ImageIcon("buttons/single_player.png"));
+	singlePlayerButton.setBorder(null);
+	singlePlayerButton.setBorderPainted(false);
+	singlePlayerButton.addActionListener(new ActionListener()
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			playSfx("sounds/button_click.wav");
+			chooseDifficulty();
+		}
+	});
+	
+	view.getMainmMenu().add(singlePlayerButton,BorderLayout.NORTH);
+	view.getMainmMenu().add(multyPlayerButton);
+	view.revalidate();
+	view.repaint();
+	
+}
+
+public void chooseDifficulty()
+{
+	view.getCurrentPanel().removeAll();
+	JButton easyButton = new JButton();
+	easyButton.setIcon(new ImageIcon("buttons/easy.png"));
+	easyButton.setSize(100, 300);
+	easyButton.addActionListener(new ActionListener()
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			gameMode=Controller.AI_MODE_EASY;
+			playSfx("sounds/button_click.wav");
+			view.goToChooseFirstHero();
+			try
+			{
+				choosingFirstHeroButtons();
+				firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ","Player 1");
+			} catch (IOException | CloneNotSupportedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	});
+	JButton mediumButton = new JButton();
+	mediumButton.setSize(100,300);
+	mediumButton.setIcon(new ImageIcon("buttons/medium.png"));
+	mediumButton.setBorder(null);
+	mediumButton.setBorderPainted(false);
+	mediumButton.addActionListener(new ActionListener()
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			gameMode=Controller.AI_MODE_MEDIUM;
+			playSfx("sounds/button_click.wav");
+			view.goToChooseFirstHero();
+			try
+			{
+				choosingFirstHeroButtons();
+				firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ","Player 1");
+			} catch (IOException | CloneNotSupportedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	});
+	JButton hardButton = new JButton();
+	hardButton.setIcon(new ImageIcon("buttons/hard.png"));
+	hardButton.setBorder(null);
+	hardButton.setBorderPainted(false);
+	hardButton.addActionListener(new ActionListener()
+	{
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			gameMode=Controller.AI_MODE_HARD;
+			playSfx("sounds/button_click.wav");
+			view.goToChooseFirstHero();
+			try
+			{
+				choosingFirstHeroButtons();
+				firstPlayerName  = JOptionPane.showInputDialog(view.getCurrentPanel(), "Please enter your name : ","Player 1");
+			} catch (IOException | CloneNotSupportedException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	});
+	view.getCurrentPanel().add(easyButton);
+	view.getCurrentPanel().add(mediumButton);
+	view.getCurrentPanel().add(hardButton);
+	view.revalidate();
+	view.repaint();
+}
 
 public String getFirstPlayerName()
 {
@@ -352,6 +498,7 @@ public static void main(String[] args)
 	new Controller();
 }
 public void toMainView (Hero first,Hero second) {
+	model=null;
 	try {
 		
 		view.goToGameView(first, second);
@@ -361,10 +508,6 @@ public void toMainView (Hero first,Hero second) {
 	}
 	try {
 		model=new Game (first,second);
-		if(true)
-			agent = new Agent(model, this);
-		if(model.getCurrentHero()==secondPlayerHero && agent!=null)
-			agent.playTurn();
 		model.setListener(this);
 	} catch (FullHandException | CloneNotSupportedException e) {
 		JOptionPane.showMessageDialog(this.getView(), e.getMessage());
@@ -442,6 +585,12 @@ public void toMainView (Hero first,Hero second) {
 //		}
 //	});
 	 endTurn.addActionListener((new endTurnListener(this)));
+	 if(gameMode!=MULTY_MODE)
+	 {	 
+			agent = new Agent(model, this);
+		if(model.getCurrentHero()==secondPlayerHero && agent!=null)
+			agent.playTurn();
+	 }	
 	 view.getButtons().add(power2);
 	 view.getButtons().add(endTurn);
 	 view.getButtons().add(power1);	 
@@ -475,9 +624,10 @@ public void updateHand()
 			 MinionButtonListener listener = new MinionButtonListener(this);
 			 minionButton.addActionListener(listener);
 			 minionButton.addMouseListener(new InfoListener(this));
-				 minionButton.setIcon(images(i));
-				 minionButton.setBorder(BorderFactory.createEmptyBorder());
-				    minionButton.setContentAreaFilled(false);
+			 minionButton.setIcon(images(i));
+			 minionButton.setDisabledIcon(new ImageIcon("images/cardback.png"));
+			 minionButton.setBorder(BorderFactory.createEmptyBorder());
+			 minionButton.setContentAreaFilled(false);
 			 this.firstHeroHandCards.add(minionButton);
 			 
 		 }
@@ -489,6 +639,7 @@ public void updateHand()
 		    spellButton.addActionListener(listener);
 		    spellButton.addMouseListener(new InfoListener(this));
 		    spellButton.setIcon(images(i));
+		    spellButton.setDisabledIcon(new ImageIcon("images/cardback.png"));
 		    spellButton.setBorder(BorderFactory.createEmptyBorder());
 		    spellButton.setContentAreaFilled(false);
 		    this.firstHeroHandCards.add(spellButton);
@@ -496,6 +647,8 @@ public void updateHand()
 		 }
 	 }
 	 for(JButton i:this.firstHeroHandCards) {
+		 if(model.getCurrentHero()!=firstPlayerHero)
+			 i.setEnabled(false);
 		 view.getFirstHeroHand().add(i);
 	 }
 	  n=1;
@@ -509,8 +662,9 @@ public void updateHand()
 			 minionButton.addActionListener(listener);
 			 minionButton.addMouseListener(new InfoListener(this));
 			 minionButton.setIcon(images(i));
-			    minionButton.setBorder(BorderFactory.createEmptyBorder());
-			    minionButton.setContentAreaFilled(false);
+			 minionButton.setDisabledIcon(new ImageIcon("images/cardback.png"));
+			 minionButton.setBorder(BorderFactory.createEmptyBorder());
+			 minionButton.setContentAreaFilled(false);
 			 this.secondHeroHandCards.add(minionButton);
 		 }
 		 else
@@ -521,14 +675,17 @@ public void updateHand()
 		 spellButton.addMouseListener(new InfoListener(this));
 		 spellButton.addActionListener(listener);
 		 spellButton.setIcon(images(i));
-		    spellButton.setBorder(BorderFactory.createEmptyBorder());
-		    spellButton.setContentAreaFilled(false);
+		 spellButton.setDisabledIcon(new ImageIcon("images/cardback.png"));
+		 spellButton.setBorder(BorderFactory.createEmptyBorder());
+		 spellButton.setContentAreaFilled(false);
 		 this.secondHeroHandCards.add(spellButton);
 
 		 
 		 }
 	 }
 	 for(JButton i:this.secondHeroHandCards) {
+		 if(model.getCurrentHero()!=secondPlayerHero)
+			 i.setEnabled(false);
 		 view.getSecondHeroHand().add(i);
 	 }
 	 view.revalidate();
@@ -541,8 +698,6 @@ public void updateField()
 	Hero second = secondPlayerHero;
 	view.getFirstHeroField().removeAll();
 	view.getSecondHeroField().removeAll();
-	firstHeroField = new ArrayList<MinionButton>();
-	secondHeroField = new ArrayList<MinionButton>();
 	for (Minion minion : first.getField())
 	{
 		MinionButton button = new MinionButton(minion, firstPlayerHero, this, true);
@@ -550,8 +705,7 @@ public void updateField()
 		MinionButtonListener listener = new MinionButtonListener(this);
 		button.addActionListener(listener);
 		button.addMouseListener(new InfoListener(this));
-		firstHeroField.add(button);
-			 button.setIcon(images(minion));
+		button.setIcon(images(minion));
 	    button.setBorder(BorderFactory.createEmptyBorder());
 	    button.setContentAreaFilled(false);
 		view.getFirstHeroField().add(button);
@@ -702,6 +856,57 @@ public static ImageIcon chooseHeroImage(Hero h) {
 		return(new ImageIcon("images/priest2.png"));
 	}
 return null;
+}
+
+public int getGameMode()
+{
+	return gameMode;
+}
+
+public void setGameMode(int gameMode)
+{
+	this.gameMode = gameMode;
+}
+
+public void playBackgroundMusic()
+{
+	File musicFile = new File("sounds/Game_of_Thrones.wav");
+	try
+	{
+		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicFile);
+		backgroundClip = AudioSystem.getClip();
+		backgroundClip.open(audioInput);
+		FloatControl gainControl = (FloatControl) backgroundClip.getControl(FloatControl.Type.MASTER_GAIN);
+		float range = gainControl.getMaximum() - gainControl.getMinimum();
+		float gain = (range * backGroundMusic) + gainControl.getMinimum();
+		gainControl.setValue(gain);
+		// Reduce volume by 10 decibels.
+
+		backgroundClip.start(); 
+		backgroundClip.loop(Clip.LOOP_CONTINUOUSLY);
+	} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
+	{
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
+
+public void playSfx(String filePath)
+{
+	File musicFile = new File(filePath);
+	try
+	{
+		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicFile);
+		sfxClip = AudioSystem.getClip();
+		sfxClip.open(audioInput);
+		sfxClip.start(); 
+		
+	} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
+	{
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
  
 }

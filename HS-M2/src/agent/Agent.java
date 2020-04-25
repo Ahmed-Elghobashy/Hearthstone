@@ -49,7 +49,7 @@ public Agent(Game model, Controller controller)
 	agentHero = controller.getSecondPlayerHero();
 	opponentHero=controller.getFirstPlayerHero();
 	isMaximizing= true;
-	maxDepth=3;
+	maxDepth=controller.getGameMode();
 } 
 public Agent(Game model, Controller controller,Hero hero,boolean isMaximizing)
 {
@@ -61,7 +61,7 @@ public Agent(Game model, Controller controller,Hero hero,boolean isMaximizing)
 	else
 		 opponentHero=controller.getFirstPlayerHero();
 	this.isMaximizing=isMaximizing;
-	maxDepth=3;
+	maxDepth=controller.getGameMode();
 }
 
 public Controller getController()
@@ -165,6 +165,10 @@ private void generateAllPossibleSpellMoves()
 		if(card instanceof Spell)
 		{
 			Spell spell = (Spell) card;
+			if(spell.getManaCost()>agentHero.getCurrentManaCrystals())
+			{
+				continue;
+			}
 			if(card instanceof MinionTargetSpell || card instanceof LeechingSpell)
 				if(!isPositive(spell))
 					for (Minion minion : opponentHero.getField())
@@ -307,7 +311,7 @@ void generatingAllManaCostingMoves()
 	allManaCostingMoves.addAll(allPossibleSpellMoves);
 	allManaCostingMoves.addAll(generateUseHeroPowerMoves());
 	for (Card card : agentHero.getHand())
-		if(card instanceof Minion)
+		if(card instanceof Minion && card.getManaCost()<=agentHero.getCurrentManaCrystals())
 			allManaCostingMoves.add(new PlayMinionMove((Minion) card, agentHero));
 	
 	
