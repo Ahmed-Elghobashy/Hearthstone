@@ -29,7 +29,7 @@ public ChooseHeroButtonListener(Controller controller)
 				chosen =button;
 				//button.setPressedIcon(pressedIcon);
 		  // Here we are checking if the button which was clicked on is a hero 
-		  button.setBorder(new LineBorder(Color.RED,3));
+		  button.setBorder(new LineBorder(new Color(255,215,0)));
 		  int playerNumber = button.getPlayernumber();
 		  if(playerNumber==1)
 		  {

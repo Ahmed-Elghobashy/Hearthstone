@@ -1,8 +1,10 @@
 package controller;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -28,6 +30,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 import agent.Agent;
 import engine.Game;
@@ -43,6 +47,7 @@ import model.heroes.Paladin;
 import model.heroes.Priest;
 import model.heroes.Warlock;
 import view.Background;
+import view.MainMenuPanel;
 import view.View;
 
 public class Controller implements GameListener
@@ -61,6 +66,8 @@ public class Controller implements GameListener
  private Hero usingHeroPower;
  private Agent agent;
  private int gameMode;
+ private JPanel firstHero;
+ private JPanel secondHero;
  private JLabel firstInfo;
  private JLabel secondInfo;
  private JLabel name1;
@@ -69,6 +76,7 @@ public class Controller implements GameListener
  private float backGroundMusic=0.8f;
  private Clip sfxClip;
  private double sfxSound=1.0f;
+ private JPanel buttons;
  static final int MULTY_MODE=0;
  static final int AI_MODE_EASY=1;
  static final int AI_MODE_MEDIUM=3;
@@ -125,10 +133,15 @@ public Controller()
 
 public void getMainMenuButtons()
 {
+	JLabel logo=new JLabel(new ImageIcon("buttons/logo.png"));
 	JButton multyPlayerButton = new JButton();
-	multyPlayerButton.setSize(new Dimension(100,300));
-	multyPlayerButton.setIcon(new ImageIcon("buttons/multy_player.png"));
-	multyPlayerButton.setBorder(null);
+	 buttons= new JPanel(new GridLayout(4,0));
+	multyPlayerButton.setSize(new Dimension(550,100));
+	buttons.setBorder(BorderFactory.createEmptyBorder());
+	buttons.setOpaque(false);
+	multyPlayerButton.setIcon(new ImageIcon("buttons/multi9.png"));
+	multyPlayerButton.setBorder(BorderFactory.createEmptyBorder());
+	multyPlayerButton.setContentAreaFilled(false);
 	multyPlayerButton.setBorderPainted(false);
 	multyPlayerButton.addActionListener(new ActionListener()
 	{
@@ -153,9 +166,10 @@ public void getMainMenuButtons()
 	});
 	
 	JButton singlePlayerButton = new JButton();
-	singlePlayerButton.setSize(new Dimension(100,300));
-	singlePlayerButton.setIcon(new ImageIcon("buttons/single_player.png"));
-	singlePlayerButton.setBorder(null);
+	singlePlayerButton.setSize(new Dimension(550,100));
+	singlePlayerButton.setIcon(new ImageIcon("buttons/single9.png"));
+	singlePlayerButton.setBorder(BorderFactory.createEmptyBorder());
+	singlePlayerButton.setContentAreaFilled(false);
 	singlePlayerButton.setBorderPainted(false);
 	singlePlayerButton.addActionListener(new ActionListener()
 	{
@@ -167,9 +181,10 @@ public void getMainMenuButtons()
 			chooseDifficulty();
 		}
 	});
-	
-	view.getMainmMenu().add(singlePlayerButton,BorderLayout.NORTH);
-	view.getMainmMenu().add(multyPlayerButton);
+	view.getMainmMenu().add(logo);
+	buttons.add(singlePlayerButton);
+	buttons.add(multyPlayerButton);
+	view.getMainmMenu().add(buttons);
 	view.revalidate();
 	view.repaint();
 	
@@ -177,10 +192,15 @@ public void getMainMenuButtons()
 
 public void chooseDifficulty()
 {
-	view.getCurrentPanel().removeAll();
+	buttons.removeAll();
+	
+	JLabel logo=new JLabel(new ImageIcon("buttons/logo.png"));
+	
 	JButton easyButton = new JButton();
-	easyButton.setIcon(new ImageIcon("buttons/easy.png"));
-	easyButton.setSize(100, 300);
+	easyButton.setBorder(BorderFactory.createEmptyBorder());
+	easyButton.setContentAreaFilled(false);
+	easyButton.setIcon(new ImageIcon("buttons/easy1.png"));
+	easyButton.setSize(550, 110);
 	easyButton.addActionListener(new ActionListener()
 	{
 		
@@ -203,8 +223,10 @@ public void chooseDifficulty()
 		}
 	});
 	JButton mediumButton = new JButton();
-	mediumButton.setSize(100,300);
-	mediumButton.setIcon(new ImageIcon("buttons/medium.png"));
+	mediumButton.setBorder(BorderFactory.createEmptyBorder());
+	mediumButton.setContentAreaFilled(false);
+	mediumButton.setSize(550,110);
+	mediumButton.setIcon(new ImageIcon("buttons/medium1.png"));
 	mediumButton.setBorder(null);
 	mediumButton.setBorderPainted(false);
 	mediumButton.addActionListener(new ActionListener()
@@ -229,7 +251,10 @@ public void chooseDifficulty()
 		}
 	});
 	JButton hardButton = new JButton();
-	hardButton.setIcon(new ImageIcon("buttons/hard.png"));
+	hardButton.setBorder(BorderFactory.createEmptyBorder());
+	hardButton.setContentAreaFilled(false);
+	hardButton.setIcon(new ImageIcon("buttons/hard1.png"));
+	hardButton.setSize(550,110);
 	hardButton.setBorder(null);
 	hardButton.setBorderPainted(false);
 	hardButton.addActionListener(new ActionListener()
@@ -253,9 +278,9 @@ public void chooseDifficulty()
 			
 		}
 	});
-	view.getCurrentPanel().add(easyButton);
-	view.getCurrentPanel().add(mediumButton);
-	view.getCurrentPanel().add(hardButton);
+	buttons.add(easyButton);
+	buttons.add(mediumButton);
+	buttons.add(hardButton);
 	view.revalidate();
 	view.repaint();
 }
@@ -375,41 +400,48 @@ public void choosingFirstHeroButtons() throws IOException, CloneNotSupportedExce
 
     	if(heroButton.getHero() instanceof Paladin)
     	{
-    		heroButton.setIcon(new ImageIcon("images/paladin.png"));
+    		heroButton.setIcon(new ImageIcon("images/paladinh.png"));
     	}
     	if(heroButton.getHero() instanceof Mage)
     	{
-    		heroButton.setIcon(new ImageIcon("images/mage.png"));
+    		heroButton.setIcon(new ImageIcon("images/magehhh.png"));
     	}
     	if(heroButton.getHero() instanceof Warlock)
     	{
-    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
+    		heroButton.setIcon(new ImageIcon("images/warlockh.png"));
     	}
     	
     	if(heroButton.getHero() instanceof Hunter)
     	{
-    		heroButton.setIcon(new ImageIcon("images/hunter.png"));
+    		heroButton.setIcon(new ImageIcon("images/hunterh.png"));
     	}
     	if(heroButton.getHero() instanceof Priest)
     	{
-    		heroButton.setIcon(new ImageIcon("images/priest.png"));
+    		heroButton.setIcon(new ImageIcon("images/priesth.png"));
     	}
  
 		heroButton.addActionListener(heroButtonListener);
 	}
     
 	JButton confirmButton = new JButton();
+	confirmButton.setPreferredSize(new Dimension(400,140));
+	confirmButton.setBorder(BorderFactory.createEmptyBorder());
+	confirmButton.setContentAreaFilled(false);
+
+	confirmButton.setIcon(new ImageIcon("images/choose2.png"));
 	ConfirmFirstButtonListener confirmFirstButtonListener = new ConfirmFirstButtonListener(this);
 	confirmButton.addActionListener(confirmFirstButtonListener);
-	confirmButton.add(new JLabel("Confirm"));
-	
+
+	JPanel heros =new JPanel();
+	heros.setOpaque(false);
 	for (ChooseHeroButton heroButton : firstPlayerHeroes)
 	{
-		view.getChooseHeroView().add(heroButton);
+		heros.add(heroButton);
 	}
-	
-
-	view.getCurrentPanel().add(confirmButton);
+	JLabel logol =new JLabel(new ImageIcon("buttons/test6.png"));
+	view.getCurrentPanel().add(logol,BorderLayout.NORTH);
+	view.getCurrentPanel().add(heros,BorderLayout.CENTER);
+	view.getCurrentPanel().add(confirmButton,BorderLayout.SOUTH);
 	view.revalidate();
 	view.repaint();
 	
@@ -438,41 +470,51 @@ public void choosingSecondHeroButtons() throws IOException, CloneNotSupportedExc
 
     	if(heroButton.getHero() instanceof Paladin)
     	{
-    		heroButton.setIcon(new ImageIcon("images/paladin.png"));
+    		heroButton.setIcon(new ImageIcon("images/paladinh.png"));
     	}
     	if(heroButton.getHero() instanceof Mage)
     	{
-    		heroButton.setIcon(new ImageIcon("images/mage.png"));
+    		heroButton.setIcon(new ImageIcon("images/magehhh.png"));
     	}
     	if(heroButton.getHero() instanceof Warlock)
     	{
-    		heroButton.setIcon(new ImageIcon("images/warlock.png"));
+    		heroButton.setIcon(new ImageIcon("images/warlockh.png"));
     	}
     	
     	if(heroButton.getHero() instanceof Hunter)
     	{
-    		heroButton.setIcon(new ImageIcon("images/hunter.png"));
+    		heroButton.setIcon(new ImageIcon("images/hunterh.png"));
     	}
     	if(heroButton.getHero() instanceof Priest)
     	{
-    		heroButton.setIcon(new ImageIcon("images/priest.png"));
+    		heroButton.setIcon(new ImageIcon("images/priesth.png"));
     	}
     	
 		heroButton.addActionListener(heroButtonListener);
 	}
     
 	JButton confirmButton = new JButton();
+	confirmButton.setPreferredSize(new Dimension(400,140));
+	confirmButton.setBorder(BorderFactory.createEmptyBorder());
+	confirmButton.setContentAreaFilled(false);
+
+	confirmButton.setIcon(new ImageIcon("buttons/choose.png"));
 	ConfirmSecondButtonListener confirmSecondButtonListener = new ConfirmSecondButtonListener(this);
 	confirmButton.addActionListener(confirmSecondButtonListener);
-	confirmButton.add(new JLabel("Confirm"));
+	
+	JPanel heros =new JPanel();
+	heros.setOpaque(false);
 	
 	for (ChooseHeroButton heroButton : secondPlayerHeroes)
 	{
-		view.getSecondHeroView().add(heroButton);
+		heros.add(heroButton);
 	}
 	
 
-	view.getCurrentPanel().add(confirmButton);
+	JLabel logol =new JLabel(new ImageIcon("buttons/test6.png"));
+	view.getCurrentPanel().add(logol,BorderLayout.NORTH);
+	view.getCurrentPanel().add(heros,BorderLayout.CENTER);
+	view.getCurrentPanel().add(confirmButton,BorderLayout.SOUTH);
 	view.revalidate();
 	view.repaint();
 }
@@ -517,15 +559,19 @@ public void toMainView (Hero first,Hero second) {
 	if(this.getSecondPlayerName()==null||this.getFirstPlayerName().equals(""))
 		this.setSecondPlayerName("Guest");
 
-	JPanel firstHero=new JPanel(new BorderLayout());
-	JPanel secondHero=new JPanel(new BorderLayout());
+	 firstHero=new JPanel(new BorderLayout());
+     secondHero=new JPanel(new BorderLayout());
 	firstHero.setOpaque(false);
 	secondHero.setOpaque(false);
 	firstInfo=new JLabel("Health : "+ first.getCurrentHP() +'\n'+"   Mana : "+first.getCurrentManaCrystals());
 	 secondInfo=new JLabel("Health : "+ second.getCurrentHP() +'\n'+"   Mana : "+second.getCurrentManaCrystals());
 	  name1=new JLabel(this.firstPlayerName +"   Total: "+this.firstPlayerHero.getTotalManaCrystals() );
 	  name2=new JLabel(this.secondPlayerName+"   Total: "+this.firstPlayerHero.getTotalManaCrystals());
-	 HeroButton firstHeroImage=new HeroButton(first,this);
+	firstInfo.setForeground(Color.WHITE);
+	secondInfo.setForeground(Color.WHITE);
+	name1.setForeground(Color.WHITE);
+	name2.setForeground(Color.WHITE);
+	  HeroButton firstHeroImage=new HeroButton(first,this);
 	 HeroButton secondHeroImage=new HeroButton(second,this);
 	 HeroButtonListener l=new HeroButtonListener();
 	 secondHeroImage.addActionListener(l);
@@ -731,11 +777,20 @@ public void updateField()
 
 public void updateView()
 {
-//	name1.setText(this.firstPlayerName +"   Total: "+this.firstPlayerHero.getTotalManaCrystals() );
-//	name2.setText(this.secondPlayerName+"   Total: "+this.firstPlayerHero.getTotalManaCrystals());
-//	firstInfo.setText("Health : "+ this.getFirstPlayerHero().getCurrentHP() +'\n'+"   Mana : "+this.getFirstPlayerHero().getCurrentManaCrystals());
-//	 secondInfo.setText("Health : "+ this.getSecondPlayerHero().getCurrentHP() +'\n'+"   Mana : "+this.getSecondPlayerHero().getCurrentManaCrystals());
+	name1.setText(this.firstPlayerName +"   Total: "+this.firstPlayerHero.getTotalManaCrystals() );
+	name2.setText(this.secondPlayerName+"   Total: "+this.firstPlayerHero.getTotalManaCrystals());
+	firstInfo.setText("Health : "+ this.getFirstPlayerHero().getCurrentHP() +'\n'+"   Mana : "+this.getFirstPlayerHero().getCurrentManaCrystals());
+	 secondInfo.setText("Health : "+ this.getSecondPlayerHero().getCurrentHP() +'\n'+"   Mana : "+this.getSecondPlayerHero().getCurrentManaCrystals());
 	updateField();
+	/*if(this.model.getCurrentHero()==this.firstPlayerHero)
+		this.firstHero.setBorder(new MatteBorder(0,0,2,0,new Color(255,215,0)));
+	else
+		this.firstHero.setBorder(null);
+	if(this.model.getCurrentHero()==this.secondPlayerHero)
+		this.secondHero.setBorder(new MatteBorder(0,0,2,0,Color.BLACK));
+	else
+		this.secondHero.setBorder(null);*/
+	
 	updateHand();
 	view.revalidate();
     view.repaint();

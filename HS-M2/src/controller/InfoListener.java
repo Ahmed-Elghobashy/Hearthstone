@@ -37,6 +37,8 @@ public class InfoListener extends MouseAdapter  {
 		if(e.getSource() instanceof SpellButton|| e.getSource() instanceof MinionButton) {
 			controller.getView().getInfoArea().removeAll();
 			JButton button = (JButton)e.getSource();
+			if(!button.isEnabled())
+				return;
 			JLabel image=new JLabel();
 			JTextArea details=new JTextArea();
 		    details.setPreferredSize(new Dimension(300,100));

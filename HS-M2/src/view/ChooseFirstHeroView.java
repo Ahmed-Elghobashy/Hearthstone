@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -36,6 +37,7 @@ public class ChooseFirstHeroView extends JPanel {
 	public ChooseFirstHeroView(View frame) 
 	{
 		this.frame = frame;	
+		//this.setLayout(new BorderLayout());
 
 	}
 
@@ -45,7 +47,7 @@ public class ChooseFirstHeroView extends JPanel {
 	public void paintComponent(Graphics page)
 	{
 	    super.paintComponent(page);
-	    Image background = new ImageIcon("images/Background.jpg").getImage();
+	    Image background = new ImageIcon("images/Backgroundl.png").getImage();
 	    page.drawImage(background, 0, 0, null);
 	}
 

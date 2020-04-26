@@ -86,7 +86,7 @@ public class ChooseSecondHeroView extends JPanel implements ActionListener
 	public void paintComponent(Graphics page)
 	{
 	    super.paintComponent(page);
-	    Image background = new ImageIcon("images/Background.jpg").getImage();
+	    Image background = new ImageIcon("images/bckgroundg.png").getImage();
 	    page.drawImage(background, 0, 0, null);
 	}
 
