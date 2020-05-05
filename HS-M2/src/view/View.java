@@ -55,8 +55,8 @@ public View(Controller controller)
 	  currentPanel=mainmMenu;
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	  this.setExtendedState(this.MAXIMIZED_BOTH);
-	  this.setResizable(false);
-	  this.setUndecorated(true);
+	  this.setResizable(true);
+	  this.setUndecorated(false);
 	  this.setVisible(true);
 	  
 	  this.setIconImage(new ImageIcon("images/Background.jpg").getImage());

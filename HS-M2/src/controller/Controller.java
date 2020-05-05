@@ -973,6 +973,10 @@ public void playSfx(String filePath)
 	try
 	{
 		AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicFile);
+		if(sfxClip!=null)
+		{
+			sfxClip.close();
+		}
 		sfxClip = AudioSystem.getClip();
 		sfxClip.open(audioInput);
 		sfxClip.start(); 
