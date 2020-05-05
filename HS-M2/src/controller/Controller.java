@@ -3,7 +3,10 @@ package controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -558,7 +561,17 @@ public void toMainView (Hero first,Hero second) {
 		this.setFirstPlayerName("Guest");
 	if(this.getSecondPlayerName()==null||this.getFirstPlayerName().equals(""))
 		this.setSecondPlayerName("Guest");
-
+   Font font = null;
+	try {
+		 font= Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")).deriveFont(12f);
+        GraphicsEnvironment ge=	GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")));
+    
+    } catch (FontFormatException | IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    
 	 firstHero=new JPanel(new BorderLayout());
      secondHero=new JPanel(new BorderLayout());
 	firstHero.setOpaque(false);
@@ -569,6 +582,12 @@ public void toMainView (Hero first,Hero second) {
 	  name2=new JLabel(this.secondPlayerName+"   Total: "+this.firstPlayerHero.getTotalManaCrystals());
 	firstInfo.setForeground(Color.WHITE);
 	secondInfo.setForeground(Color.WHITE);
+	firstInfo.setFont(font);
+	secondInfo.setFont(font);
+	name1.setFont(font);
+	name2.setFont(font);
+	view.getCardsLeft().setFont(font);
+	view.getCardsLeft2().setFont(font);
 	name1.setForeground(Color.WHITE);
 	name2.setForeground(Color.WHITE);
 	  HeroButton firstHeroImage=new HeroButton(first,this);
@@ -590,7 +609,8 @@ public void toMainView (Hero first,Hero second) {
 	 firstHero.add(name1,BorderLayout.SOUTH);
 	 view.getFirstHero().add(firstHero,BorderLayout.CENTER);
 	 view.getSecondHero().add(secondHero,BorderLayout.CENTER);
-	 
+	 view.getCardsLeft().setForeground(Color.WHITE);
+	 view.getCardsLeft2().setForeground(Color.WHITE);
 	 UseHeroPowerListener listener = new UseHeroPowerListener(this); 
 	 HeroButton power1=new HeroButton(firstPlayerHero, this);
 	 HeroButton power2=new HeroButton(secondPlayerHero,this);
@@ -604,7 +624,7 @@ public void toMainView (Hero first,Hero second) {
 	 power1.addActionListener(listener);
 	 power2.addActionListener(listener);
 	 JButton endTurn=new JButton();
-	 endTurn.setIcon(new ImageIcon("images/end2.png"));
+	 endTurn.setIcon(new ImageIcon("images/end4.png"));
 	 endTurn.setBorder(BorderFactory.createEmptyBorder());
 	 endTurn.setContentAreaFilled(false);
 //	 endTurn.addActionListener(new ActionListener()

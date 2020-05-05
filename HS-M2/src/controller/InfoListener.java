@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -47,8 +51,8 @@ public class InfoListener extends MouseAdapter  {
 			Minion minion =((MinionButton) button).getMinion();
 			image.setIcon(imagesl(minion));
 		    
-		    details.setText("  Current health: "+ minion.getCurrentHP()+
-		    		           "    Max health: "+ minion.getMaxHP()+"\n"+"  Mana cost: " + minion.getManaCost() +"            Attack: " + minion.getAttack()+"\n"+
+		    details.setText("  Current HP : "+ minion.getCurrentHP()+
+		    		           "    Max HP : "+ minion.getMaxHP()+"\n"+"  Mana cost: " + minion.getManaCost() +"        Attack: " + minion.getAttack()+"\n"+
 		    		           "  Rarity: "+ minion.getRarity()+"\n");
 		    if(minion.isSleeping())
 				details.setText(details.getText()+"  Sleeping"+"                ");
@@ -60,9 +64,20 @@ public class InfoListener extends MouseAdapter  {
 			image.setIcon(imagesl(spell));
 			details.setText("  "+spellType(spell)+"\n"+"  Rarity : "+spell.getRarity()+"\n"+"  Mana Cost : "+spell.getManaCost());
 			}
+			 Font font = null;
+				try {
+					 font= Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")).deriveFont(15f);
+			        GraphicsEnvironment ge=	GraphicsEnvironment.getLocalGraphicsEnvironment();
+			        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")));
+			    
+			    } catch (FontFormatException | IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+			    
 		    
 		    details.setForeground(Color.WHITE);
-		    details.setFont(new Font("Aerial",Font.BOLD,15));
+		    details.setFont(font);
 			this.controller.getView().getInfoArea().add(image,BorderLayout.CENTER);
 			this.controller.getView().getInfoArea().add(details,BorderLayout.SOUTH);
 			this.controller.getView().revalidate();

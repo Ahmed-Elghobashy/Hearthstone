@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="images"/>
 	<classpathentry kind="src" path="sounds"/>
 	<classpathentry kind="src" path="buttons"/>
+	<classpathentry kind="src" path="font"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

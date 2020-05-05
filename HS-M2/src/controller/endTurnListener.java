@@ -3,7 +3,11 @@ package controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -23,8 +27,19 @@ public class endTurnListener extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		 Font font = null;
+			try {
+				 font= Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")).deriveFont(55f);
+		        GraphicsEnvironment ge=	GraphicsEnvironment.getLocalGraphicsEnvironment();
+		        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")));
+		    
+		    } catch (FontFormatException | IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		    
 		try
-		{
+		{	controller.playSfx("sounds/ends.wav");
 			controller.setAttackingMinion(null);
 			controller.setUsingHeroPower(null);
 			controller.setAttackingWithMinonHero(null);
@@ -43,8 +58,8 @@ public class endTurnListener extends AbstractAction {
 			ImageIcon image=imagesl(burned);
 			JLabel l=new JLabel(image);
 			JLabel b=new JLabel(" Burned");
-			 b.setFont(new Font("Aerial",Font.BOLD,60));
-			 b.setForeground(Color.MAGENTA);
+			 b.setFont(font);
+			 b.setForeground(Color.RED);
 			 controller.getView().getInfoArea().removeAll();
 			controller.getView().getInfoArea().add(l,BorderLayout.CENTER);
 			controller.getView().getInfoArea().add(b,BorderLayout.SOUTH);

@@ -40,6 +40,12 @@ public class HeroButtonListener extends AbstractAction
 				{
 					attackingHero.attackWithMinion(attackingMinionacking, hero);
 					controller.setAttackingMinion(null);
+					if(hero instanceof Mage)
+					controller.playSfx("sounds/magedeath2.wav");
+					else {if(hero instanceof Priest )
+						controller.playSfx("sounds/priestdeath.wav");
+					else  
+						controller.playSfx("sounds/death.wav");}
 					controller.setAttackingWithMinonHero(null);
 					controller.updateView();
 				} catch (CannotAttackException | NotYourTurnException | TauntBypassException | NotSummonedException

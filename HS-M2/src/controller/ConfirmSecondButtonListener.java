@@ -19,6 +19,8 @@ public class ConfirmSecondButtonListener extends AbstractAction
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton button = (JButton) e.getSource();
+		controller.playSfx("sounds/button_click.wav");
+
 		// here we are checking if the button clicked on is the confirm button
 		//Here we should do something that will take us to the other frame
 		if(controller.getSecondPlayerHero() == null )
