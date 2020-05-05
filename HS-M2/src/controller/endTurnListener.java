@@ -53,8 +53,9 @@ public class endTurnListener extends AbstractAction {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
 		}catch (FullHandException e1) {
-			JOptionPane.showMessageDialog(controller.getView(), e1.getMessage());
+			
 			Card burned=e1.getBurned();
+			JOptionPane.showMessageDialog(controller.getView(), e1.getMessage() + " \n card burned : " + burned.getName() + "\n mana cost : " + burned.getManaCost() + "\nrarity : " + burned.getRarity());
 			ImageIcon image=imagesl(burned);
 			JLabel l=new JLabel(image);
 			JLabel b=new JLabel(" Burned");
