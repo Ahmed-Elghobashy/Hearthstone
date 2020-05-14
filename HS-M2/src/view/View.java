@@ -173,7 +173,7 @@ public View(Controller controller)
 	  
 	  
 	  background.add(secondHero,BorderLayout.NORTH);
-	 
+	  currentPanel=background;
 	  this.add(background);
 	  this.revalidate();
 	  this.repaint();

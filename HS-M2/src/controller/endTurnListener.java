@@ -42,6 +42,7 @@ public class endTurnListener extends AbstractAction {
 		{	controller.playSfx("sounds/ends.wav");
 			controller.setAttackingMinion(null);
 			controller.setUsingHeroPower(null);
+			controller.setChosenSpell(null);
 			controller.setAttackingWithMinonHero(null);
 			controller.getModel().getCurrentHero().endTurn();
 			Agent agent = controller.getAgent();

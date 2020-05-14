@@ -312,49 +312,59 @@ public void setSecondPlayerName(String secondPlayerName)
 public void onGameOver()
 {
   
-  JFrame gameOverFrame = new JFrame();
-  gameOverFrame.setPreferredSize(new Dimension(200,300));
-  gameOverFrame.setSize(new Dimension(200,300));
-  gameOverFrame.setLocationRelativeTo(null);
-  gameOverFrame.toFront();
-  JButton ok = new JButton("OK");
-  ok.setPreferredSize(new Dimension(2,10));
-  ok.setSize(new Dimension(2,10));
-  ok.addActionListener(new ActionListener()
-{
-	
-	@Override
-	public void actionPerformed(ActionEvent e)
+	view.getCurrentPanel().removeAll();
+	  Font font = null;
+		try {
+			 font= Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")).deriveFont(65f);
+	        GraphicsEnvironment ge=	GraphicsEnvironment.getLocalGraphicsEnvironment();
+	        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")));
+	    
+	    } catch (FontFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 JLabel over =new JLabel();
+	 over.setIcon(new ImageIcon("buttons/gameover.png"));
+
+	JLabel text =new JLabel();
+	 String winningHero = "                           ";
+	  if(firstPlayerHero.getCurrentHP()==0)
+		  winningHero = winningHero + secondPlayerName +" WON !!";
+	  else 
+		  winningHero = winningHero + firstPlayerName + " WON !!";
+	  text.setText(winningHero);
+	  text.setFont(font);
+	  text.setForeground(Color.RED);
+	  JPanel test=new JPanel();
+	  test.setOpaque(false);
+	  JLabel space =new JLabel("         ");
+	  space.setFont(font);
+	  test.add(space);
+	  test.add(over);
+	  JButton ok = new JButton();
+	  ok.setIcon(new ImageIcon("buttons/exit.png"));
+	  ok.setPreferredSize(new Dimension(400,250));
+	  ok.setOpaque(false);
+	   ok.setBorder(BorderFactory.createEmptyBorder());
+		 ok.setContentAreaFilled(false);
+	  ok.setSize(new Dimension(2,10));
+	  ok.addActionListener(new ActionListener()
 	{
-		view.dispose();
-		gameOverFrame.dispose();
-		System.exit(0);
 		
-	}
-});
-  gameOverFrame.addWindowListener(new WindowAdapter()
-{	
-	@Override
-	public void windowClosed(WindowEvent e)
-	{
-		view.dispose();
-		gameOverFrame.dispose();
-		System.exit(0);
-	}
-	
-	
-});
-  String winningHero = "";
-  if(firstPlayerHero.getCurrentHP()==0)
-	  winningHero = winningHero + secondPlayerName +" WON !!";
-  else 
-	  winningHero = winningHero + firstPlayerName + " WON !!";
-  gameOverFrame.add(new JLabel(winningHero),new BorderLayout().NORTH);
-  gameOverFrame.add(ok);
-  gameOverFrame.revalidate();
-  gameOverFrame.repaint();
-  gameOverFrame.setVisible(true);
-  
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			view.dispose();
+			System.exit(0);
+			
+		}
+	});
+	 
+	  this.view.getCurrentPanel().add(test,BorderLayout.NORTH);
+	  this.view.getCurrentPanel().add(text,BorderLayout.CENTER);
+	  this.view.getCurrentPanel().add(ok,BorderLayout.SOUTH);
+	  this.view.revalidate();
+	  this.view.repaint();  
 }
 
 
