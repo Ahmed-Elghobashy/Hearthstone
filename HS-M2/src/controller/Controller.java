@@ -6,8 +6,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -313,8 +315,8 @@ public void onGameOver()
 {
   
   JFrame gameOverFrame = new JFrame();
-  gameOverFrame.setPreferredSize(new Dimension(200,300));
-  gameOverFrame.setSize(new Dimension(200,300));
+  gameOverFrame.setPreferredSize(new Dimension(800,449));
+  gameOverFrame.setSize(new Dimension(800,449));
   gameOverFrame.setLocationRelativeTo(null);
   gameOverFrame.toFront();
   JButton ok = new JButton("OK");
@@ -344,15 +346,28 @@ public void onGameOver()
 	
 	
 });
+  Font font = null;
+	try {
+		 font= Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")).deriveFont(55f);
+      GraphicsEnvironment ge=	GraphicsEnvironment.getLocalGraphicsEnvironment();
+      ge.registerFont(Font.createFont(Font.TRUETYPE_FONT,new File("font/Friz Quadrata TT Regular.ttf")));
+  
+  } catch (FontFormatException | IOException e2) {
+		// TODO Auto-generated catch block
+		e2.printStackTrace();
+	}
   String winningHero = "";
   if(firstPlayerHero.getCurrentHP()==0)
 	  winningHero = winningHero + secondPlayerName +" WON !!";
   else 
 	  winningHero = winningHero + firstPlayerName + " WON !!";
-  gameOverFrame.add(new JLabel(winningHero),new BorderLayout().NORTH);
+  JLabel winningLabel = new JLabel(winningHero);
+  winningLabel.setFont(font);
+  gameOverFrame.add(winningLabel,new BorderLayout().NORTH);
   gameOverFrame.add(ok);
   gameOverFrame.revalidate();
   gameOverFrame.repaint();
+  gameOverFrame.setSize(10,20);
   gameOverFrame.setVisible(true);
   
 }

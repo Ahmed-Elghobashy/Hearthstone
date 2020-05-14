@@ -61,7 +61,10 @@ public class endTurnListener extends AbstractAction {
 			JLabel b=new JLabel(" Burned");
 			 b.setFont(font);
 			 b.setForeground(Color.RED);
-			 controller.getView().getInfoArea().removeAll();
+			 Agent agent = controller.getAgent();
+				if(agent !=null)
+					agent.playTurn();
+			controller.getView().getInfoArea().removeAll();
 			controller.getView().getInfoArea().add(l,BorderLayout.CENTER);
 			controller.getView().getInfoArea().add(b,BorderLayout.SOUTH);
 

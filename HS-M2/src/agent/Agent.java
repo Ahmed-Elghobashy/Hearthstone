@@ -140,7 +140,7 @@ private void attackWithMinion(MinionMove move)
 		} catch (CannotAttackException | NotYourTurnException | TauntBypassException | InvalidTargetException
 				| NotSummonedException e)
 		{
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return;
 	}
@@ -151,7 +151,7 @@ private void attackWithMinion(MinionMove move)
 		} catch (CannotAttackException | NotYourTurnException | TauntBypassException | NotSummonedException
 				| InvalidTargetException e)
 		{
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 	
@@ -212,7 +212,7 @@ private void playSpellMove(SpellMove move)
 					agentHero.castSpell((MinionTargetSpell)spell, move.getAttackedMinion());
 			} catch (NotYourTurnException | NotEnoughManaException | InvalidTargetException e)
 			{
-				e.printStackTrace();
+//				e.StackTrace();
 			}
 		}
 		
@@ -223,7 +223,7 @@ private void playSpellMove(SpellMove move)
 				agentHero.castSpell((LeechingSpell)spell, move.getAttackedMinion());
 			} catch (NotYourTurnException | NotEnoughManaException e)
 			{
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		
@@ -237,7 +237,7 @@ private void playSpellMove(SpellMove move)
 				agentHero.castSpell((AOESpell)spell, opponentHero.getField());
 			} catch (NotYourTurnException | NotEnoughManaException e)
 			{
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		
@@ -248,7 +248,7 @@ private void playSpellMove(SpellMove move)
 				agentHero.castSpell((FieldSpell)spell);
 			} catch (NotYourTurnException | NotEnoughManaException e)
 			{
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 			
 			
@@ -261,7 +261,7 @@ private void playSpellMove(SpellMove move)
 					agentHero.castSpell((HeroTargetSpell)spell,move.getAttackedHero());
 			} catch (NotYourTurnException | NotEnoughManaException e)
 			{
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 	}
@@ -328,7 +328,7 @@ void generatingAllManaCostingMoves()
 	} catch (NotYourTurnException | NotEnoughManaException | FullFieldException e)
 	{
 		// TODO Auto-generated catch block
-		e.printStackTrace();
+//		e.printStackTrace();
 	}
 }
 
@@ -346,7 +346,7 @@ void generatingAllManaCostingMoves()
 					| FullFieldException | CloneNotSupportedException e)
 			{
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		else if (move.getAttackedMinion()!=null) {
@@ -357,7 +357,7 @@ void generatingAllManaCostingMoves()
 					| FullFieldException | CloneNotSupportedException e)
 			{
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 	}
@@ -373,7 +373,7 @@ void generatingAllManaCostingMoves()
 					| FullFieldException | CloneNotSupportedException e)
 			{
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		else if (move.getAttackedMinion()!=null) {
@@ -384,7 +384,7 @@ void generatingAllManaCostingMoves()
 					| FullFieldException | CloneNotSupportedException e)
 			{
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		
@@ -398,7 +398,7 @@ void generatingAllManaCostingMoves()
 				| FullFieldException | CloneNotSupportedException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 	
@@ -431,7 +431,7 @@ void generatingAllManaCostingMoves()
 				
 			} catch (NotYourTurnException | NotEnoughManaException | FullFieldException e)
 			{
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 			
 		}
@@ -471,7 +471,7 @@ public void playTurn()
 		controller.updateView();
 	} catch (FullHandException | CloneNotSupportedException e)
 	{
-		e.printStackTrace();
+//		e.printStackTrace();
 	}
 }
 
