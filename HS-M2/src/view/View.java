@@ -54,7 +54,9 @@ public View(Controller controller)
 	  this.getContentPane().add(mainmMenu);
 	  currentPanel=mainmMenu;
 	  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	  this.setExtendedState(this.MAXIMIZED_BOTH);
+	  this.setSize(1422,800);
+//	  this.setExtendedState(this.MAXIMIZED_BOTH);
+	  this.setLocationRelativeTo(null);
 	  this.setResizable(true);
 	  this.setUndecorated(false);
 	  this.setVisible(true);
@@ -66,6 +68,7 @@ public View(Controller controller)
   public void goToChooseFirstHero()
   {
 	  chooseHeroView = new ChooseFirstHeroView(this);
+	  this.setSize(1368,800);
 	  this.getContentPane().removeAll();
 	  this.getContentPane().add(chooseHeroView);
 	  currentPanel=chooseHeroView;
@@ -82,8 +85,8 @@ public View(Controller controller)
 	  //this.add(background);
 	  this.setTitle("Hearthstone");
 	  //this.setIconImage(new ImageIcon("images/Background.jpg").getImage());
-	  //this.setSize(1500, 750);
-	  this.setExtendedState(this.MAXIMIZED_BOTH);
+	  this.setSize(1400, 788);
+//	  this.setExtendedState(this.MAXIMIZED_BOTH);
 	  background.setLayout(new BorderLayout());
 	   firstHero=new JPanel(new BorderLayout());
 	   firstHero.setOpaque(false);
@@ -188,6 +191,7 @@ public View(Controller controller)
 public void goToChooseSecondHeroView()
 {
   secondHeroView  = new  ChooseSecondHeroView(this);
+  this.setSize(1368,800);
   this.getContentPane().removeAll();
   this.getContentPane().add(secondHeroView);
   currentPanel=secondHeroView;

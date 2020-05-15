@@ -80,10 +80,11 @@ public class Controller implements GameListener
  private Clip sfxClip;
  private double sfxSound=1.0f;
  private JPanel buttons;
+ boolean burned=false;
  static final int MULTY_MODE=0;
  static final int AI_MODE_EASY=1;
  static final int AI_MODE_MEDIUM=3;
- static final int AI_MODE_HARD=10;
+ static final int AI_MODE_HARD=5;
 
 
   public Hero getAttackingWithMinonHero()
@@ -820,7 +821,8 @@ public void updateView()
 		this.secondHero.setBorder(new MatteBorder(0,0,2,0,Color.BLACK));
 	else
 		this.secondHero.setBorder(null);*/
-	
+	if(!burned)
+		view.getInfoArea().removeAll();
 	updateHand();
 	view.revalidate();
     view.repaint();
