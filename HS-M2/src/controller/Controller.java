@@ -6,8 +6,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -350,9 +352,9 @@ public void onGameOver()
 		 ok.setContentAreaFilled(false);
 	  ok.setSize(new Dimension(2,10));
 	  ok.addActionListener(new ActionListener()
-	{
 		
-		@Override
+   {	
+		  @Override
 		public void actionPerformed(ActionEvent e)
 		{
 			view.dispose();
@@ -366,7 +368,7 @@ public void onGameOver()
 	  this.view.getCurrentPanel().add(ok,BorderLayout.SOUTH);
 	  this.view.revalidate();
 	  this.view.repaint();  
-}
+	}
 
 
 public View getView()
@@ -823,6 +825,7 @@ public void updateView()
 		this.secondHero.setBorder(null);*/
 	if(!burned)
 		view.getInfoArea().removeAll();
+	burned=false;
 	updateHand();
 	view.revalidate();
     view.repaint();
